@@ -31,6 +31,14 @@
             android:layout_weight="2"
             android:text="@{viewObject.obj.timer.title + viewObject.obj.countDownInSec.toString()}" />
 
+        <de.softinva.multitimer.viewcomponents.CountDown
+            android:id="@+id/countDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:countDownInSec="@{viewObject.obj.countDownInSec}">
+
+        </de.softinva.multitimer.viewcomponents.CountDown>
+
         <de.softinva.multitimer.viewcomponents.StartStopTimerButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

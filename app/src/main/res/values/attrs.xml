@@ -4,5 +4,8 @@
         <attr name="isRunning" format="boolean" />
         <attr name="timer"/>
     </declare-styleable>
+    <declare-styleable name="CountDown">
+        <attr name="countDownInSec"/>
+    </declare-styleable>
 
 </resources>
