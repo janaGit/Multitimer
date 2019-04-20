@@ -34,11 +34,13 @@ public class StartStopTimerButton extends AppCompatImageButton {
         });
     }
 
-    public void setIsRunning(boolean isRunning) {
-        this.isRunning = isRunning;
-        updateTintColor();
-        invalidate();
-        requestLayout();
+    public void setIsRunning(Boolean isRunning) {
+        if(isRunning != null){
+            this.isRunning = isRunning;
+            updateTintColor();
+            invalidate();
+            requestLayout();
+        }
     }
 
     public void setTimer(Timer timer) {

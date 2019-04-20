@@ -3,6 +3,7 @@ package de.softinva.multitimer.classes;
 
 import android.os.CountDownTimer;
 
+import de.softinva.multitimer.CountDownService;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;
@@ -11,10 +12,12 @@ public class AppCountDown {
     protected CountDownTimer countDownTimer;
     protected AppLogger logger;
     protected RunningTimer runningTimer;
+    protected CountDownService service;
 
-    public AppCountDown(RunningTimer runningTimer) {
+    public AppCountDown(RunningTimer runningTimer, CountDownService service) {
         logger = UtilityMethods.createLogger(this);
         this.runningTimer = runningTimer;
+        this.service = service;
 
         countDownTimer = new CountDownTimer(runningTimer.getTimer().durationInSec * 1000, 1000) {
             @Override
@@ -25,6 +28,7 @@ public class AppCountDown {
 
             @Override
             public void onFinish() {
+                service.removeTimer(runningTimer.getTimer());
                 runningTimer.setToStop();
                 logger.info(runningTimer.getTimer().title + " timer stopped running!");
             }
