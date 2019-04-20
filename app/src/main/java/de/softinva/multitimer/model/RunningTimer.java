@@ -9,14 +9,16 @@ public class RunningTimer {
     protected Timer timer;
     protected Long finishTimeInSec;
     protected MutableLiveData<Long> countDownInSec;
-    protected boolean isRunning = false;
+    protected MutableLiveData<Boolean> isRunning;
 
     public RunningTimer(Timer timer) {
         this.timer = timer;
         countDownInSec = new MutableLiveData<>();
+        isRunning= new MutableLiveData<>();
+        isRunning.setValue(false);
     }
 
-    public boolean isRunning() {
+    public MutableLiveData<Boolean> isRunning() {
         return isRunning;
     }
 
@@ -45,12 +47,12 @@ public class RunningTimer {
             throw new Error("Finish time already set!");
         }
         finishTimeInSec = new Date().getTime() + (timer.durationInSec * 1000);
-        isRunning = true;
+        isRunning.setValue(true);
     }
 
     public void setToStop() {
         finishTimeInSec = null;
-        isRunning = false;
+        isRunning.setValue(false);
     }
 
 }
