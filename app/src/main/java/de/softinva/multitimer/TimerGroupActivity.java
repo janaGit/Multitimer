@@ -1,23 +1,17 @@
 package de.softinva.multitimer;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import de.softinva.multitimer.classes.AppActivity;
+import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.timer.DetailedTimerList;
-import de.softinva.multitimer.fragments.list.timergroup.TimerGroupList;
-import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
-import de.softinva.multitimer.model.TABS;
 import de.softinva.multitimer.model.TIMER_GROUP_ACTIVITY_TABS;
-import de.softinva.multitimer.repository.dummy.DummyNudelGericht;
 
 
-public class TimerGroupActivity extends AppActivity {
+public class TimerGroupActivity extends AppTabsActivity {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
 
 

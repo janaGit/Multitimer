@@ -4,14 +4,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import de.softinva.multitimer.classes.AppActivity;
+import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.temp.TempTimerList;
 import de.softinva.multitimer.fragments.list.timergroup.TimerGroupList;
 import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
 
 
-public class MainActivity extends AppActivity {
+public class MainActivity extends AppTabsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
