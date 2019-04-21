@@ -24,7 +24,7 @@ public class DummyPizza {
     static {
         TIMER_PIZZA = new DetailedTimer("Pizza_0", "1", "Pizza backen", 900, "Tiefgefrorene Pizza in den Ofen tun. Ofen muss nicht vorgeheizt werden.", "pizza.png");
         addItemToTimerList(TIMER_PIZZA);
-        TIMER_GROUP = new TimerGroup("1", "Pizza", false, TIMER_LIST);
+        TIMER_GROUP = new TimerGroup("1", "Pizza", false, "Piza.png","Schnelle Fertig Pizza. Sehr lecker.",TIMER_LIST);
     }
 
     private static void addItemToTimerList(DetailedTimer timer) {
