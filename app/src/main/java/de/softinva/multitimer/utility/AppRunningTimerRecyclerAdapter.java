@@ -23,8 +23,8 @@ import de.softinva.multitimer.fragments.list.AppList;
  * and from generated code after created new class
  */
 public class AppRunningTimerRecyclerAdapter<T> extends AppRecyclerAdapter<T> {
-    public AppRunningTimerRecyclerAdapter(TreeMap<Object,T> objectList, LifecycleOwner owner, int layoutId) {
-        super(objectList,owner, layoutId);
+    public AppRunningTimerRecyclerAdapter(TreeMap<Object,T> objectList, int layoutId) {
+        super(objectList, layoutId);
     }
     @Override
     protected T getObjForPosition(int position) {

@@ -34,12 +34,12 @@ public class RunningTimerList extends AppList {
                 TimerGroupViewModel activityModel = ViewModelProviders.of(getActivity()).get(TimerGroupViewModel.class);
                 activityModel.getTimerGroupId().observe(this, (groupId) -> {
                     model.getTimerListForGroup(groupId).observe(this, (timerList) -> {
-                        recyclerView.setAdapter(new AppRunningTimerRecyclerAdapter(createViewObject(timerList),this, R.layout.running_timer_list_item));
+                        recyclerView.setAdapter(new AppRunningTimerRecyclerAdapter(createViewObject(timerList), R.layout.running_timer_list_item));
                     });
                 });
             } else {
                 model.getTimerList().observe(this, (timerList) -> {
-                    recyclerView.setAdapter(new AppRunningTimerRecyclerAdapter(createViewObject(timerList), this,R.layout.running_timer_list_item));
+                    recyclerView.setAdapter(new AppRunningTimerRecyclerAdapter(createViewObject(timerList), R.layout.running_timer_list_item));
                 });
             }
 
