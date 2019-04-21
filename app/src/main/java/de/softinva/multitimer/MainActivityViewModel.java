@@ -1,12 +1,11 @@
 package de.softinva.multitimer;
 
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import de.softinva.multitimer.classes.ActivityViewModel;
-import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
+
+import de.softinva.multitimer.classes.ActivityTabsViewModel;
 import de.softinva.multitimer.model.TABS;
 
-public class MainActivityViewModel extends ActivityViewModel {
+public class MainActivityViewModel extends ActivityTabsViewModel {
     private MutableLiveData<TABS> activeTab;
 
     public MutableLiveData<TABS> getActiveTab() {

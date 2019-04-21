@@ -1,18 +1,13 @@
 package de.softinva.multitimer;
 
-import java.util.TreeMap;
-
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import de.softinva.multitimer.classes.ActivityViewModel;
-import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
+
+import de.softinva.multitimer.classes.ActivityTabsViewModel;
 import de.softinva.multitimer.model.TABS;
-import de.softinva.multitimer.model.TIMER_GROUP_ACTIVITY_TABS;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
-import de.softinva.multitimer.utility.UtilityMethods;
 
-public class TimerGroupViewModel extends ActivityViewModel {
+public class TimerGroupViewModel extends ActivityTabsViewModel {
     private MutableLiveData<TABS> activeTab;
     private MutableLiveData<String> timerGroupId;
     private MutableLiveData<TimerGroup> timerGroup;
