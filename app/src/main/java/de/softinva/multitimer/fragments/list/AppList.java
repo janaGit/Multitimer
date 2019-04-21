@@ -20,7 +20,6 @@ import de.softinva.multitimer.classes.OnTimerListInteractionListener;
  * interface.
  */
 public abstract class AppList extends AppFragment{
-    protected OnTimerListInteractionListener mListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,13 +40,6 @@ public abstract class AppList extends AppFragment{
 
         }
         return view;
-    }
-
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 }
 

@@ -6,7 +6,7 @@
     android:name="com.example.timer.List"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
     tools:context=".fragments.list.timergroup.TimerGroupList"
     tools:listitem="@layout/detailed_timer_list_item" />
