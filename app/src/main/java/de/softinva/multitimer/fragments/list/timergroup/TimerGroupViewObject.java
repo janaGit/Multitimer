@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.TimerGroupActivity;
+import de.softinva.multitimer.TimerGroupInfoActivity;
 import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.model.TimerGroup;
 
@@ -41,6 +42,13 @@ public class TimerGroupViewObject extends AppViewObject<TimerGroup> {
             Intent intent = new Intent(view.getContext(), TimerGroupActivity.class);
             intent.putExtra(TimerGroupActivity.GROUP_ID, obj.id);
             view.getContext().startActivity(intent);
+
+    }
+
+    public void onClickTimerGroup(View view) {
+        Intent intent = new Intent(view.getContext(), TimerGroupInfoActivity.class);
+        intent.putExtra(TimerGroupInfoActivity.GROUP_ID, obj.id);
+        view.getContext().startActivity(intent);
 
     }
 }

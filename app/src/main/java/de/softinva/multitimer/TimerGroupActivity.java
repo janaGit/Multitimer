@@ -37,7 +37,7 @@ public class TimerGroupActivity extends AppTabsActivity {
             });
 
         } else {
-            throw new Error("groupId is -1!");
+            throw new Error("groupId is '' !");
         }
     }
 
