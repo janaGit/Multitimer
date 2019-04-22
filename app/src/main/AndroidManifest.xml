@@ -30,6 +30,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".DetailedTimerInfoActivity"
+            android:parentActivityName=".TimerGroupActivity">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TimerGroupActivity" />
+        </activity>
         <service android:name=".CountDownService"
             android:exported="false"/>
 

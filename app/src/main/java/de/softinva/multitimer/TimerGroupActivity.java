@@ -1,10 +1,13 @@
 package de.softinva.multitimer;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
 import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.timer.DetailedTimerList;
@@ -14,7 +17,11 @@ import de.softinva.multitimer.model.TIMER_GROUP_ACTIVITY_TABS;
 public class TimerGroupActivity extends AppTabsActivity {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
 
-
+    public static void startNewActivity(String groupId, Context context) {
+        Intent intent = new Intent(context, TimerGroupActivity.class);
+        intent.putExtra(TimerGroupActivity.GROUP_ID, groupId);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +30,41 @@ public class TimerGroupActivity extends AppTabsActivity {
 
         setViewIfOrientationLandscape();
 
-        setGroupIdAndTitle();
+        setGroupId(savedInstanceState);
+        setTitle();
     }
 
-    protected void setGroupIdAndTitle() {
-        String groupId = intent.getStringExtra(GROUP_ID);
-
-        if (groupId != "") {
-            TimerGroupViewModel model = (TimerGroupViewModel) this.model;
-            model.getTimerGroupId().setValue(groupId);
-            model.getTimerGroup().observe(this, timerGroup->{
-                setTitle(timerGroup.title);
-            });
-
-        } else {
-            throw new Error("groupId is '' !");
+    protected void setGroupId(Bundle savedInstanceState) {
+        TimerGroupViewModel model = (TimerGroupViewModel) this.model;
+        String groupId = model.getTimerGroupId().getValue();
+        if(groupId == null){
+            if (savedInstanceState != null) {
+                groupId = savedInstanceState.getString(GROUP_ID);
+            } else {
+                groupId = intent.getStringExtra(GROUP_ID);
+            }
+            if (groupId != null) {
+                model.getTimerGroupId().setValue(groupId);
+            } else {
+                throw new Error("groupId is null !");
+            }
         }
+    }
+
+    protected void setTitle() {
+        ((TimerGroupViewModel) model).getTimerGroup().observe(this, timerGroup -> {
+            setTitle(timerGroup.title);
+        });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        String groupId =((TimerGroupViewModel) model).getTimerGroupId().getValue();
+        if(groupId == null){
+            throw new Error("groupId should not be null!");
+        }
+        savedInstanceState.putString(GROUP_ID, groupId);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -66,7 +92,7 @@ public class TimerGroupActivity extends AppTabsActivity {
 
     @Override
     protected void setActiveTab() {
-        if(model.getActiveTab().getValue() == null){
+        if (model.getActiveTab().getValue() == null) {
             model.getActiveTab().setValue(TIMER_GROUP_ACTIVITY_TABS.List);
         }
     }

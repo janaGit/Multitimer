@@ -1,10 +1,10 @@
 package de.softinva.multitimer.fragments.list.timergroup;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
+
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.TimerGroupActivity;
 import de.softinva.multitimer.TimerGroupInfoActivity;
@@ -15,7 +15,7 @@ public class TimerGroupViewObject extends AppViewObject<TimerGroup> {
 
     public int buttonSrcCompat;
 
-    public TimerGroupViewObject(TimerGroup timerGroup){
+    public TimerGroupViewObject(TimerGroup timerGroup) {
         super(timerGroup);
         if (timerGroup.isZipped) {
             buttonSrcCompat = R.drawable.ic_av_timer_black_24dp;
@@ -29,26 +29,11 @@ public class TimerGroupViewObject extends AppViewObject<TimerGroup> {
         view.setImageResource(buttonSrcCompat);
     }
 
-
-    public void setButtonSrcCompat(int buttonSrcCompat) {
-        this.buttonSrcCompat = buttonSrcCompat;
-    }
-
-    public void onClickListItem(View view) {
-
-    }
-
     public void onClickButton(View view) {
-            Intent intent = new Intent(view.getContext(), TimerGroupActivity.class);
-            intent.putExtra(TimerGroupActivity.GROUP_ID, obj.id);
-            view.getContext().startActivity(intent);
-
+        TimerGroupActivity.startNewActivity(obj.id, view.getContext());
     }
 
     public void onClickTimerGroup(View view) {
-        Intent intent = new Intent(view.getContext(), TimerGroupInfoActivity.class);
-        intent.putExtra(TimerGroupInfoActivity.GROUP_ID, obj.id);
-        view.getContext().startActivity(intent);
-
+        TimerGroupInfoActivity.startNewActivity(obj.id, view.getContext());
     }
 }
