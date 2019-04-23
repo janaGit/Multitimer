@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import de.softinva.multitimer.classes.AppActivity;
@@ -32,18 +34,47 @@ public class DetailedTimerInfoActivity extends AppActivity {
 
         DetailedTimerInfoActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.detailed_timer_info_activity);
 
-        model = ViewModelProviders.of(this).get(DetailedTimerInfoViewModel.class);
+        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+                .get(DetailedTimerInfoViewModel.class);
 
-        Intent intent = getIntent();
-        String groupId = intent.getStringExtra(GROUP_ID);
-        String timerId = intent.getStringExtra(TIMER_ID);
+        setGroupId();
+        setTimerId();
 
-        MutableLiveData<RunningTimer> runningTimer$ = model.getTimer(groupId, timerId);
+        MutableLiveData<RunningTimer> runningTimer$ = model.getTimer(model.getTimerGroupId().getValue(), model.getTimerId().getValue());
 
         runningTimer$.observe(this, rtimer -> {
             setTitle(rtimer.getTimer().title);
             binding.setRunningTimer(rtimer);
         });
 
+    }
+    protected void setGroupId() {
+        String groupId = model.getTimerGroupId().getValue();
+
+        if (groupId == null) {
+
+            groupId = getIntent().getStringExtra(GROUP_ID);
+
+            if (groupId != null) {
+                model.getTimerGroupId().setValue(groupId);
+            } else {
+                throw new Error("groupId is null !");
+            }
+        }
+    }
+
+    protected void setTimerId() {
+        String timerId = model.getTimerId().getValue();
+
+        if (timerId == null) {
+
+            timerId = getIntent().getStringExtra(TIMER_ID);
+
+            if (timerId != null) {
+                model.getTimerId().setValue(timerId);
+            } else {
+                throw new Error("timerId is null !");
+            }
+        }
     }
 }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import de.softinva.multitimer.classes.AppActivity;
@@ -29,17 +31,31 @@ public class TimerGroupInfoActivity extends AppActivity {
 
         TimerGroupInfoActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.timer_group_info_activity);
 
-        model = ViewModelProviders.of(this).get(TimerGroupInfoViewModel.class);
+        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+                .get(TimerGroupInfoViewModel.class);
 
-        Intent intent = getIntent();
-        String groupId = intent.getStringExtra(GROUP_ID);
+        setGroupId();
 
-        MutableLiveData<TimerGroup> timerGroup$ = model.getTimerGroup(groupId);
-
+        MutableLiveData<TimerGroup> timerGroup$ = model.getTimerGroup(model.getTimerGroupId().getValue());
         timerGroup$.observe(this, tGroup -> {
             setTitle(tGroup.title);
             binding.setTimerGroup(tGroup);
         });
 
+    }
+
+    protected void setGroupId() {
+        String groupId = model.getTimerGroupId().getValue();
+
+        if (groupId == null) {
+
+            groupId = getIntent().getStringExtra(GROUP_ID);
+
+            if (groupId != null) {
+                model.getTimerGroupId().setValue(groupId);
+            } else {
+                throw new Error("groupId is null !");
+            }
+        }
     }
 }

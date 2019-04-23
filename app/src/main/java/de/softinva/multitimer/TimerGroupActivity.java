@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import de.softinva.multitimer.classes.AppTabsActivity;
@@ -30,19 +32,18 @@ public class TimerGroupActivity extends AppTabsActivity {
 
         setViewIfOrientationLandscape();
 
-        setGroupId(savedInstanceState);
+        setGroupId();
         setTitle();
     }
 
-    protected void setGroupId(Bundle savedInstanceState) {
+    protected void setGroupId() {
         TimerGroupViewModel model = (TimerGroupViewModel) this.model;
         String groupId = model.getTimerGroupId().getValue();
-        if(groupId == null){
-            if (savedInstanceState != null) {
-                groupId = savedInstanceState.getString(GROUP_ID);
-            } else {
-                groupId = intent.getStringExtra(GROUP_ID);
-            }
+
+        if (groupId == null) {
+
+            groupId = intent.getStringExtra(GROUP_ID);
+
             if (groupId != null) {
                 model.getTimerGroupId().setValue(groupId);
             } else {
@@ -55,16 +56,6 @@ public class TimerGroupActivity extends AppTabsActivity {
         ((TimerGroupViewModel) model).getTimerGroup().observe(this, timerGroup -> {
             setTitle(timerGroup.title);
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        String groupId =((TimerGroupViewModel) model).getTimerGroupId().getValue();
-        if(groupId == null){
-            throw new Error("groupId should not be null!");
-        }
-        savedInstanceState.putString(GROUP_ID, groupId);
-        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -87,7 +78,8 @@ public class TimerGroupActivity extends AppTabsActivity {
 
     @Override
     protected void setModel() {
-        model = ViewModelProviders.of(this).get(TimerGroupViewModel.class);
+        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+                .get(TimerGroupViewModel.class);
     }
 
     @Override

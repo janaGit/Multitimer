@@ -1,6 +1,7 @@
 package de.softinva.multitimer;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
 
 import de.softinva.multitimer.classes.ActivityTabsViewModel;
 import de.softinva.multitimer.model.TABS;
@@ -8,9 +9,15 @@ import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
 
 public class TimerGroupViewModel extends ActivityTabsViewModel {
+    SavedStateHandle state;
     private MutableLiveData<TABS> activeTab;
     private MutableLiveData<String> timerGroupId;
     private MutableLiveData<TimerGroup> timerGroup;
+
+
+    public TimerGroupViewModel(SavedStateHandle savedStateHandle) {
+        state = savedStateHandle;
+    }
 
     @Override
     public MutableLiveData<TABS> getActiveTab() {
@@ -20,10 +27,9 @@ public class TimerGroupViewModel extends ActivityTabsViewModel {
         return activeTab;
     }
 
-
     public MutableLiveData<String> getTimerGroupId() {
         if (timerGroupId == null) {
-            timerGroupId = new MutableLiveData<String>();
+            timerGroupId = state.getLiveData("groupId");
         }
         return timerGroupId;
     }
