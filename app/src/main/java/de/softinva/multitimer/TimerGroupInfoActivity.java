@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import de.softinva.multitimer.classes.AppActivity;
-import de.softinva.multitimer.databinding.TimerGroupInfoActivityBinding;
+import de.softinva.multitimer.databinding.ActivityTimerGroupInfoBinding;
 import de.softinva.multitimer.model.TimerGroup;
 
 public class TimerGroupInfoActivity extends AppActivity {
@@ -29,7 +27,7 @@ public class TimerGroupInfoActivity extends AppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TimerGroupInfoActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.timer_group_info_activity);
+        ActivityTimerGroupInfoBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_timer_group_info);
 
         model = new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(TimerGroupInfoViewModel.class);

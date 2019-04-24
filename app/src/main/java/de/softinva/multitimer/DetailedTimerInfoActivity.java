@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import de.softinva.multitimer.classes.AppActivity;
-import de.softinva.multitimer.databinding.DetailedTimerInfoActivityBinding;
+import de.softinva.multitimer.databinding.ActivityDetailedTimerInfoBinding;
 import de.softinva.multitimer.model.RunningTimer;
 
 public class DetailedTimerInfoActivity extends AppActivity {
@@ -32,7 +30,7 @@ public class DetailedTimerInfoActivity extends AppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DetailedTimerInfoActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.detailed_timer_info_activity);
+        ActivityDetailedTimerInfoBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detailed_timer_info);
 
         model = new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(DetailedTimerInfoViewModel.class);
