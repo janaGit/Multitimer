@@ -4,4 +4,6 @@
     <string name="tab_title_2">Temporär</string>
     <string name="tab_title_1">Liste</string>
     <string name="menu_item_edit">Bearbeiten</string>
+    <string name="menu_item_add_timer_group">Neue Timer Gruppe</string>
+    <string name="menu_item_add_detailed_timer">Neuer Timer</string>
 </resources>

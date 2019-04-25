@@ -1,6 +1,8 @@
 package de.softinva.multitimer;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -23,7 +25,13 @@ public class MainActivity extends AppTabsActivity {
 
         setViewIfOrientationLandscape();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_menu, menu);
 
+        return super.onCreateOptionsMenu(menu);
+    }
     @Override
     protected void setActiveTab() {
         if (model.getActiveTab().getValue() == null) {

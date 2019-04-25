@@ -3,9 +3,12 @@ package de.softinva.multitimer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateVMFactory;
@@ -40,6 +43,14 @@ public class TimerGroupActivity extends AppTabsActivity {
 
         setGroupId();
         setTitle();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.timer_group_activity_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     protected void setGroupId() {
