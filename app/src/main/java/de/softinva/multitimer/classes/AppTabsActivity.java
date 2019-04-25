@@ -15,6 +15,7 @@ public abstract class AppTabsActivity extends AppActivity {
     protected AppLogger logger = new AppLogger(this);
     protected ActivityTabsViewModel model;
     protected Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +24,7 @@ public abstract class AppTabsActivity extends AppActivity {
         setActiveTab();
 
     }
+
     protected void setViewIfOrientationLandscape() {
         Fragment fragment;
         Context context = getApplicationContext();

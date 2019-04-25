@@ -3,6 +3,7 @@ package de.softinva.multitimer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -14,16 +15,20 @@ import de.softinva.multitimer.fragments.list.temp.TempTimerList;
 import de.softinva.multitimer.fragments.list.timergroup.TimerGroupList;
 import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
 
+import static androidx.transition.Visibility.MODE_IN;
+
 
 public class MainActivity extends AppTabsActivity {
+    ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityMainBinding binding =  DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding =  DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(binding.appBar);
 
         setViewIfOrientationLandscape();
+        manageFloatingAddButton();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,6 +42,17 @@ public class MainActivity extends AppTabsActivity {
         if (model.getActiveTab().getValue() == null) {
             model.getActiveTab().setValue(MAIN_ACTIVITY_TABS.List);
         }
+    }
+
+    protected void manageFloatingAddButton() {
+      model.getActiveTab().observe( this,activeTab -> {
+          if(activeTab == MAIN_ACTIVITY_TABS.Temp ){
+              binding.floatingActionButton.setVisibility(View.VISIBLE);
+          }else{
+              binding.floatingActionButton.setVisibility(View.INVISIBLE);
+          }
+      });
+
     }
 
     @Override
