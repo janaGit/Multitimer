@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import androidx.appcompat.app.ActionBar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import de.softinva.multitimer.classes.AppTabsActivity;
+import de.softinva.multitimer.databinding.ActivityTimerGroupBinding;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.timer.DetailedTimerList;
 import de.softinva.multitimer.model.TIMER_GROUP_ACTIVITY_TABS;
@@ -28,7 +30,11 @@ public class TimerGroupActivity extends AppTabsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timer_group);
+        ActivityTimerGroupBinding binding =  DataBindingUtil.setContentView(this, R.layout.activity_timer_group);
+        setSupportActionBar(binding.appBar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
         setViewIfOrientationLandscape();
 

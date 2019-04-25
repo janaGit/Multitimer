@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateVMFactory;
@@ -28,6 +29,10 @@ public class TimerGroupInfoActivity extends AppActivity {
         super.onCreate(savedInstanceState);
 
         ActivityTimerGroupInfoBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_timer_group_info);
+        setSupportActionBar(binding.appBar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
         model = new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(TimerGroupInfoViewModel.class);

@@ -2,9 +2,11 @@ package de.softinva.multitimer;
 
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import de.softinva.multitimer.classes.AppTabsActivity;
+import de.softinva.multitimer.databinding.ActivityMainBinding;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.temp.TempTimerList;
 import de.softinva.multitimer.fragments.list.timergroup.TimerGroupList;
@@ -15,7 +17,10 @@ public class MainActivity extends AppTabsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        ActivityMainBinding binding =  DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setSupportActionBar(binding.appBar);
+
         setViewIfOrientationLandscape();
     }
 
