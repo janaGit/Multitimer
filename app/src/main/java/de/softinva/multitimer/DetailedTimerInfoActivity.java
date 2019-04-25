@@ -3,6 +3,8 @@ package de.softinva.multitimer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.databinding.DataBindingUtil;
@@ -51,6 +53,14 @@ public class DetailedTimerInfoActivity extends AppActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.detailed_timer_info_menu, menu);
+        return true;
+    }
+
     protected void setGroupId() {
         String groupId = model.getTimerGroupId().getValue();
 

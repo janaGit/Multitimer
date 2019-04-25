@@ -3,5 +3,5 @@
     <string name="tab_title_3">Aktiv</string>
     <string name="tab_title_2">Temporär</string>
     <string name="tab_title_1">Liste</string>
-    <string name="list_content_text">Text</string>
+    <string name="menu_item_edit">Bearbeiten</string>
 </resources>

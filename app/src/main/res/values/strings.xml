@@ -3,5 +3,5 @@
     <string name="tab_title_3">Running</string>
     <string name="tab_title_2">Temporary</string>
     <string name="tab_title_1">List</string>
-    <string name="list_content_text">Text</string>
+    <string name="menu_item_edit">Edit</string>
 </resources>
