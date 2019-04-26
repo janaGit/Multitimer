@@ -2,7 +2,7 @@ package de.softinva.multitimer.fragments.list.timer;
 
 import android.view.View;
 
-import de.softinva.multitimer.DetailedTimerInfoActivity;
+import de.softinva.multitimer.activities.detailedtimer.info.DetailedTimerInfoActivity;
 import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.model.RunningTimer;
 

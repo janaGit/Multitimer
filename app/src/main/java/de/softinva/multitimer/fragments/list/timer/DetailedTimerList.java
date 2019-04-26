@@ -11,12 +11,9 @@ import java.util.TreeMap;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.TimerGroupViewModel;
+import de.softinva.multitimer.activities.TimerGroupViewModel;
 import de.softinva.multitimer.fragments.list.AppList;
-import de.softinva.multitimer.fragments.list.timergroup.TimerGroupViewObject;
-import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
-import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.utility.AppRecyclerAdapter;
 
 /**
@@ -33,7 +30,7 @@ public class DetailedTimerList extends AppList {
             RecyclerView recyclerView = (RecyclerView) view;
             DetailedTimerListViewModel model = ViewModelProviders.of(this).get(DetailedTimerListViewModel.class);
             TimerGroupViewModel activityModel = ViewModelProviders.of(getActivity()).get(TimerGroupViewModel.class);
-            activityModel.getTimerGroupId().observe(this, (groupId) -> {
+            activityModel.getTimerGroupId$().observe(this, (groupId) -> {
                 model.getTimerList(groupId).observe(this, (timerList) -> {
                     recyclerView.setAdapter(new AppRecyclerAdapter(createViewObject(timerList), R.layout.detailed_timer_list_item));
                 });

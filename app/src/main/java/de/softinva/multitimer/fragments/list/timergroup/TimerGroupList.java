@@ -40,11 +40,11 @@ public class TimerGroupList extends AppList {
         return view;
     }
 
-    public TreeMap<Integer, TimerGroupViewObject> createViewObject(TreeMap<Integer, TimerGroup> timerGroups) {
-        TreeMap<Integer, TimerGroupViewObject> timerGroupMap = new TreeMap<>();
+    public TreeMap<Integer, TimerGroupListViewObject> createViewObject(TreeMap<Integer, TimerGroup> timerGroups) {
+        TreeMap<Integer, TimerGroupListViewObject> timerGroupMap = new TreeMap<>();
         for (Map.Entry<Integer, TimerGroup> entry : timerGroups.entrySet()) {
             TimerGroup timerGroup = entry.getValue();
-            TimerGroupViewObject timerGroupViewObject = new TimerGroupViewObject(timerGroup);
+            TimerGroupListViewObject timerGroupViewObject = new TimerGroupListViewObject(timerGroup);
             timerGroupMap.put(entry.getKey(), timerGroupViewObject);
         }
         return timerGroupMap;

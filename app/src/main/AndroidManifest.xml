@@ -10,33 +10,49 @@
         android:roundIcon="@drawable/logo_fertig"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimerGroupActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".activities.TimerGroupActivity"
+            android:parentActivityName=".activities.MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".TimerGroupInfoActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".activities.timergroup.info.TimerGroupInfoActivity"
+            android:parentActivityName=".activities.MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
-        <activity android:name=".DetailedTimerInfoActivity"
-            android:parentActivityName=".TimerGroupActivity">
+        <activity android:name=".activities.detailedtimer.info.DetailedTimerInfoActivity"
+            android:parentActivityName=".activities.TimerGroupActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TimerGroupActivity" />
+                android:value=".activities.TimerGroupActivity" />
         </activity>
+        <activity android:name=".activities.timergroup.addedit.AddEditTimerGroupActivity"
+            android:parentActivityName=".activities.detailedtimer.info.DetailedTimerInfoActivity">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.detailedtimer.info.DetailedTimerInfoActivity" />
+        </activity>
+
+        <activity android:name=".activities.detailedtimer.addedit.AddEditDetailedTimerActivity"
+            android:parentActivityName=".activities.detailedtimer.info.DetailedTimerInfoActivity">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.detailedtimer.info.DetailedTimerInfoActivity" />
+        </activity>
+
         <service android:name=".CountDownService"
             android:exported="false"/>
 

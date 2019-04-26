@@ -5,8 +5,8 @@
     <data>
         <import type="de.softinva.multitimer.model.DetailedTimer"/>
         <variable
-            name="runningTimer"
-            type="de.softinva.multitimer.model.RunningTimer" />
+            name="viewObject"
+            type="de.softinva.multitimer.activities.detailedtimer.info.DetailedTimerInfoViewObject" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +45,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="@{((DetailedTimer)runningTimer.timer).description}"
+            android:text="@{((DetailedTimer)viewObject.obj.timer).description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,23 +1,22 @@
-package de.softinva.multitimer;
+package de.softinva.multitimer.classes;
+
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
-import androidx.lifecycle.ViewModel;
 
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.repository.TimerRepository;
 
-public class DetailedTimerInfoViewModel extends ViewModel {
-    SavedStateHandle state;
+public abstract class AbstractDetailedTimerViewModel extends AppViewModel {
     private MutableLiveData<String> timerGroupId;
     private MutableLiveData<String> timerId;
     protected MutableLiveData<RunningTimer> timer;
 
-
-    public DetailedTimerInfoViewModel(SavedStateHandle savedStateHandle) {
-        state = savedStateHandle;
+    public AbstractDetailedTimerViewModel(SavedStateHandle savedStateHandle) {
+        super(savedStateHandle);
     }
+
 
     public MutableLiveData<String> getTimerGroupId() {
         if (timerGroupId == null) {

@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.viewpager.widget.ViewPager;
-import de.softinva.multitimer.MainActivityViewModel;
+import de.softinva.multitimer.activities.MainActivityViewModel;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
 
