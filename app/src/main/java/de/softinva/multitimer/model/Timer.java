@@ -4,11 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Timer implements Parcelable {
-    public final String id;
-    public final String groupId;
-    public final String title;
-    public final Integer durationInSec;
-    public final String imageName;
+    protected final String id;
+    protected String groupId;
+    protected String title;
+    protected Integer durationInSec;
+    protected String imageName;
 
     public Timer(String id, String title, Integer durationInSec, String imageName) {
         this.id = id;
@@ -25,7 +25,45 @@ public class Timer implements Parcelable {
         this.title = title;
         this.imageName = imageName;
     }
+    public String getId() {
+        return id;
+    }
 
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getDurationInSec() {
+        return durationInSec;
+    }
+
+    public void setDurationInSec(Integer durationInSec) {
+        this.durationInSec = durationInSec;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public static Creator<Timer> getCREATOR() {
+        return CREATOR;
+    }
 
     protected Timer(Parcel in) {
         id = in.readString();

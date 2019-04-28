@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.activities.detailedtimer.addedit.AddEditDetailedTimerActivity;
+import de.softinva.multitimer.activities.timergroup.addedit.AddEditTimerGroupActivity;
 import de.softinva.multitimer.classes.AbstractDetailedTimerActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.databinding.ActivityDetailedTimerInfoBinding;
@@ -46,6 +49,16 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.detailed_timer_info_menu, menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit_detailed_timer:
+                AddEditDetailedTimerActivity.startNewActivityEdit(runningTimer$.getValue().getTimer().getGroupId(), runningTimer$.getValue().getTimer().getId(), this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

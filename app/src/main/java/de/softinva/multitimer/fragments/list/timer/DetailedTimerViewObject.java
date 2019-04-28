@@ -13,7 +13,7 @@ public class DetailedTimerViewObject extends AppViewObject<RunningTimer> {
     }
 
     public void onClickTimer(View view) {
-        DetailedTimerInfoActivity.startNewActivity(obj.getTimer().groupId, obj.getTimer().id, view.getContext());
+        DetailedTimerInfoActivity.startNewActivity(obj.getTimer().getGroupId(), obj.getTimer().getId(), view.getContext());
     }
 
 }

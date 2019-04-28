@@ -113,7 +113,7 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_new_detailed_timer:
-                AddEditDetailedTimerActivity.startNewActivityAdd(this);
+                AddEditDetailedTimerActivity.startNewActivityAdd(model.getTimerGroupId$().getValue(),this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

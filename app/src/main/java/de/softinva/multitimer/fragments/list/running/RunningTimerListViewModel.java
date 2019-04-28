@@ -41,7 +41,7 @@ public class RunningTimerListViewModel extends FragmentViewModel {
         for (Map.Entry<Long, RunningTimer> entry : timerMap.entrySet()) {
             RunningTimer runningTimer = entry.getValue();
             Timer timer = entry.getValue().getTimer();
-            String groupId = timer.groupId;
+            String groupId = timer.getGroupId();
             if (groupId.equals(timerGroupId)) {
                 detailedTimerListForGroup.put(entry.getKey(), runningTimer);
             }

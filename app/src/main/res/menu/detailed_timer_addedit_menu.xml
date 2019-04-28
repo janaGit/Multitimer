@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_edit_detailed_timer"
-        android:icon="@drawable/ic_mode_edit_black_24dp"
-        android:title="@string/menu_item_edit"
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_remove_black_24dp"
+        android:title="@string/menu_item_delete_detailed_timer"
         app:showAsAction="ifRoom" />
 </menu>
 

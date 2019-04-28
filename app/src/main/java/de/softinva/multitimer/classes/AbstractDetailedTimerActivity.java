@@ -33,7 +33,7 @@ public abstract class AbstractDetailedTimerActivity<T> extends AppActivity<T> {
 
     protected void setTitle() {
         runningTimer$.observe(this, rtimer -> {
-            setTitle(rtimer.getTimer().title);
+            setTitle(rtimer.getTimer().getTitle());
         });
     }
 

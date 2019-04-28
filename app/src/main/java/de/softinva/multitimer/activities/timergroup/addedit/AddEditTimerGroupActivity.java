@@ -18,7 +18,6 @@ import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.model.TimerGroup;
 
 public class AddEditTimerGroupActivity extends AbstractTimerGroupActivity<AddEditTimerGroupViewModel> {
-    public static final String GROUP_ID = "de.softinva.multitimer.groupId";
     static final String ACTION_EDIT = "de.softinva.multitimer.AddEditTimerGroupActivity.StartActivityEdit";
     static final String ACTION_ADD = "de.softinva.multitimer.AddEditTimerGroupActivity.StartActivityAdd";
     protected String action;

@@ -8,4 +8,6 @@
     <string name="menu_item_add_detailed_timer">Add  Timer</string>
     <string name="menu_item_delete_timer_group">Delete timer group</string>
     <string name="new_timer_group">New timer group</string>
+    <string name="new_detailed_timer">New Timer</string>
+    <string name="menu_item_delete_detailed_timer">Delete Timer</string>
 </resources>

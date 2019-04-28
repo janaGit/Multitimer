@@ -32,7 +32,7 @@ public class UtilityMethods {
         for (Map.Entry<Integer, RunningTimer> timerEntry : tList.entrySet()) {
             RunningTimer runningTimerInList = timerEntry.getValue();
             Timer timerInstance = runningTimerInList.getTimer();
-            if (timerInstance.id.equals(runningTimer.getTimer().id)) {
+            if (timerInstance.getId().equals(runningTimer.getTimer().getId())) {
                 runningTimer.setTimer(runningTimerInList.getTimer());
                 tList.put(timerEntry.getKey(), runningTimer);
                 return;
