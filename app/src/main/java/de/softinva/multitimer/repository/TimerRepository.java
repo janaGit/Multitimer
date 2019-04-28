@@ -92,7 +92,7 @@ public class TimerRepository {
 
     protected TimerGroup getTimerGroup(String timerGroupId, TreeMap<Integer, TimerGroup> timerGroupMap) {
         for (Map.Entry<Integer, TimerGroup> entry : timerGroupMap.entrySet()) {
-            String groupId = entry.getValue().id;
+            String groupId = entry.getValue().getId();
             if (groupId.equals(timerGroupId)) {
                 return entry.getValue();
             }

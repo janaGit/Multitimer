@@ -28,7 +28,7 @@ public abstract class AbstractTimerGroupActivity<T> extends AppActivity<T> {
 
     protected void setTitle() {
         timerGroup$.observe(this, tGroup -> {
-            setTitle(tGroup.title);
+            setTitle(tGroup.getTitle());
         });
     }
 
@@ -37,9 +37,7 @@ public abstract class AbstractTimerGroupActivity<T> extends AppActivity<T> {
         String groupId = tGroupModel.getTimerGroupId$().getValue();
 
         if (groupId == null) {
-
             groupId = getIntent().getStringExtra(GROUP_ID);
-
             if (groupId != null) {
                 tGroupModel.getTimerGroupId$().setValue(groupId);
             } else {

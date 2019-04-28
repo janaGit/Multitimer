@@ -16,7 +16,8 @@ public class UtilityMethods {
         AppLogger logger = new AppLogger(classObject);
         return logger;
     }
-    public static MutableLiveData<TreeMap<Integer, RunningTimer>> updateTimerList(TreeMap<Integer, RunningTimer> timerMap){
+
+    public static MutableLiveData<TreeMap<Integer, RunningTimer>> updateTimerList(TreeMap<Integer, RunningTimer> timerMap) {
         MutableLiveData<TreeMap<String, RunningTimer>> runningTimerMap = TimerRepository.getInstance().getRunningTimerByIDMap();
         return (MutableLiveData<TreeMap<Integer, RunningTimer>>) Transformations.map(runningTimerMap, rTimerMap -> {
             for (Map.Entry<String, RunningTimer> runningTimer : rTimerMap.entrySet()) {
@@ -26,7 +27,8 @@ public class UtilityMethods {
         });
 
     }
-    protected static  void updateRunningTimer(RunningTimer runningTimer, TreeMap<Integer, RunningTimer> tList) {
+
+    protected static void updateRunningTimer(RunningTimer runningTimer, TreeMap<Integer, RunningTimer> tList) {
         for (Map.Entry<Integer, RunningTimer> timerEntry : tList.entrySet()) {
             RunningTimer runningTimerInList = timerEntry.getValue();
             Timer timerInstance = runningTimerInList.getTimer();
@@ -37,6 +39,10 @@ public class UtilityMethods {
             }
         }
 
+    }
+
+    public static String createID() {
+        return "1234" + Math.random();
     }
 
 }

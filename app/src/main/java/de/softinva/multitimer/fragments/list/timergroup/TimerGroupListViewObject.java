@@ -18,7 +18,7 @@ public class TimerGroupListViewObject extends AppViewObject<TimerGroup> {
 
     public TimerGroupListViewObject(TimerGroup timerGroup) {
         super(timerGroup);
-        if (timerGroup.isZipped) {
+        if (timerGroup.isZipped()) {
             buttonSrcCompat = R.drawable.ic_av_timer_black_24dp;
         } else {
             buttonSrcCompat = R.drawable.ic_chevron_right_black_24dp;
@@ -31,10 +31,10 @@ public class TimerGroupListViewObject extends AppViewObject<TimerGroup> {
     }
 
     public void onClickButton(View view) {
-            TimerGroupActivity.startNewActivity(obj.id, view.getContext());
+            TimerGroupActivity.startNewActivity(obj.getId(), view.getContext());
     }
 
     public void onClickTimerGroup(View view) {
-        TimerGroupInfoActivity.startNewActivity(obj.id, view.getContext());
+        TimerGroupInfoActivity.startNewActivity(obj.getId(), view.getContext());
     }
 }

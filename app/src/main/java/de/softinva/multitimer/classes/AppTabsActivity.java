@@ -20,7 +20,6 @@ public abstract class AppTabsActivity<T> extends AppActivity<T> {
     }
     @Override
     protected void setClassSpecificObjects() {
-        this.intent = getIntent();
         setActiveTab();
         setViewIfOrientationLandscape();
     }

@@ -3,6 +3,7 @@ package de.softinva.multitimer.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.activities.timergroup.addedit.AddEditTimerGroupActivity;
 import de.softinva.multitimer.activities.timergroup.info.TimerGroupInfoViewModel;
 import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.databinding.ActivityMainBinding;
@@ -100,6 +102,17 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     @Override
     protected void setTitle() {
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_new_timer_group:
+                AddEditTimerGroupActivity.startNewActivityAdd(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
 }

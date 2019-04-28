@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 
 import androidx.databinding.DataBindingUtil;
@@ -13,6 +14,7 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.activities.detailedtimer.addedit.AddEditDetailedTimerActivity;
 import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.databinding.ActivityTimerGroupBinding;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
@@ -52,7 +54,7 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
 
         if (groupId == null) {
 
-            groupId = intent.getStringExtra(GROUP_ID);
+            groupId = getIntent().getStringExtra(GROUP_ID);
 
             if (groupId != null) {
                 model.getTimerGroupId$().setValue(groupId);
@@ -68,7 +70,7 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     @Override
     protected void setTitle() {
         model.getTimerGroup( model.getTimerGroupId$().getValue()).observe(this, timerGroup -> {
-            setTitle(timerGroup.title);
+            setTitle(timerGroup.getTitle());
         });
     }
 
@@ -107,5 +109,15 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
             model.getActiveTab().setValue(TIMER_GROUP_ACTIVITY_TABS.List);
         }
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_new_detailed_timer:
+                AddEditDetailedTimerActivity.startNewActivityAdd(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
+        }
+    }
 }

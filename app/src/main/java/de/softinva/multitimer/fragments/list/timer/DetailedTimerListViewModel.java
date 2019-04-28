@@ -24,7 +24,7 @@ public class DetailedTimerListViewModel extends FragmentViewModel {
 
     private void createTimerList(String timerGroupId) {
         timerList = (MutableLiveData<TreeMap<Integer, RunningTimer>>)Transformations.switchMap(TimerRepository.getInstance().getTimerGroup(timerGroupId), timerGroup -> {
-            TreeMap<Integer, RunningTimer> timerMap = timerGroup.timerMapByPosition;
+            TreeMap<Integer, RunningTimer> timerMap = timerGroup.getTimerMapByPosition();
            return UtilityMethods.updateTimerList(timerMap);
 
         });

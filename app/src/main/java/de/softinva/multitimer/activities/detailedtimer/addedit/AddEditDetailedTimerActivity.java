@@ -22,7 +22,7 @@ public class AddEditDetailedTimerActivity extends AbstractDetailedTimerActivity<
         intent.putExtra(AddEditDetailedTimerActivity.TIMER_ID, timerId);
         context.startActivity(intent);
     }
-    public static void startNewActivityAdd(String groupId, String timerId, Context context) {
+    public static void startNewActivityAdd(Context context) {
         Intent intent = new Intent(context, AddEditDetailedTimerActivity.class);
         context.startActivity(intent);
     }

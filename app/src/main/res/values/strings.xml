@@ -6,4 +6,6 @@
     <string name="menu_item_edit">Edit</string>
     <string name="menu_item_add_timer_group">Add Timer Group</string>
     <string name="menu_item_add_detailed_timer">Add  Timer</string>
+    <string name="menu_item_delete_timer_group">Delete timer group</string>
+    <string name="new_timer_group">New timer group</string>
 </resources>

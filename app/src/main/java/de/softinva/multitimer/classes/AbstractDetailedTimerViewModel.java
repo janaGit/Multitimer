@@ -34,7 +34,7 @@ public abstract class AbstractDetailedTimerViewModel extends AppViewModel {
 
     public MutableLiveData<RunningTimer> getTimer(String groupId, String timerId) {
         if (timer == null) {
-            timer = (MutableLiveData<RunningTimer>) Transformations.map(TimerRepository.getInstance().getTimerGroup(groupId), timerGroup-> timerGroup.timerMapByTimerId.get(timerId));
+            timer = (MutableLiveData<RunningTimer>) Transformations.map(TimerRepository.getInstance().getTimerGroup(groupId), timerGroup-> timerGroup.getTimerMapByTimerId().get(timerId));
         }
         return timer;
     }

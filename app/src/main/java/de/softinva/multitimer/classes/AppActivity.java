@@ -11,7 +11,6 @@ import de.softinva.multitimer.BR;
 
 
 public abstract class AppActivity<T> extends AppCompatActivity {
-    protected Intent intent;
     protected T model;
     protected AppViewObject viewObject;
     protected ViewDataBinding binding;
