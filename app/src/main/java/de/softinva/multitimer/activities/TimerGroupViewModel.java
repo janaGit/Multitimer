@@ -3,7 +3,7 @@ package de.softinva.multitimer.activities;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 
-import de.softinva.multitimer.classes.AbstractTimerGroupViewModel;
+import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupViewModel;
 import de.softinva.multitimer.classes.ActivityTabsViewModel;
 import de.softinva.multitimer.model.TABS;
 

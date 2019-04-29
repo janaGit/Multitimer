@@ -7,7 +7,7 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.utility.UtilityMethods;
 
 public class TimerGroup {
-    protected final String id;
+    protected String id;
     protected String title;
     protected TreeMap<Integer, RunningTimer> timerMapByPosition;
     protected TreeMap<String, RunningTimer> timerMapByTimerId = new TreeMap<>();
@@ -16,7 +16,10 @@ public class TimerGroup {
     protected String description;
 
     public TimerGroup() {
-        id = UtilityMethods.createID();
+    }
+
+    public TimerGroup(String id) {
+        this.id = id;
         this.title = "";
         this.timerMapByPosition = new TreeMap<>();
         this.isZipped = false;
@@ -34,9 +37,15 @@ public class TimerGroup {
         this.description = description;
         createTimerMapByTimerId();
     }
+
     public String getId() {
         return id;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -94,5 +103,15 @@ public class TimerGroup {
         for (Map.Entry<Integer, RunningTimer> entry : timerMapByPosition.entrySet()) {
             timerMapByTimerId.put(entry.getValue().timer.id, entry.getValue());
         }
+    }
+
+    public void toCopy(TimerGroup timerGroup) {
+        timerGroup.setId(id);
+        timerGroup.setTitle(title);
+        timerGroup.setZipped(isZipped);
+        timerGroup.setImageName(imageName);
+        timerGroup.setDescription(description);
+        timerGroup.setTimerMapByPosition(timerMapByPosition);
+        timerGroup.setTimerMapByTimerId(timerMapByTimerId);
     }
 }

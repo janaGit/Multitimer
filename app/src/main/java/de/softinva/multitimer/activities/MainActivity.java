@@ -10,11 +10,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.timergroup.addedit.AddEditTimerGroupActivity;
-import de.softinva.multitimer.activities.timergroup.info.TimerGroupInfoViewModel;
+import de.softinva.multitimer.activities.timergroup.add.AddTimerGroupActivity;
+import de.softinva.multitimer.activities.timergroup.edit.EditTimerGroupActivity;
 import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.databinding.ActivityMainBinding;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
@@ -107,7 +106,7 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_new_timer_group:
-                AddEditTimerGroupActivity.startNewActivityAdd(this);
+                AddTimerGroupActivity.startNewActivity(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

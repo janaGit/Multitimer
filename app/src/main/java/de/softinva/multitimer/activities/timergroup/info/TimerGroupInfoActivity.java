@@ -12,8 +12,8 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.timergroup.addedit.AddEditTimerGroupActivity;
-import de.softinva.multitimer.classes.AbstractTimerGroupActivity;
+import de.softinva.multitimer.activities.timergroup.edit.EditTimerGroupActivity;
+import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
 import de.softinva.multitimer.databinding.ActivityTimerGroupInfoBinding;
 
 public class TimerGroupInfoActivity extends AbstractTimerGroupActivity<TimerGroupInfoViewModel> {
@@ -56,7 +56,7 @@ public class TimerGroupInfoActivity extends AbstractTimerGroupActivity<TimerGrou
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_timer_group:
-                AddEditTimerGroupActivity.startNewActivityEdit(timerGroup$.getValue().getId(), this);
+                EditTimerGroupActivity.startNewActivityEdit(timerGroup$.getValue().getId(), this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

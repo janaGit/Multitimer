@@ -1,10 +1,11 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.activities.detailedtimer;
 
 import android.os.Bundle;
 
 import androidx.lifecycle.MutableLiveData;
 
 
+import de.softinva.multitimer.classes.AppActivity;
 import de.softinva.multitimer.model.RunningTimer;
 
 public abstract class AbstractDetailedTimerActivity<T> extends AppActivity<T> {

@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.edit.EditDetailedTimerActivity;
-import de.softinva.multitimer.classes.AbstractDetailedTimerActivity;
+import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
 import de.softinva.multitimer.databinding.ActivityDetailedTimerInfoBinding;
 
 public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<DetailedTimerInfoViewModel> {

@@ -37,13 +37,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.TimerGroupActivity" />
         </activity>
-        <activity android:name=".activities.timergroup.addedit.AddEditTimerGroupActivity"
-            android:parentActivityName=".activities.detailedtimer.info.DetailedTimerInfoActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.detailedtimer.info.DetailedTimerInfoActivity" />
-        </activity>
 
         <activity android:name=".activities.detailedtimer.edit.EditDetailedTimerActivity"
             android:parentActivityName=".activities.detailedtimer.info.DetailedTimerInfoActivity">
@@ -58,6 +51,22 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.TimerGroupActivity" />
+        </activity>
+
+        <activity android:name=".activities.timergroup.edit.EditTimerGroupActivity"
+            android:parentActivityName=".activities.detailedtimer.info.DetailedTimerInfoActivity">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.detailedtimer.info.DetailedTimerInfoActivity" />
+        </activity>
+
+        <activity android:name=".activities.timergroup.add.AddTimerGroupActivity"
+            android:parentActivityName=".activities.MainActivity">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
         </activity>
 
         <service android:name=".CountDownService"

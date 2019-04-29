@@ -10,18 +10,16 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.classes.AbstractDetailedTimerActivity;
+import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
 
 public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> {
-    static final String ACTION_EDIT = "de.softinva.multitimer.AddDetailedTimerActivity.StartActivityEdit";
 
     public static void startNewActivity(String groupId, String timerId, Context context) {
         Intent intent = new Intent(context, EditDetailedTimerActivity.class);
-        intent.setAction(EditDetailedTimerActivity.ACTION_EDIT);
         intent.putExtra(EditDetailedTimerActivity.GROUP_ID, groupId);
         intent.putExtra(EditDetailedTimerActivity.TIMER_ID, timerId);
         context.startActivity(intent);
@@ -51,8 +49,6 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
                 setDetailedTimer(runningTimer);
             }
         });
-
-
     }
 
     protected void setDetailedTimer(RunningTimer runningTimer) {

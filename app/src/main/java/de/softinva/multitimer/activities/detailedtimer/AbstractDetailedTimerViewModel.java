@@ -1,10 +1,11 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.activities.detailedtimer;
 
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
 
+import de.softinva.multitimer.classes.AppViewModel;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.repository.TimerRepository;
 

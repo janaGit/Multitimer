@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle;
 
 
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
-import de.softinva.multitimer.classes.AbstractDetailedTimerViewModel;
+import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerViewModel;
 import de.softinva.multitimer.model.DetailedTimer;
 
 public class EditDetailedTimerViewModel extends AbstractDetailedTimerViewModel {

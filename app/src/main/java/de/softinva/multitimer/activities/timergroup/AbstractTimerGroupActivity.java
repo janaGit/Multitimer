@@ -1,9 +1,10 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.activities.timergroup;
 
 import android.os.Bundle;
 
 import androidx.lifecycle.MutableLiveData;
 
+import de.softinva.multitimer.classes.AppActivity;
 import de.softinva.multitimer.model.TimerGroup;
 
 public abstract class AbstractTimerGroupActivity<T> extends AppActivity<T> {
