@@ -45,12 +45,19 @@
                 android:value=".activities.detailedtimer.info.DetailedTimerInfoActivity" />
         </activity>
 
-        <activity android:name=".activities.detailedtimer.addedit.AddEditDetailedTimerActivity"
+        <activity android:name=".activities.detailedtimer.edit.EditDetailedTimerActivity"
             android:parentActivityName=".activities.detailedtimer.info.DetailedTimerInfoActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.detailedtimer.info.DetailedTimerInfoActivity" />
+        </activity>
+        <activity android:name=".activities.detailedtimer.add.AddDetailedTimerActivity"
+            android:parentActivityName=".activities.TimerGroupActivity">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.TimerGroupActivity" />
         </activity>
 
         <service android:name=".CountDownService"

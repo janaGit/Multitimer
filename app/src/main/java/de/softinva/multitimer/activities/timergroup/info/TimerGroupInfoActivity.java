@@ -12,7 +12,6 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.detailedtimer.addedit.AddEditDetailedTimerActivity;
 import de.softinva.multitimer.activities.timergroup.addedit.AddEditTimerGroupActivity;
 import de.softinva.multitimer.classes.AbstractTimerGroupActivity;
 import de.softinva.multitimer.databinding.ActivityTimerGroupInfoBinding;

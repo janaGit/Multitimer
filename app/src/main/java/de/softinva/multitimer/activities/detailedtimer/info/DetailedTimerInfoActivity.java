@@ -12,10 +12,8 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.detailedtimer.addedit.AddEditDetailedTimerActivity;
-import de.softinva.multitimer.activities.timergroup.addedit.AddEditTimerGroupActivity;
+import de.softinva.multitimer.activities.detailedtimer.edit.EditDetailedTimerActivity;
 import de.softinva.multitimer.classes.AbstractDetailedTimerActivity;
-import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.databinding.ActivityDetailedTimerInfoBinding;
 
 public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<DetailedTimerInfoViewModel> {
@@ -30,14 +28,17 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     protected void setBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detailed_timer_info);
     }
+
     @Override
     protected void setActionBar() {
         setSupportActionBar(((ActivityDetailedTimerInfoBinding) binding).appBar);
     }
+
     @Override
     protected void setModel() {
         model = new ViewModelProvider(this, new SavedStateVMFactory(this))
@@ -50,15 +51,15 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
         inflater.inflate(R.menu.detailed_timer_info_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_detailed_timer:
-                AddEditDetailedTimerActivity.startNewActivityEdit(runningTimer$.getValue().getTimer().getGroupId(), runningTimer$.getValue().getTimer().getId(), this);
+                EditDetailedTimerActivity.startNewActivity(runningTimer$.getValue().getTimer().getGroupId(), runningTimer$.getValue().getTimer().getId(), this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

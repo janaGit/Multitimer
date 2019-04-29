@@ -4,12 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Timer implements Parcelable {
-    protected final String id;
+    protected String id;
     protected String groupId;
     protected String title;
     protected Integer durationInSec;
     protected String imageName;
 
+    public Timer(){
+
+    }
     public Timer(String id, String title, Integer durationInSec, String imageName) {
         this.id = id;
         this.groupId = "";
@@ -28,7 +31,9 @@ public class Timer implements Parcelable {
     public String getId() {
         return id;
     }
-
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getGroupId() {
         return groupId;
     }

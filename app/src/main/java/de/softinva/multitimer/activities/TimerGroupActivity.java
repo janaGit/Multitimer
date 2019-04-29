@@ -14,7 +14,8 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.detailedtimer.addedit.AddEditDetailedTimerActivity;
+import de.softinva.multitimer.activities.detailedtimer.add.AddDetailedTimerActivity;
+import de.softinva.multitimer.activities.detailedtimer.edit.EditDetailedTimerActivity;
 import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.databinding.ActivityTimerGroupBinding;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
@@ -113,7 +114,7 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_new_detailed_timer:
-                AddEditDetailedTimerActivity.startNewActivityAdd(model.getTimerGroupId$().getValue(),this);
+                AddDetailedTimerActivity.startNewActivity(model.getTimerGroupId$().getValue(),this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

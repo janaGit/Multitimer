@@ -11,7 +11,7 @@ import de.softinva.multitimer.repository.TimerRepository;
 public abstract class AbstractDetailedTimerViewModel extends AppViewModel {
     private MutableLiveData<String> timerGroupId$;
     private MutableLiveData<String> timerId$;
-    protected MutableLiveData<RunningTimer> timer$;
+    private MutableLiveData<RunningTimer> runningTimer$;
 
     public AbstractDetailedTimerViewModel(SavedStateHandle savedStateHandle) {
         super(savedStateHandle);
@@ -27,15 +27,16 @@ public abstract class AbstractDetailedTimerViewModel extends AppViewModel {
 
     public MutableLiveData<String> getTimerId() {
         if (timerId$ == null) {
-            timerId$ = state.getLiveData("timerId$");
+            timerId$ = state.getLiveData("timerId");
         }
         return timerId$;
     }
 
-    public MutableLiveData<RunningTimer> getTimer(String groupId, String timerId) {
-        if (timer$ == null) {
-            timer$ = (MutableLiveData<RunningTimer>) Transformations.map(TimerRepository.getInstance().getTimerGroup(groupId), timerGroup-> timerGroup.getTimerMapByTimerId().get(timerId));
+    public MutableLiveData<RunningTimer> getRunningTimer(String groupId, String timerId) {
+        if (runningTimer$ == null) {
+            runningTimer$ = (MutableLiveData<RunningTimer>) Transformations.map(TimerRepository.getInstance().getTimerGroup(groupId), timerGroup->
+                    timerGroup.getTimerMapByTimerId().get(timerId));
         }
-        return timer$;
+        return runningTimer$;
     }
 }

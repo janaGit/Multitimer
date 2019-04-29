@@ -27,13 +27,14 @@ public abstract class AbstractDetailedTimerActivity<T> extends AppActivity<T> {
 
     void setRunningTimer() {
         AbstractDetailedTimerViewModel detailedTimerModel = (AbstractDetailedTimerViewModel) model;
-        runningTimer$ = detailedTimerModel.getTimer(detailedTimerModel.getTimerGroupId().getValue(), detailedTimerModel.getTimerId().getValue());
-
+        runningTimer$ = detailedTimerModel.getRunningTimer(detailedTimerModel.getTimerGroupId().getValue(), detailedTimerModel.getTimerId().getValue());
     }
 
     protected void setTitle() {
         runningTimer$.observe(this, rtimer -> {
-            setTitle(rtimer.getTimer().getTitle());
+            if(rtimer != null){
+                setTitle(rtimer.getTimer().getTitle());
+            }
         });
     }
 
