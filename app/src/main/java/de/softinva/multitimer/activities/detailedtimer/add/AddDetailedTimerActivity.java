@@ -27,6 +27,11 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     }
 
     @Override
+    protected void setHomeUpButton() {
+
+    }
+
+    @Override
     protected void setModel() {
         model = new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(AddDetailedTimerViewModel.class);

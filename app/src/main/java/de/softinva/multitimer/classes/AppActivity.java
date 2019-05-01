@@ -38,6 +38,7 @@ public abstract class AppActivity<T> extends AppCompatActivity {
     protected void setViewObject() {
         ((AppViewModel) model).setViewObject();
         viewObject = ((AppViewModel) model).getViewObject();
+        viewObject.setContext(this);
     }
 
     protected void setHomeUpButton() {

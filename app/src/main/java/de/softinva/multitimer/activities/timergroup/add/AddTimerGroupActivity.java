@@ -49,4 +49,9 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> {
     protected void setActionBar() {
         setSupportActionBar(((ActivityAddeditTimerGroupBinding) binding).appBar);
     }
+
+    @Override
+    protected void setHomeUpButton() {
+
+    }
 }

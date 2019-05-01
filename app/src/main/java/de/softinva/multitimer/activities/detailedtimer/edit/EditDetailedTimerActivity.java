@@ -31,6 +31,11 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     }
 
     @Override
+    protected void setHomeUpButton() {
+
+    }
+
+    @Override
     protected void setModel() {
         model = new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(EditDetailedTimerViewModel.class);
@@ -61,8 +66,8 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.detailed_timer_add_menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.detailed_timer_add_menu, menu);
         return true;
     }
 

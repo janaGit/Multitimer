@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
+import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.model.TimerGroup;
 
@@ -57,5 +58,10 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
 
     protected void setTimerGroup(TimerGroup timerGroup) {
         timerGroup.toCopy(model.getTimerGroup());
+    }
+
+    @Override
+    protected void setHomeUpButton() {
+
     }
 }

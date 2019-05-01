@@ -2,7 +2,7 @@ package de.softinva.multitimer.classes;
 
 public abstract class AppViewObject<T> {
     protected T obj;
-
+    protected Object context;
     public AppViewObject(T obj) {
         this.obj = obj;
     }
@@ -15,4 +15,11 @@ public abstract class AppViewObject<T> {
         this.obj = obj;
     }
 
+    public Object getContext() {
+        return context;
+    }
+
+    public void setContext(Object context) {
+        this.context = context;
+    }
 }
