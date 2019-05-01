@@ -45,4 +45,27 @@ public class UtilityMethods {
         return "1234" + Math.random();
     }
 
+    public static String transformToTextString(Integer countDownInSec) {
+        return UtilityMethods.transformToTextString(countDownInSec.longValue());
+    }
+    public static String transformToTextString(Long countDownInSec) {
+        AppLogger logger = new AppLogger(new UtilityMethods());
+        String countDownAsString;
+        int hours = countDownInSec.intValue() / 3600;
+        int minutes = (countDownInSec.intValue() - (hours * 3600)) / 60;
+        int seconds = (countDownInSec.intValue() - (hours * 3600) - (minutes * 60));
+        if (hours != 0) {
+            countDownAsString = hours + "h " + minutes + " min " + seconds + " sec";
+        } else {
+            if (minutes != 0) {
+                countDownAsString = minutes + " min " + seconds + " sec";
+            } else {
+                countDownAsString = seconds + " sec";
+            }
+        }
+
+        logger.info("countDownInSec: "+countDownInSec+" countDownAsString: " + countDownAsString);
+        return countDownAsString;
+    }
+
 }

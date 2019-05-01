@@ -11,4 +11,6 @@
     <string name="new_detailed_timer">Neuer Timer</string>
     <string name="menu_item_delete_detailed_timer">Lösche Timer</string>
     <string name="description">Beschreibung</string>
+    <string name="button_save">SPEICHERN</string>
+    <string name="button_abort">ABRECHEN</string>
 </resources>
