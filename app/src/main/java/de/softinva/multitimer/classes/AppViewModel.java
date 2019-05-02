@@ -17,9 +17,4 @@ public abstract class AppViewModel extends ViewModel {
 
     }
 
-    protected abstract void setViewObject();
-
-    public AppViewObject getViewObject() {
-        return viewObject;
-    }
 }

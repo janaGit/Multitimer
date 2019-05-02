@@ -15,11 +15,6 @@ public class TimerGroupViewModel extends AbstractTimerGroupViewModel implements 
         super(savedStateHandle);
     }
 
-    @Override
-    protected void setViewObject() {
-        viewObject = new TimerGroupViewObject(timerGroup$);
-    }
-
 
     @Override
     public MutableLiveData<TABS> getActiveTab() {

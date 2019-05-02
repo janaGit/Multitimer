@@ -30,6 +30,11 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
     }
 
     @Override
+    protected void setViewObject() {
+        viewObject = new DetailedTimerInfoViewObject(model.getRunningTimer(model.getTimerGroupId().getValue(), model.getTimerId().getValue()));
+    }
+
+    @Override
     protected void setBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detailed_timer_info);
     }

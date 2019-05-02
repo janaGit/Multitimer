@@ -10,8 +10,5 @@ public class DetailedTimerInfoViewModel extends AbstractDetailedTimerViewModel {
         super(savedStateHandle);
     }
 
-    @Override
-    protected void setViewObject() {
-        viewObject = new DetailedTimerInfoViewObject(getRunningTimer(getTimerGroupId().getValue(),getTimerId().getValue()));
-    }
+
 }

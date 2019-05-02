@@ -33,6 +33,11 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     }
 
     @Override
+    protected void setViewObject() {
+        viewObject = new MainActivityViewObject(null);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_menu, menu);

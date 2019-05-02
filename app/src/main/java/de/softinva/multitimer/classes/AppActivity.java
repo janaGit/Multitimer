@@ -21,6 +21,7 @@ public abstract class AppActivity<T> extends AppCompatActivity {
         setModel();
         setClassSpecificObjects();
         setViewObject();
+        setContextForViewObject();
         setBinding();
         bindModel();
 
@@ -35,9 +36,9 @@ public abstract class AppActivity<T> extends AppCompatActivity {
         return true;
     }
 
-    protected void setViewObject() {
-        ((AppViewModel) model).setViewObject();
-        viewObject = ((AppViewModel) model).getViewObject();
+    protected abstract void setViewObject();
+
+    protected void setContextForViewObject() {
         viewObject.setContext(this);
     }
 

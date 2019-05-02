@@ -38,10 +38,16 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     }
 
     @Override
+    protected void setViewObject() {
+        viewObject = new TimerGroupViewObject(model.getTimerGroup(model.getTimerGroupId$().getValue()));
+    }
+
+    @Override
     protected void setClassSpecificObjects() {
         super.setClassSpecificObjects();
         setGroupId();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -64,13 +70,15 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
             }
         }
     }
+
     @Override
     protected void setActionBar() {
-        setSupportActionBar(((ActivityTimerGroupBinding)binding).appBar);
+        setSupportActionBar(((ActivityTimerGroupBinding) binding).appBar);
     }
+
     @Override
     protected void setTitle() {
-        model.getTimerGroup( model.getTimerGroupId$().getValue()).observe(this, timerGroup -> {
+        model.getTimerGroup(model.getTimerGroupId$().getValue()).observe(this, timerGroup -> {
             setTitle(timerGroup.getTitle());
         });
     }
@@ -101,7 +109,7 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
 
     @Override
     protected void setBinding() {
-        binding =  DataBindingUtil.setContentView(this, R.layout.activity_timer_group);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_timer_group);
     }
 
     @Override
@@ -110,11 +118,12 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
             model.getActiveTab().setValue(TIMER_GROUP_ACTIVITY_TABS.List);
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_new_detailed_timer:
-                AddDetailedTimerActivity.startNewActivity(model.getTimerGroupId$().getValue(),this);
+                AddDetailedTimerActivity.startNewActivity(model.getTimerGroupId$().getValue(), this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

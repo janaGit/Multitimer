@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
+import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
@@ -28,6 +29,11 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     @Override
     protected void setActionBar() {
         setSupportActionBar(((ActivityAddeditDetailedTimerBinding) binding).appBar);
+    }
+
+    @Override
+    protected void setViewObject() {
+        viewObject = new AddEditDetailedTimerViewObject(model.getDetailedTimer());
     }
 
     @Override

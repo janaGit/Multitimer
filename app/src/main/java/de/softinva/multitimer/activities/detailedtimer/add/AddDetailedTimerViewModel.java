@@ -28,9 +28,4 @@ public class AddDetailedTimerViewModel  extends AppViewModel {
         }
         return detailedTimer;
     }
-
-    @Override
-    protected void setViewObject() {
-        viewObject = new AddEditDetailedTimerViewObject(getDetailedTimer());
-    }
 }

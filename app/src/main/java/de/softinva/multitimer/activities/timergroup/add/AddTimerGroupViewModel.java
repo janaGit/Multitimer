@@ -23,9 +23,10 @@ public class AddTimerGroupViewModel extends AppViewModel {
         }
         return timerGroup;
     }
-
-    @Override
-    protected void setViewObject() {
-        viewObject = new AddEditTimerGroupViewObject(timerGroup);
+    public TimerGroup getTimerGroup() {
+        if(timerGroup == null){
+            throw new Error("Timer group has not been initialized!");
+        }
+        return timerGroup;
     }
 }

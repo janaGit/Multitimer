@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
+import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.model.TimerGroup;
@@ -48,6 +49,11 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> {
     @Override
     protected void setActionBar() {
         setSupportActionBar(((ActivityAddeditTimerGroupBinding) binding).appBar);
+    }
+
+    @Override
+    protected void setViewObject() {
+        viewObject = new AddEditTimerGroupViewObject(model.getTimerGroup());
     }
 
     @Override

@@ -15,11 +15,6 @@ public class TimerGroupInfoViewModel extends AbstractTimerGroupViewModel {
         super(savedStateHandle);
     }
 
-    @Override
-    protected void setViewObject() {
-        viewObject = new TimerGroupInfoViewObject(timerGroup$);
-    }
-
     public MutableLiveData<TimerGroup> getTimerGroup(String groupId) {
         if (timerGroup$ == null) {
             timerGroup$ = TimerRepository.getInstance().getTimerGroup(groupId);

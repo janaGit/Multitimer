@@ -31,6 +31,11 @@ public class TimerGroupInfoActivity extends AbstractTimerGroupActivity<TimerGrou
     }
 
     @Override
+    protected void setViewObject() {
+        viewObject = new TimerGroupInfoViewObject(timerGroup$);
+    }
+
+    @Override
     protected void setBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_timer_group_info);
     }
@@ -52,6 +57,7 @@ public class TimerGroupInfoActivity extends AbstractTimerGroupActivity<TimerGrou
         inflater.inflate(R.menu.timer_group_info_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

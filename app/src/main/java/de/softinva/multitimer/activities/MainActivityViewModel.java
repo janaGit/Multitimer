@@ -14,11 +14,6 @@ public class MainActivityViewModel extends AppViewModel implements ActivityTabsV
         super(savedStateHandle);
     }
 
-    @Override
-    protected void setViewObject() {
-        viewObject = new MainActivityViewObject(null);
-    }
-
     public MutableLiveData<TABS> getActiveTab() {
         if (activeTab == null) {
             activeTab = new MutableLiveData<>();

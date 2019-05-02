@@ -61,6 +61,11 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
     }
 
     @Override
+    protected void setViewObject() {
+        viewObject = new AddEditTimerGroupViewObject(model.getTimerGroup());
+    }
+
+    @Override
     protected void setHomeUpButton() {
 
     }
