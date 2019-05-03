@@ -3,8 +3,6 @@ package de.softinva.multitimer.model;
 import java.util.Map;
 import java.util.TreeMap;
 
-import de.softinva.multitimer.R;
-import de.softinva.multitimer.utility.UtilityMethods;
 
 public class TimerGroup {
     protected String id;
@@ -41,58 +39,55 @@ public class TimerGroup {
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
 
+
     public String getTitle() {
         return title;
     }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 
     public TreeMap<Integer, RunningTimer> getTimerMapByPosition() {
         return timerMapByPosition;
+    }
+    public void setTimerMapByPosition(TreeMap<Integer, RunningTimer> timerMapByPosition) {
+        this.timerMapByPosition = timerMapByPosition;
     }
 
     public TreeMap<String, RunningTimer> getTimerMapByTimerId() {
         return timerMapByTimerId;
     }
+    public void setTimerMapByTimerId(TreeMap<String, RunningTimer> timerMapByTimerId) {
+        this.timerMapByTimerId = timerMapByTimerId;
+    }
 
     public boolean isZipped() {
         return isZipped;
+    }
+    public void setZipped(boolean zipped) {
+        isZipped = zipped;
     }
 
     public String getImageName() {
         return imageName;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setTimerMapByPosition(TreeMap<Integer, RunningTimer> timerMapByPosition) {
-        this.timerMapByPosition = timerMapByPosition;
-    }
-
-    public void setTimerMapByTimerId(TreeMap<String, RunningTimer> timerMapByTimerId) {
-        this.timerMapByTimerId = timerMapByTimerId;
-    }
-
-    public void setZipped(boolean zipped) {
-        isZipped = zipped;
-    }
-
     public void setImageName(String imageName) {
         this.imageName = imageName;
     }
 
+    public String getDescription() {
+        return description;
+    }
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 
     @Override
     public String toString() {

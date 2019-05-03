@@ -1,16 +1,18 @@
 package de.softinva.multitimer.activities.detailedtimer.add;
 
+import android.app.Application;
+
 import androidx.lifecycle.SavedStateHandle;
 
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.classes.AppViewModel;
 import de.softinva.multitimer.model.DetailedTimer;
 
-public class AddDetailedTimerViewModel  extends AppViewModel {
+public class AddDetailedTimerViewModel extends AppViewModel {
     protected DetailedTimer detailedTimer;
 
-    public AddDetailedTimerViewModel(SavedStateHandle savedStateHandle) {
-        super(savedStateHandle);
+    public AddDetailedTimerViewModel(Application application, SavedStateHandle savedStateHandle) {
+        super(application, savedStateHandle);
     }
 
     public DetailedTimer getDetailedTimer() {

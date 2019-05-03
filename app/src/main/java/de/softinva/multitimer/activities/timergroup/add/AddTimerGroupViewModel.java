@@ -1,6 +1,8 @@
 package de.softinva.multitimer.activities.timergroup.add;
 
 
+import android.app.Application;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 
@@ -11,8 +13,9 @@ import de.softinva.multitimer.utility.UtilityMethods;
 
 public class AddTimerGroupViewModel extends AppViewModel {
     protected TimerGroup timerGroup;
-    public AddTimerGroupViewModel(SavedStateHandle savedStateHandle) {
-        super(savedStateHandle);
+
+    public AddTimerGroupViewModel(Application application, SavedStateHandle savedStateHandle) {
+        super(application, savedStateHandle);
     }
 
     public TimerGroup createNewTimerGroup() {
@@ -23,8 +26,9 @@ public class AddTimerGroupViewModel extends AppViewModel {
         }
         return timerGroup;
     }
+
     public TimerGroup getTimerGroup() {
-        if(timerGroup == null){
+        if (timerGroup == null) {
             throw new Error("Timer group has not been initialized!");
         }
         return timerGroup;

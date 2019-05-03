@@ -1,6 +1,8 @@
 package de.softinva.multitimer.activities.detailedtimer;
 
 
+import android.app.Application;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.Transformations;
@@ -14,8 +16,8 @@ public abstract class AbstractDetailedTimerViewModel extends AppViewModel {
     private MutableLiveData<String> timerId$;
     private MutableLiveData<RunningTimer> runningTimer$;
 
-    public AbstractDetailedTimerViewModel(SavedStateHandle savedStateHandle) {
-        super(savedStateHandle);
+    public AbstractDetailedTimerViewModel(Application application, SavedStateHandle savedStateHandle) {
+        super(application, savedStateHandle);
     }
 
 
@@ -35,7 +37,7 @@ public abstract class AbstractDetailedTimerViewModel extends AppViewModel {
 
     public MutableLiveData<RunningTimer> getRunningTimer(String groupId, String timerId) {
         if (runningTimer$ == null) {
-            runningTimer$ = (MutableLiveData<RunningTimer>) Transformations.map(TimerRepository.getInstance().getTimerGroup(groupId), timerGroup->
+            runningTimer$ = (MutableLiveData<RunningTimer>) Transformations.map(new TimerRepository(getApplication()).getTimerGroup(groupId), timerGroup ->
                     timerGroup.getTimerMapByTimerId().get(timerId));
         }
         return runningTimer$;

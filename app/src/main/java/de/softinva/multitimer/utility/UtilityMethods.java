@@ -1,5 +1,7 @@
 package de.softinva.multitimer.utility;
 
+import android.app.Application;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
@@ -17,8 +19,8 @@ public class UtilityMethods {
         return logger;
     }
 
-    public static MutableLiveData<TreeMap<Integer, RunningTimer>> updateTimerList(TreeMap<Integer, RunningTimer> timerMap) {
-        MutableLiveData<TreeMap<String, RunningTimer>> runningTimerMap = TimerRepository.getInstance().getRunningTimerByIDMap();
+    public static MutableLiveData<TreeMap<Integer, RunningTimer>> updateTimerList(TreeMap<Integer, RunningTimer> timerMap, Application application) {
+        MutableLiveData<TreeMap<String, RunningTimer>> runningTimerMap = new TimerRepository(application).getRunningTimerByIDMap();
         return (MutableLiveData<TreeMap<Integer, RunningTimer>>) Transformations.map(runningTimerMap, rTimerMap -> {
             for (Map.Entry<String, RunningTimer> runningTimer : rTimerMap.entrySet()) {
                 updateRunningTimer(runningTimer.getValue(), timerMap);

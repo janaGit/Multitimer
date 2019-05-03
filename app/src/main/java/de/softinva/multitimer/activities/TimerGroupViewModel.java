@@ -1,5 +1,7 @@
 package de.softinva.multitimer.activities;
 
+import android.app.Application;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 
@@ -11,8 +13,8 @@ import de.softinva.multitimer.model.TABS;
 public class TimerGroupViewModel extends AbstractTimerGroupViewModel implements ActivityTabsViewModel {
     private MutableLiveData<TABS> activeTab;
 
-    public TimerGroupViewModel(SavedStateHandle savedStateHandle) {
-        super(savedStateHandle);
+    public TimerGroupViewModel(Application application, SavedStateHandle savedStateHandle) {
+        super(application, savedStateHandle);
     }
 
 

@@ -1,6 +1,9 @@
 package de.softinva.multitimer.repository;
 
 
+import android.app.Application;
+import android.content.Context;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -8,6 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 import de.softinva.multitimer.CountDownService;
+import de.softinva.multitimer.database.AppDatabase;
 import de.softinva.multitimer.model.RunningTimer;
 
 import de.softinva.multitimer.model.TimerGroup;
@@ -24,23 +28,20 @@ public class TimerRepository {
     protected MutableLiveData<TreeMap<String, RunningTimer>> runningTimerByIDMap;
 
     protected static TimerRepository instance;
+    protected Application application;
 
-    private TimerRepository() {
+    public TimerRepository(Application application) {
+        this.application = application;
     }
 
-    public static TimerRepository getInstance() {
-        if (instance == null) {
-            instance = new TimerRepository();
-        }
-        return instance;
-    }
 
     public MutableLiveData<TreeMap<Integer, TimerGroup>> getTimerGroups() {
 
         if (this.timerGroupMap != null) {
             return timerGroupMap;
         }
-
+        //AppDatabase.getInstance(application).timerGroupDao().insert(DummyNudelGericht.TIMER_GROUP);
+        //AppDatabase.getInstance(application).timerGroupDao().insert(DummyPizza.TIMER_GROUP);
         timerGroupMap = new MutableLiveData<>();
         TreeMap<Integer, TimerGroup> timerGroupList = new TreeMap<>();
         timerGroupList.put(0, DummyNudelGericht.TIMER_GROUP);
@@ -51,7 +52,7 @@ public class TimerRepository {
     }
 
     public MutableLiveData<TimerGroup> getTimerGroup(String groupId) {
-        return (MutableLiveData<TimerGroup>) Transformations.map(getTimerGroups(), timerGroups ->{
+        return (MutableLiveData<TimerGroup>) Transformations.map(getTimerGroups(), timerGroups -> {
             return getTimerGroup(groupId, timerGroups);
         });
     }
@@ -83,6 +84,7 @@ public class TimerRepository {
         }
         return runningTimerByFinishTimeMap;
     }
+
     public MutableLiveData<TreeMap<String, RunningTimer>> getRunningTimerByIDMap() {
         if (runningTimerByIDMap == null) {
             runningTimerByIDMap = CountDownService.runningTimerByIDMap;
