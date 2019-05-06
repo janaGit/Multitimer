@@ -2,6 +2,7 @@ package de.softinva.multitimer.activities.detailedtimer;
 
 import android.os.Bundle;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
@@ -11,7 +12,7 @@ import de.softinva.multitimer.model.RunningTimer;
 public abstract class AbstractDetailedTimerActivity<T> extends AppActivity<T> {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
     public static final String TIMER_ID = "de.softinva.multitimer.timerId";
-    protected MutableLiveData<RunningTimer> runningTimer$;
+    protected LiveData<RunningTimer> runningTimer$;
 
 
     @Override

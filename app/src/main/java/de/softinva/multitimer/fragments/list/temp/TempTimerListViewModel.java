@@ -5,6 +5,7 @@ import android.app.Application;
 import java.util.TreeMap;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
@@ -15,14 +16,14 @@ import de.softinva.multitimer.utility.UtilityMethods;
 
 public class TempTimerListViewModel extends FragmentViewModel {
 
-    private MutableLiveData<TreeMap<Integer,RunningTimer>> timerList;
+    private LiveData<TreeMap<Integer, RunningTimer>> timerList;
 
     public TempTimerListViewModel(@NonNull Application application) {
         super(application);
     }
 
 
-    public MutableLiveData<TreeMap<Integer,RunningTimer>>  getTimerList() {
+    public LiveData<TreeMap<Integer, RunningTimer>> getTimerList() {
         if (timerList == null) {
             timerList = new MutableLiveData<>();
             createTimerList();
@@ -31,9 +32,12 @@ public class TempTimerListViewModel extends FragmentViewModel {
     }
 
     private void createTimerList() {
-        timerList = (MutableLiveData<TreeMap<Integer, RunningTimer>>) Transformations.switchMap(
-                new TimerRepository(getApplication()).getTempTimer(), timerMap ->
-            UtilityMethods.updateTimerList(timerMap, getApplication()));
+        timerList = Transformations.switchMap(
+                new TimerRepository(getApplication()).getTempTimer(), timerMap -> {
+                    TreeMap<Integer, RunningTimer> treeMap = UtilityMethods.createRunningTimerListForTempTimer(timerMap);
+                    return UtilityMethods.updateTimerList(treeMap, getApplication());
+                });
+
     }
 }
 

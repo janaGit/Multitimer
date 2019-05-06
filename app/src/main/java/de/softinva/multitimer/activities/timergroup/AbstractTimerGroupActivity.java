@@ -2,14 +2,14 @@ package de.softinva.multitimer.activities.timergroup;
 
 import android.os.Bundle;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
 import de.softinva.multitimer.classes.AppActivity;
 import de.softinva.multitimer.model.TimerGroup;
 
 public abstract class AbstractTimerGroupActivity<T> extends AppActivity<T> {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
-    protected MutableLiveData<TimerGroup> timerGroup$;
+    protected LiveData<TimerGroup> timerGroup$;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

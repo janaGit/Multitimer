@@ -3,7 +3,9 @@ package de.softinva.multitimer.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Timer implements Parcelable {
+import androidx.databinding.BaseObservable;
+
+public class Timer extends BaseObservable implements Parcelable {
     protected String id;
     protected String groupId;
     protected String title;

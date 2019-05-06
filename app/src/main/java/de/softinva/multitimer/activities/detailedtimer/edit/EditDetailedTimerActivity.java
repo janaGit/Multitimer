@@ -4,18 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.activities.TimerGroupActivity;
 import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
+import de.softinva.multitimer.repository.TimerRepository;
 
 public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> {
 
@@ -33,7 +36,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
 
     @Override
     protected void setViewObject() {
-        viewObject = new AddEditDetailedTimerViewObject(model.getDetailedTimer());
+        viewObject = new AddEditDetailedTimerViewObject(true, model.getDetailedTimer());
     }
 
     @Override
@@ -73,9 +76,21 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.detailed_timer_add_menu, menu);
+        inflater.inflate(R.menu.detailed_timer_edit_menu, menu);
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete_detailed_timer:
+                TimerRepository repository= new TimerRepository(this.getApplication());
+                repository.deleteDetailedTimer(model.detailedTimer);
+                TimerGroupActivity.startNewActivity(model.detailedTimer.getGroupId(), this, true);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
+        }
+    }
 }

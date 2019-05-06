@@ -4,8 +4,11 @@ import java.util.Date;
 
 import androidx.lifecycle.MutableLiveData;
 
+import de.softinva.multitimer.utility.AppLogger;
+
 
 public class RunningTimer {
+    AppLogger logger = new AppLogger(this);
     protected Timer timer;
     protected Long finishTimeInSec;
     protected MutableLiveData<Long> countDownInSec;
@@ -14,8 +17,7 @@ public class RunningTimer {
     public RunningTimer(Timer timer) {
         this.timer = timer;
         countDownInSec = new MutableLiveData<>();
-        isRunning= new MutableLiveData<>();
-        isRunning.setValue(false);
+        isRunning = new MutableLiveData<>(false);
     }
 
     public MutableLiveData<Boolean> isRunning() {
@@ -37,7 +39,8 @@ public class RunningTimer {
 
     public Long getFinishTimeInSec() {
         if (finishTimeInSec == null) {
-            throw new Error("Timer not yet started!");
+            logger.info("Timer not yet started!");
+            finishTimeInSec = new Date().getTime();
         }
         return finishTimeInSec;
     }

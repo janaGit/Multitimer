@@ -100,62 +100,49 @@ public class CountDownService extends Service {
             appCountDownTimerTreeMap.put(timer.getId(), appCountDown);
 
             appCountDown.run();
-            RunningTimer rtimer = runningTimerMapByFinishTime.put(runningTimer.getFinishTimeInSec(), runningTimer);
-            if (rtimer != null) {
-                throw new Error("return value should be null as no Timer should exists!");
+            if (runningTimer.isRunning().getValue() == true) {
+                runningTimerMapByFinishTime.put(runningTimer.getFinishTimeInSec(), runningTimer);
+                runningTimerMapByID.put(timer.getId(), runningTimer);
+                updateLiveData();
             }
 
-            runningTimerMapByID.put(timer.getId(), runningTimer);
-            updateLiveData();
         } else {
-            throw new Error("running Timer is not null, but should be created new!");
+            cancelTimer(timer);
         }
     }
 
     protected void cancelTimer(Timer timer) {
         RunningTimer runningTimer = runningTimerMapByID.get(timer.getId());
         if (runningTimer != null) {
-            runningTimerMapByID.remove(timer.getId());
-
             Long finishTimeInSec = runningTimer.getFinishTimeInSec();
-            RunningTimer rtimer = runningTimerMapByFinishTime.remove(finishTimeInSec);
-            if (rtimer == null) {
-                throw new Error("return value should not be null as Timer should exists!");
+            if (finishTimeInSec != null) {
+                runningTimerMapByFinishTime.remove(finishTimeInSec);
             }
-
-            appCountDownTimerTreeMap.get(timer.getId()).cancel();
-
-            AppCountDown appCountDown = appCountDownTimerTreeMap.remove(timer.getId());
-            if (appCountDown == null) {
-                throw new Error("return value should not be null as AppCountDown should exists!");
-            }
-
-            updateLiveData();
-        } else {
-            throw new Error("No Timer in running map with id: " + timer.getId());
         }
+        runningTimerMapByID.remove(timer.getId());
+
+        AppCountDown countDown = appCountDownTimerTreeMap.get(timer.getId());
+        if (countDown != null) {
+            countDown.cancel();
+        }
+        appCountDownTimerTreeMap.remove(timer.getId());
+
+        updateLiveData();
     }
 
-    public void removeTimer(Timer timer) {
+    public synchronized void removeTimer(Timer timer) {
         RunningTimer runningTimer = runningTimerMapByID.get(timer.getId());
         if (runningTimer != null) {
-            runningTimerMapByID.remove(timer.getId());
-
             Long finishTimeInSec = runningTimer.getFinishTimeInSec();
-            RunningTimer rtimer = runningTimerMapByFinishTime.remove(finishTimeInSec);
-            if (rtimer == null) {
-                throw new Error("return value should not be null as Timer should exists!");
+            if (finishTimeInSec != null) {
+                runningTimerMapByFinishTime.remove(finishTimeInSec);
             }
-
-            AppCountDown appCountDown = appCountDownTimerTreeMap.remove(timer.getId());
-            if (appCountDown == null) {
-                throw new Error("return value should not be null as AppCountDown should exists!");
-            }
-
-            updateLiveData();
-        } else {
-            throw new Error("No Timer in running map with id: " + timer.getId());
         }
+        runningTimerMapByID.remove(timer.getId());
+
+        appCountDownTimerTreeMap.remove(timer.getId());
+
+        updateLiveData();
     }
 
     protected void updateLiveData() {

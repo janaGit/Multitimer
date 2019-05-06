@@ -1,5 +1,7 @@
 package de.softinva.multitimer.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +26,13 @@ import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
 
 public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
 
+    public static void startNewActivity(Context context, boolean clearBackStack) {
+        Intent intent = new Intent(context, MainActivity.class);
+        if(clearBackStack){
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

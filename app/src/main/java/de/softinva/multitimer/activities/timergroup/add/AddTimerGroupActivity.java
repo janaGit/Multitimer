@@ -2,16 +2,12 @@ package de.softinva.multitimer.activities.timergroup.add;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuInflater;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
@@ -53,7 +49,7 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> {
 
     @Override
     protected void setViewObject() {
-        viewObject = new AddEditTimerGroupViewObject(model.getTimerGroup());
+        viewObject = new AddEditTimerGroupViewObject(false, model.getTimerGroup());
     }
 
     @Override

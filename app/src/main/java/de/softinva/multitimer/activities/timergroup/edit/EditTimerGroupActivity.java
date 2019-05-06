@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.SavedStateVMFactory;
@@ -11,10 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.activities.MainActivity;
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.model.TimerGroup;
+import de.softinva.multitimer.repository.TimerRepository;
 
 public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimerGroupViewModel> {
 
@@ -43,9 +46,10 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.timer_group_add_menu, menu);
+        inflater.inflate(R.menu.timer_group_edit_menu, menu);
         return true;
     }
+
     @Override
     protected void setClassSpecificObjects() {
         super.setClassSpecificObjects();
@@ -62,11 +66,24 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
 
     @Override
     protected void setViewObject() {
-        viewObject = new AddEditTimerGroupViewObject(model.getTimerGroup());
+        viewObject = new AddEditTimerGroupViewObject(true, model.getTimerGroup());
     }
 
     @Override
     protected void setHomeUpButton() {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_delete_timer_group:
+                new TimerRepository(this.getApplication()).deleteTimerGroup(model.timerGroup);
+                MainActivity.startNewActivity(this, true);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

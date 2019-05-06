@@ -1,6 +1,5 @@
 package de.softinva.multitimer.classes;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -50,6 +49,7 @@ public abstract class AppActivity<T> extends AppCompatActivity {
     protected void bindModel() {
         if (viewObject != null) {
             binding.setVariable(BR.viewObject, viewObject);
+            binding.setLifecycleOwner(this);
         }
 
     }

@@ -1,5 +1,6 @@
 package de.softinva.multitimer.database;
 
+import android.app.Application;
 import android.content.Context;
 
 import androidx.room.Database;
@@ -13,7 +14,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
 
-    static AppDatabase getDatabase(final Context context) {
+    public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {

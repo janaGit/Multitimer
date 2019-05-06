@@ -1,9 +1,7 @@
 package de.softinva.multitimer.repository.dummy;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 import de.softinva.multitimer.model.RunningTimer;
-import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.TimerGroup;
 
@@ -22,15 +20,15 @@ public class DummyNudelGericht {
 
 
     static {
-        TIMER_NUDELN = new DetailedTimer("Nudeln_0","0", "Nudeln", 480,  "nudeln.png","Nudeln zum kochen bringen und dann auf mittlere Stufe herunter stellen.");
-        TIMER_Tomatensoße = new DetailedTimer("Nudeln_1","0", "Tomatensoße", 480, "nudeln.png","Tomatensoße auf mittlerer Stufe erwärmen.");
+        TIMER_NUDELN = new DetailedTimer("Nudeln_0","0", "Nudeln", 480,  "nudeln.png",0,"Nudeln zum kochen bringen und dann auf mittlere Stufe herunter stellen.");
+        TIMER_Tomatensoße = new DetailedTimer("Nudeln_1","0", "Tomatensoße", 480, "nudeln.png",1,"Tomatensoße auf mittlerer Stufe erwärmen.");
         addItemToTimerList(TIMER_NUDELN);
         addItemToTimerList(TIMER_Tomatensoße);
-        TIMER_GROUP = new TimerGroup("0", "Nudel Gericht", false, "Nudeln.jpg","Leckere Nudeln mit Tomatensoße. Schnell gemacht und schmeckt.",TIMER_LIST);
+        TIMER_GROUP = new TimerGroup("0", "Nudel Gericht", false, "Nudeln.jpg","Leckere Nudeln mit Tomatensoße. Schnell gemacht und schmeckt.");
     }
 
     private static void addItemToTimerList(DetailedTimer timer) {
-        TIMER_LIST.put(TIMER_LIST.size(), new RunningTimer(timer));
+        TIMER_LIST.put(timer.getPositionInGroup(), new RunningTimer(timer));
     }
 
 }

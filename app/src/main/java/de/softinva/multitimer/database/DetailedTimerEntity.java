@@ -4,13 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
-public class DetailedTimerEntity {
+@Entity(tableName = "detailedtimer")
+public class DetailedTimerEntity implements AppEntity {
     @PrimaryKey
     @NonNull
-    protected String id;
-    protected String groupId;
-    protected String title;
-    protected Integer durationInSec;
-    protected String imageName;
+    public String id;
+    public String groupId;
+    public Integer positionInGroup;
+    public String title;
+    public Integer durationInSec;
+    public String imageName;
+    public String description;
 }

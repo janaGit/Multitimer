@@ -5,12 +5,12 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "timergroup")
-public class TimerGroupEntity {
+public class TimerGroupEntity implements AppEntity {
     @PrimaryKey
     @NonNull
-    protected String id;
-    protected String title;
-    protected boolean isZipped;
-    protected String imageName;
-    protected String description;
+    public String id;
+    public String title;
+    public boolean isZipped;
+    public String imageName;
+    public String description;
 }

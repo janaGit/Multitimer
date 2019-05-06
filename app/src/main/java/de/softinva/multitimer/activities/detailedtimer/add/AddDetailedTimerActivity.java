@@ -29,7 +29,7 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
 
     @Override
     protected void setViewObject() {
-        viewObject = new AddEditDetailedTimerViewObject(model.getDetailedTimer());
+        viewObject = new AddEditDetailedTimerViewObject(false, model.getDetailedTimer());
     }
 
     @Override

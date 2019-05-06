@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import de.softinva.multitimer.classes.FragmentViewModel;
@@ -15,22 +16,22 @@ import de.softinva.multitimer.repository.TimerRepository;
 
 public class RunningTimerListViewModel extends FragmentViewModel {
 
-    private MutableLiveData<TreeMap<Long, RunningTimer>> timerList;
-    private MutableLiveData<TreeMap<Long, RunningTimer>> timerListForGroup;
+    private LiveData<TreeMap<Long, RunningTimer>> timerList;
+    private LiveData<TreeMap<Long, RunningTimer>> timerListForGroup;
 
     public RunningTimerListViewModel(@NonNull Application application) {
         super(application);
     }
 
 
-    public MutableLiveData<TreeMap<Long, RunningTimer>> getTimerList() {
+    public LiveData<TreeMap<Long, RunningTimer>> getTimerList() {
         if (timerList == null) {
             timerList = new TimerRepository(getApplication()).getRunningTimerByFinishTimeMap();
         }
         return timerList;
     }
 
-    public MutableLiveData<TreeMap<Long, RunningTimer>> getTimerListForGroup(String groupId) {
+    public LiveData<TreeMap<Long, RunningTimer>> getTimerListForGroup(String groupId) {
         if (timerListForGroup == null) {
             loadTimerListForGroup(groupId);
         }
@@ -38,10 +39,10 @@ public class RunningTimerListViewModel extends FragmentViewModel {
     }
 
     private void loadTimerListForGroup(String groupId) {
-        MutableLiveData<TreeMap<Long, RunningTimer>> map = new TimerRepository(getApplication()).getRunningTimerByFinishTimeMap();
-        timerListForGroup = (MutableLiveData<TreeMap<Long, RunningTimer>>) Transformations.map(map, runningTimerMap -> {
-            return getTimerListForGroup(groupId, runningTimerMap);
-        });
+        LiveData<TreeMap<Long, RunningTimer>> map = new TimerRepository(getApplication()).getRunningTimerByFinishTimeMap();
+        timerListForGroup = Transformations.map(map, runningTimerMap ->
+             getTimerListForGroup(groupId, runningTimerMap)
+        );
     }
     private TreeMap<Long, RunningTimer> getTimerListForGroup(String timerGroupId, TreeMap<Long, RunningTimer> timerMap) {
         TreeMap<Long, RunningTimer> detailedTimerListForGroup = new TreeMap<>();

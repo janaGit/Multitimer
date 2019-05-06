@@ -3,10 +3,8 @@ package de.softinva.multitimer.activities.timergroup.add;
 
 import android.app.Application;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 
-import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.classes.AppViewModel;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.utility.UtilityMethods;

@@ -2,6 +2,7 @@ package de.softinva.multitimer.activities.timergroup;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 
@@ -10,7 +11,7 @@ import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
 
 public abstract class AbstractTimerGroupViewModel extends AppViewModel {
-    protected MutableLiveData<TimerGroup> timerGroup$;
+    protected LiveData<TimerGroup> timerGroup$;
     private MutableLiveData<String> timerGroupId$;
 
     public AbstractTimerGroupViewModel(Application application, SavedStateHandle savedStateHandle) {
@@ -18,7 +19,7 @@ public abstract class AbstractTimerGroupViewModel extends AppViewModel {
     }
 
 
-    public MutableLiveData<TimerGroup> getTimerGroup(String groupId) {
+    public LiveData<TimerGroup> getTimerGroup(String groupId) {
         if (timerGroup$ == null) {
             timerGroup$ = new TimerRepository(getApplication()).getTimerGroup(groupId);
         }

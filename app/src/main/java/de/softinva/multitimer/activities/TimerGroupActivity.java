@@ -32,6 +32,15 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
         context.startActivity(intent);
     }
 
+    public static void startNewActivity(String groupId, Context context, boolean clearBackStack) {
+        Intent intent = new Intent(context, TimerGroupActivity.class);
+        intent.putExtra(TimerGroupActivity.GROUP_ID, groupId);
+        if(clearBackStack){
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
