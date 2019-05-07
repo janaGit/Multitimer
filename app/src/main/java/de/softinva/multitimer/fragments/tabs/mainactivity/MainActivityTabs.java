@@ -15,9 +15,10 @@ import android.view.ViewGroup;
 import androidx.viewpager.widget.ViewPager;
 import de.softinva.multitimer.activities.MainActivityViewModel;
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.classes.AppFragment;
 import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
 
-public class MainActivityTabs extends Fragment {
+public class MainActivityTabs extends AppFragment {
 
     private MainActivityTabsViewModel mViewModel;
     private MainActivityTabsAdapter appTabsAdapter;

@@ -6,13 +6,16 @@
     <data>
 
         <import type="de.softinva.multitimer.model.DetailedTimer" />
+
         <import type="de.softinva.multitimer.utility.UtilityMethods" />
+
         <variable
             name="viewObject"
             type="de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -79,6 +82,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+
+                <fragment
+                    android:id="@+id/editText"
+                    android:name="de.softinva.multitimer.fragments.editduration.EditDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editDuration">
+                </fragment>
+
                 <EditText
                     android:id="@+id/addeditDetailedTimer_description"
                     android:layout_width="match_parent"
@@ -94,7 +108,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editDuration" />
+                    app:layout_constraintTop_toBottomOf="@+id/editText" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,8 +126,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/button_abort"
             android:onClick="@{viewObject::onClickAbortButton}"
+            android:text="@string/button_abort"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/addeditDetailedTimer_buttonSave"
             app:layout_constraintHorizontal_bias="0.5"
@@ -128,8 +143,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/button_save"
             android:onClick="@{viewObject::onClickSaveButton}"
+            android:text="@string/button_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
