@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+import de.softinva.multitimer.BR;
 
 public class Timer extends BaseObservable implements Parcelable {
     protected String id;
@@ -44,28 +47,32 @@ public class Timer extends BaseObservable implements Parcelable {
         this.groupId = groupId;
     }
 
+    @Bindable
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+        notifyPropertyChanged(BR.title);
     }
-
+    @Bindable
     public Integer getDurationInSec() {
         return durationInSec;
     }
 
     public void setDurationInSec(Integer durationInSec) {
         this.durationInSec = durationInSec;
+        notifyPropertyChanged(BR.durationInSec);
     }
-
+    @Bindable
     public String getImageName() {
         return imageName;
     }
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+        notifyPropertyChanged(BR.imageName);
     }
 
     public static Creator<Timer> getCREATOR() {
