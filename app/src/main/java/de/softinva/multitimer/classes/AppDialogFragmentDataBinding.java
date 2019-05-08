@@ -1,5 +1,9 @@
 package de.softinva.multitimer.classes;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,43 +12,46 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import de.softinva.multitimer.BR;
+import de.softinva.multitimer.R;
 import de.softinva.multitimer.utility.AppLogger;
 
-public abstract class AppFragmentDataBinding<T> extends AppFragment {
+public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment {
     protected AppLogger logger = new AppLogger(this);
     protected T model;
     protected AppViewObject viewObject;
     protected ViewDataBinding binding;
 
-    public AppFragmentDataBinding() {
+    public AppDialogFragmentDataBinding() {
         super();
 
     }
 
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        super.onCreateDialog(savedInstanceState);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         if (binding != null) {
             ViewGroup view = (ViewGroup) binding.getRoot();
             if (view.getParent() != null) {
                 ((ViewGroup) binding.getRoot().getParent()).removeView(view);
             }
         }
-        if(model == null){
+        if (model == null) {
             model = setModel();
             setClassSpecificObjects();
             viewObject = setViewObject();
             setContextForViewObject();
             binding = setBinding();
             bindModel();
+
+            setKeyboard();
         }
-
-
-        return binding.getRoot();
+        builder.setView(binding.getRoot());
+        return builder.create();
     }
 
     protected abstract AppViewObject setViewObject();
@@ -68,6 +75,8 @@ public abstract class AppFragmentDataBinding<T> extends AppFragment {
     protected abstract T setModel();
 
     protected abstract ViewDataBinding setBinding();
+
+    protected abstract void setKeyboard();
 
     protected abstract void setClassSpecificObjects();
 }

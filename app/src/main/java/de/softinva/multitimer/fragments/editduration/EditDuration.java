@@ -1,14 +1,14 @@
 package de.softinva.multitimer.fragments.editduration;
 
-import android.content.res.Configuration;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
-import android.text.method.KeyListener;
-import android.text.method.SingleLineTransformationMethod;
-import android.view.KeyEvent;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +19,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
+
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.AppFragmentDataBinding;
 import de.softinva.multitimer.classes.AppViewObject;
@@ -27,9 +28,37 @@ import de.softinva.multitimer.databinding.EditDurationBinding;
 
 public class EditDuration extends AppFragmentDataBinding<EditDurationViewModel> {
 
+    OnEditDurationFieldListener onEditListener;
+
+    public void setOnHeadlineSelectedListener(OnEditDurationFieldListener onEditListener) {
+        this.onEditListener = onEditListener;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnEditDurationFieldListener) {
+            onEditListener = (OnEditDurationFieldListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnEditDurationFieldListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        onEditListener = null;
+    }
+
+    public interface OnEditDurationFieldListener {
+        void onUpdateDuration(int durationInSec);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         EditDurationBinding editDurationBinding = (EditDurationBinding) binding;
+
         editDurationBinding.hours1.layout.setHint("h");
         editDurationBinding.hours1.field.setHint("h");
         editDurationBinding.hours1.field.addTextChangedListener(new EditDurationTextListener() {
@@ -111,8 +140,8 @@ public class EditDuration extends AppFragmentDataBinding<EditDurationViewModel> 
     }
 
     @Override
-    protected ViewDataBinding setBinding(ViewGroup container) {
-        return DataBindingUtil.inflate(getLayoutInflater(), R.layout.edit_duration, container, false);
+    protected ViewDataBinding setBinding() {
+        return DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.edit_duration, null, false);
 
     }
 
@@ -147,4 +176,6 @@ public class EditDuration extends AppFragmentDataBinding<EditDurationViewModel> 
             }
         }
     }
+
+
 }

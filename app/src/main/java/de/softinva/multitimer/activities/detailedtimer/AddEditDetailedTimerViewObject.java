@@ -4,19 +4,23 @@ import android.app.Application;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import java.util.TreeMap;
 
 import de.softinva.multitimer.classes.AppViewObject;
+import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.repository.TimerRepository;
 
 public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer> {
     protected boolean isEditDetailedTimer;
+    protected EditDurationDialog editDurationDialog;
 
-    public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj) {
+    public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj, EditDurationDialog editDurationDialog) {
         super(obj);
         this.isEditDetailedTimer = isEditDetailedTimer;
+        this.editDurationDialog = editDurationDialog;
     }
 
     public void onClickSaveButton(View view) {
@@ -32,6 +36,10 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
             });
 
         }
+    }
+
+    public void onClickDurationView(View view) {
+        editDurationDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "editDuration");
     }
 
     public void onClickAbortButton(View view) {

@@ -6,41 +6,47 @@
 
     </data>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <include
-            android:id="@+id/hours_1"
-            layout="@layout/number_field" />
-        <include
-            android:id="@+id/hours_2"
-            layout="@layout/number_field" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=":" />
+            android:gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
-        <include
-            android:id="@+id/minutes_1"
-            layout="@layout/number_field" />
+            <include
+                android:id="@+id/hours_1"
+                layout="@layout/number_field" />
 
-        <include
-            android:id="@+id/minutes_2"
-            layout="@layout/number_field" />
+            <include
+                android:id="@+id/hours_2"
+                layout="@layout/number_field" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=":" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
 
-        <include
-            android:id="@+id/seconds_1"
-            layout="@layout/number_field" />
+            <include
+                android:id="@+id/minutes_1"
+                layout="@layout/number_field" />
 
-        <include
-            android:id="@+id/seconds_2"
-            layout="@layout/number_field" />
+            <include
+                android:id="@+id/minutes_2"
+                layout="@layout/number_field" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <include
+                android:id="@+id/seconds_1"
+                layout="@layout/number_field" />
+
+            <include
+                android:id="@+id/seconds_2"
+                layout="@layout/number_field" />
+        </LinearLayout>
+
 </layout>

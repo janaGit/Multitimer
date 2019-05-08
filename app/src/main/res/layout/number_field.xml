@@ -13,9 +13,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/field"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="number" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </layout>

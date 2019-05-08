@@ -10,11 +10,15 @@ import androidx.lifecycle.ViewModelProvider;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.classes.AppActivity;
+import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
+import de.softinva.multitimer.fragments.editduration.EditDuration;
+import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 
 public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewModel> {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
+    EditDurationDialog editDurationDialog;
 
     public static void startNewActivity(String groupId, Context context) {
         Intent intent = new Intent(context, AddDetailedTimerActivity.class);
@@ -29,7 +33,7 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
 
     @Override
     protected void setViewObject() {
-        viewObject = new AddEditDetailedTimerViewObject(false, model.getDetailedTimer());
+        viewObject = new AddEditDetailedTimerViewObject(false, model.getDetailedTimer(), editDurationDialog);
     }
 
     @Override
@@ -56,6 +60,7 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     @Override
     protected void setClassSpecificObjects() {
         createNewDetailedTimer();
+        editDurationDialog = new EditDurationDialog();
     }
 
     protected DetailedTimer createNewDetailedTimer() {
