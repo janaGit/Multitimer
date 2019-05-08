@@ -6,8 +6,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
-import java.util.TreeMap;
-
 import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
@@ -39,7 +37,10 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
     }
 
     public void onClickDurationView(View view) {
-        editDurationDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "editDuration");
+        if (!editDurationDialog.isAdded()) {
+            editDurationDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "editDuration");
+        }
+
     }
 
     public void onClickAbortButton(View view) {

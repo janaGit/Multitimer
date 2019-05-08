@@ -4,13 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.SavedStateHandle;
 
-import java.util.TreeMap;
-
-import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.classes.AppViewModel;
 import de.softinva.multitimer.model.DetailedTimer;
-import de.softinva.multitimer.model.TimerGroup;
-import de.softinva.multitimer.repository.TimerRepository;
 
 public class AddDetailedTimerViewModel extends AppViewModel {
     protected DetailedTimer detailedTimer;

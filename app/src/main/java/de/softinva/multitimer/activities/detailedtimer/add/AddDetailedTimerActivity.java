@@ -60,7 +60,7 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     @Override
     protected void setClassSpecificObjects() {
         createNewDetailedTimer();
-        editDurationDialog = new EditDurationDialog();
+        editDurationDialog = new EditDurationDialog(model.detailedTimer);
     }
 
     protected DetailedTimer createNewDetailedTimer() {

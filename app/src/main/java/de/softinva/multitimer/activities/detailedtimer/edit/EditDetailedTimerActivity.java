@@ -72,7 +72,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
                 setDetailedTimer(runningTimer);
             }
         });
-        editDurationDialog = new EditDurationDialog();
+        editDurationDialog = new EditDurationDialog(model.detailedTimer);
 
     }
 

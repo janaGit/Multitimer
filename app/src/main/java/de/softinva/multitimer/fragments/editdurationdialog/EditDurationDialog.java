@@ -17,9 +17,14 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.databinding.EditDurationDialogBinding;
+import de.softinva.multitimer.model.DetailedTimer;
 
 public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> {
+    DetailedTimer detailedTimer;
 
+    public EditDurationDialog(DetailedTimer detailedTimer) {
+        this.detailedTimer = detailedTimer;
+    }
 
     @Override
     protected void setKeyboard() {
@@ -30,8 +35,8 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
         keyboardView.setPreviewEnabled(false);
         keyboardView.setVisibility(View.VISIBLE);
         keyboardView.setEnabled(true);
-        // ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(binding.getRoot().getWindowToken(), 0);*/
     }
+
     @Override
     protected AppViewObject setViewObject() {
         return null;
