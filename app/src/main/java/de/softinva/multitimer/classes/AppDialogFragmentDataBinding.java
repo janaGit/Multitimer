@@ -33,23 +33,15 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        if (binding != null) {
-            ViewGroup view = (ViewGroup) binding.getRoot();
-            if (view.getParent() != null) {
-                ((ViewGroup) binding.getRoot().getParent()).removeView(view);
-            }
-        }
-        if (model == null) {
-            model = setModel();
-            setClassSpecificObjects();
-            viewObject = setViewObject();
-            setContextForViewObject();
-            binding = setBinding();
-            bindModel();
+        model = setModel();
+        setClassSpecificObjects();
+        viewObject = setViewObject();
+        setContextForViewObject();
+        binding = setBinding();
+        bindModel();
+        setKeyboard();
 
-            setKeyboard();
-        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(binding.getRoot());
         return builder.create();
     }

@@ -1,16 +1,10 @@
 package de.softinva.multitimer.activities.detailedtimer.edit;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.KeyboardView;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.SavedStateVMFactory;
@@ -21,16 +15,15 @@ import de.softinva.multitimer.activities.TimerGroupActivity;
 import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
-import de.softinva.multitimer.databinding.EditDurationBinding;
-import de.softinva.multitimer.fragments.editduration.EditDuration;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
 import de.softinva.multitimer.repository.TimerRepository;
 
-public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> implements EditDuration.OnEditDurationFieldListener {
+public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> {
     EditDurationDialog editDurationDialog;
+
     public static void startNewActivity(String groupId, String timerId, Context context) {
         Intent intent = new Intent(context, EditDetailedTimerActivity.class);
         intent.putExtra(EditDetailedTimerActivity.GROUP_ID, groupId);
@@ -70,9 +63,10 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
         runningTimer$.observe(this, runningTimer -> {
             if (model.getDetailedTimer().getId() == null) {
                 setDetailedTimer(runningTimer);
+
             }
         });
-        editDurationDialog = new EditDurationDialog(model.detailedTimer);
+        editDurationDialog = new EditDurationDialog();
 
     }
 
@@ -82,6 +76,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
             throw new Error("Timer should be of instance DetailedTimer but is not!");
         }
         ((DetailedTimer) timerFromRunning).toCopy(model.getDetailedTimer());
+        editDurationDialog.setDurationInSec(model.getDetailedTimer().getDurationInSec());
     }
 
     @Override
@@ -105,8 +100,5 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
         }
     }
 
-    @Override
-    public void onUpdateDuration(int durationInSec) {
 
-    }
 }

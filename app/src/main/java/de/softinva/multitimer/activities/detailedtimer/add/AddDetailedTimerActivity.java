@@ -10,9 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.classes.AppActivity;
-import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
-import de.softinva.multitimer.fragments.editduration.EditDuration;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 
@@ -60,14 +58,14 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     @Override
     protected void setClassSpecificObjects() {
         createNewDetailedTimer();
-        editDurationDialog = new EditDurationDialog(model.detailedTimer);
+        editDurationDialog = new EditDurationDialog();
+        editDurationDialog.setDurationInSec(model.detailedTimer.getDurationInSec());
     }
 
-    protected DetailedTimer createNewDetailedTimer() {
+    protected void createNewDetailedTimer() {
         DetailedTimer timer = model.createNewDetailedTimer(getIntent().getStringExtra(GROUP_ID));
         timer.setTitle(getString(R.string.new_detailed_timer));
         timer.setDescription(getString(R.string.description));
-        return timer;
     }
 
 }

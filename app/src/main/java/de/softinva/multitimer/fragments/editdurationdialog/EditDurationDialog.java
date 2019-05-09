@@ -1,10 +1,7 @@
 package de.softinva.multitimer.fragments.editdurationdialog;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -17,14 +14,12 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.databinding.EditDurationDialogBinding;
-import de.softinva.multitimer.model.DetailedTimer;
+import de.softinva.multitimer.viewcomponents.EditDuration;
 
 public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> {
-    DetailedTimer detailedTimer;
-
-    public EditDurationDialog(DetailedTimer detailedTimer) {
-        this.detailedTimer = detailedTimer;
-    }
+    protected int durationInSec;
+    EditDuration editDuration;
+    int indexOfFieldHasFocus = 0;
 
     @Override
     protected void setKeyboard() {
@@ -35,6 +30,16 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
         keyboardView.setPreviewEnabled(false);
         keyboardView.setVisibility(View.VISIBLE);
         keyboardView.setEnabled(true);
+    }
+
+    @Override
+    protected void setClassSpecificObjects() {
+
+    }
+
+    public void setDurationInSec(int durationInSec) {
+        this.durationInSec = durationInSec;
+        updateDurationFields(durationInSec);
     }
 
     @Override
@@ -50,13 +55,14 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
 
     @Override
     protected ViewDataBinding setBinding() {
-        return DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.edit_duration_dialog, null, false);
-
+        EditDurationDialogBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.edit_duration_dialog, null, false);
+        editDuration = binding.editDurationFields;
+        return binding;
     }
 
-    @Override
-    protected void setClassSpecificObjects() {
 
+    void updateDurationFields(int durationInSec) {
+   //     editDuration.updateDuration(durationInSec);
     }
 
     private KeyboardView.OnKeyboardActionListener mOnKeyboardActionListener = new KeyboardView.OnKeyboardActionListener() {
@@ -97,4 +103,5 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
         public void swipeUp() {
         }
     };
+
 }
