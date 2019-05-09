@@ -14,11 +14,11 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.databinding.EditDurationDialogBinding;
-import de.softinva.multitimer.viewcomponents.EditDuration;
+import de.softinva.multitimer.viewcomponents.EditDurationFields;
 
 public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> {
     protected int durationInSec;
-    EditDuration editDuration;
+    EditDurationFields editDuration;
     int indexOfFieldHasFocus = 0;
 
     @Override

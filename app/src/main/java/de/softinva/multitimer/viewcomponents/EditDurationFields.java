@@ -5,20 +5,17 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 
-public class EditDuration extends LinearLayout {
+public class EditDurationFields extends LinearLayout {
 
 
-    public EditDuration(Context context, @Nullable AttributeSet attrs) {
+    public EditDurationFields(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(HORIZONTAL);
-        setGravity(Gravity.BOTTOM);
         setFields(context);
     }
 

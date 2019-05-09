@@ -16,7 +16,7 @@
         android:paddingRight="32dp"
         android:paddingBottom="32dp">
 
-        <de.softinva.multitimer.viewcomponents.EditDuration
+        <de.softinva.multitimer.viewcomponents.EditDurationFields
             android:id="@+id/edit_duration_fields"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
