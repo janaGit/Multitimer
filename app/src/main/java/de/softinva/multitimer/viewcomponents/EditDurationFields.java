@@ -12,29 +12,29 @@ import androidx.annotation.Nullable;
 
 
 public class EditDurationFields extends LinearLayout {
-
+    AppNumberField field1;
+    AppNumberField field2;
+    AppNumberField field3;
+    AppNumberField field4;
+    AppNumberField field5;
+    AppNumberField field6;
 
     public EditDurationFields(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setFields(context);
     }
 
-    public void updateDuration(int durationInSec) {
-
-    }
-
     protected void setFields(Context context) {
-        AppNumberField field1 = new AppNumberField(context);
-        AppNumberField field2 = new AppNumberField(context);
+        field1 = new AppNumberField(context);
+        field2 = new AppNumberField(context);
         TextView textView1 = new TextView(context);
-        AppNumberField field3 = new AppNumberField(context);
-        AppNumberField field4 = new AppNumberField(context);
+        field3 = new AppNumberField(context);
+        field4 = new AppNumberField(context);
         TextView textView2 = new TextView(context);
-        AppNumberField field5 = new AppNumberField(context);
-        AppNumberField field6 = new AppNumberField(context);
+        field5 = new AppNumberField(context);
+        field6 = new AppNumberField(context);
 
-        field1.getLayout().setHint("h");
-        field1.getTextField().setHint("h");
+        field1.setTextHint("h");
         field1.getTextField().addTextChangedListener(new EditDurationTextListener() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -48,8 +48,7 @@ public class EditDurationFields extends LinearLayout {
         addView(field1);
 
 
-        field2.getLayout().setHint("h");
-        field2.getTextField().setHint("h");
+        field2.setTextHint("h");
         field2.getTextField().addTextChangedListener(new EditDurationTextListener() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -64,8 +63,7 @@ public class EditDurationFields extends LinearLayout {
         textView1.setText(":");
         addView(textView1);
 
-        field3.getLayout().setHint("m");
-        field3.getTextField().setHint("m");
+        field3.setTextHint("m");
         field3.getTextField().addTextChangedListener(new EditDurationTextListener() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -77,8 +75,7 @@ public class EditDurationFields extends LinearLayout {
         });
         addView(field3);
 
-        field4.getLayout().setHint("m");
-        field4.getTextField().setHint("m");
+        field4.setTextHint("m");
         field4.getTextField().addTextChangedListener(new EditDurationTextListener() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -93,8 +90,7 @@ public class EditDurationFields extends LinearLayout {
         textView2.setText(":");
         addView(textView2);
 
-        field5.getLayout().setHint("s");
-        field5.getTextField().setHint("s");
+        field5.setTextHint("s");
         field5.getTextField().addTextChangedListener(new EditDurationTextListener() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -107,8 +103,7 @@ public class EditDurationFields extends LinearLayout {
         });
         addView(field5);
 
-        field6.getLayout().setHint("s");
-        field6.getTextField().setHint("s");
+        field6.setTextHint("s");
         field6.getTextField().addTextChangedListener(new EditDurationTextListener());
         addView(field6);
     }

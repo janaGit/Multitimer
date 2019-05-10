@@ -21,7 +21,10 @@ public class AppNumberField extends TextInputLayout {
         return textField;
     }
 
-    public TextInputLayout getLayout() {
-        return this;
+    public void setTextHint(String hint) {
+        setHint(hint);
+        getTextField().setHint(hint);
     }
+
+
 }
