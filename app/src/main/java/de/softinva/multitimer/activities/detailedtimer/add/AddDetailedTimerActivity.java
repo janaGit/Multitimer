@@ -16,10 +16,11 @@ import de.softinva.multitimer.classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
+import de.softinva.multitimer.utility.EditDuration;
 
 import static android.text.InputType.TYPE_NULL;
 
-public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener {
+public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewModel> implements EditDuration.UpdateDurationInSecListener {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
     EditDurationDialog editDurationDialog;
 

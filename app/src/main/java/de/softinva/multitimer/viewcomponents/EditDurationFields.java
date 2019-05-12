@@ -19,7 +19,7 @@ public class EditDurationFields extends LinearLayout {
     EditDurationFieldsFocusChangeListener callback;
 
 
-    public EditDurationFields(LifecycleOwner parent, Context context, @Nullable AttributeSet attrs) {
+    public EditDurationFields(Object parent, Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setFields(context);
         setCallBackListener(parent);
@@ -31,7 +31,7 @@ public class EditDurationFields extends LinearLayout {
         callback = null;
     }
 
-    protected void setCallBackListener(LifecycleOwner parent) {
+    protected void setCallBackListener(Object parent) {
         if (parent instanceof EditDurationFieldsFocusChangeListener) {
             callback = (EditDurationFieldsFocusChangeListener) parent;
         } else {

@@ -15,20 +15,8 @@
         android:paddingTop="16dp"
         android:paddingRight="32dp"
         android:paddingBottom="32dp">
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/fragment_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
 
-        <android.inputmethodservice.KeyboardView
-            android:id="@+id/keyboard_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:keyTextColor="@color/cardview_light_background"
-            android:paddingTop="16dp" />
-
+        <include layout="@layout/edit_duration" />
     </LinearLayout>
 </layout>
 

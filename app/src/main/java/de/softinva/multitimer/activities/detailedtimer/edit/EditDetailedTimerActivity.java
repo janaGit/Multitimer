@@ -23,10 +23,11 @@ import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
 import de.softinva.multitimer.repository.TimerRepository;
+import de.softinva.multitimer.utility.EditDuration;
 
 import static android.text.InputType.TYPE_NULL;
 
-public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener {
+public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> implements EditDuration.UpdateDurationInSecListener {
     EditDurationDialog editDurationDialog;
 
     public static void startNewActivity(String groupId, String timerId, Context context) {
@@ -48,7 +49,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
         durationField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
+                if (hasFocus) {
                     ((AddEditDetailedTimerViewObject) viewObject).onClickDurationView(v);
                 }
 

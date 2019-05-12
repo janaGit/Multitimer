@@ -27,7 +27,6 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment {
 
     public AppDialogFragmentDataBinding() {
         super();
-
     }
 
     @Override
@@ -39,7 +38,6 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment {
         setContextForViewObject();
         binding = setBinding();
         bindModel();
-        setKeyboard();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(binding.getRoot());
@@ -64,11 +62,13 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment {
 
     }
 
+    public ViewDataBinding getBinding() {
+        return binding;
+    }
     protected abstract T setModel();
 
     protected abstract ViewDataBinding setBinding();
 
-    protected abstract void setKeyboard();
 
     protected abstract void setClassSpecificObjects();
 }
