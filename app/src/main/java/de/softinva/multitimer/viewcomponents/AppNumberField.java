@@ -5,6 +5,8 @@ import android.content.Context;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import static android.text.InputType.TYPE_NULL;
+
 
 public class AppNumberField extends TextInputLayout {
     TextInputEditText textField;
@@ -12,7 +14,7 @@ public class AppNumberField extends TextInputLayout {
     public AppNumberField(Context context) {
         super(context);
         textField = new TextInputEditText(context);
-        textField.setEnabled(false);
+        textField.setInputType(TYPE_NULL);
         addView(textField);
 
     }

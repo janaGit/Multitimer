@@ -85,18 +85,18 @@ public class UtilityMethods {
             return "";
         }
         AppLogger logger = new AppLogger(new UtilityMethods());
-        String countDownAsString;
+        String countDownAsString = "";
         int hours = countDownInSec.intValue() / 3600;
         int minutes = (countDownInSec.intValue() - (hours * 3600)) / 60;
         int seconds = (countDownInSec.intValue() - (hours * 3600) - (minutes * 60));
         if (hours != 0) {
-            countDownAsString = hours + "h " + minutes + " min " + seconds + " sec";
-        } else {
-            if (minutes != 0) {
-                countDownAsString = minutes + " min " + seconds + " sec";
-            } else {
-                countDownAsString = seconds + " sec";
-            }
+            countDownAsString += hours + " h ";
+        }
+        if (minutes != 0) {
+            countDownAsString += minutes + " min ";
+        }
+        if (seconds != 0) {
+            countDownAsString += seconds + " sec";
         }
 
         logger.info("countDownInSec: " + countDownInSec + " countDownAsString: " + countDownAsString);

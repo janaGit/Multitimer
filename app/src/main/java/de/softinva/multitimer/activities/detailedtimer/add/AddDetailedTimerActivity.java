@@ -2,6 +2,9 @@ package de.softinva.multitimer.activities.detailedtimer.add;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.SavedStateVMFactory;
@@ -14,7 +17,9 @@ import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 
-public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewModel> {
+import static android.text.InputType.TYPE_NULL;
+
+public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
     EditDurationDialog editDurationDialog;
 
@@ -23,7 +28,25 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
         intent.putExtra(AddDetailedTimerActivity.GROUP_ID, groupId);
         context.startActivity(intent);
     }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setupEditDurationField();
+    }
 
+    protected void setupEditDurationField() {
+        EditText durationField = ((ActivityAddeditDetailedTimerBinding) binding).editDuration;
+        durationField.setInputType(TYPE_NULL);
+        durationField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    ((AddEditDetailedTimerViewObject) viewObject).onClickDurationView(v);
+                }
+
+            }
+        });
+    }
     @Override
     protected void setActionBar() {
         setSupportActionBar(((ActivityAddeditDetailedTimerBinding) binding).appBar);
@@ -68,4 +91,9 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
         timer.setDescription(getString(R.string.description));
     }
 
+    @Override
+    public void updateDurationInSec(int durationInSec) {
+        model.detailedTimer.setDurationInSec(durationInSec);
+        editDurationDialog.setDurationInSec(durationInSec);
+    }
 }

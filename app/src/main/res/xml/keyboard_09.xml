@@ -8,67 +8,67 @@
 
     <Row>
         <Key
-            android:codes="49"
+            android:codes="1"
             android:keyEdgeFlags="left"
             android:keyLabel="1" />
         <Key
-            android:codes="50"
+            android:codes="2"
             android:keyLabel="2" />
         <Key
-            android:codes="51"
+            android:codes="3"
             android:keyEdgeFlags="right"
             android:keyLabel="3" />
     </Row>
 
     <Row>
         <Key
-            android:codes="52"
+            android:codes="4"
             android:keyEdgeFlags="right"
             android:keyLabel="4" />
         <Key
-            android:codes="53"
+            android:codes="5"
             android:keyLabel="5" />
         <Key
-            android:codes="54"
+            android:codes="6"
             android:keyEdgeFlags="right"
             android:keyLabel="6" />
     </Row>
 
     <Row>
         <Key
-            android:codes="55"
+            android:codes="7"
             android:keyEdgeFlags="left"
             android:keyLabel="7" />
         <Key
-            android:codes="56"
+            android:codes="8"
             android:keyLabel="8" />
         <Key
-            android:codes="57"
+            android:codes="9"
             android:keyEdgeFlags="right"
             android:keyLabel="9" />
     </Row>
     <Row>
         <Key
-            android:codes="58"
+            android:codes="-1"
             android:keyEdgeFlags="left"
             android:keyIcon="@drawable/ic_chevron_left_black_24dp" />
         <Key
-            android:codes="59"
+            android:codes="0"
             android:keyLabel="0" />
         <Key
-            android:codes="60"
+            android:codes="-2"
             android:keyEdgeFlags="right"
             android:keyIcon="@drawable/ic_chevron_right_black_24dp" />
     </Row>
     <Row>
         <Key
-            android:codes="-5"
+            android:codes="-3"
             android:isRepeatable="true"
             android:keyWidth="32.5%p"
             android:keyEdgeFlags="left"
             android:keyLabel="@string/button_abort" />
         <Key
-            android:codes="10"
+            android:codes="-4"
             android:keyWidth="66.5%p"
             android:keyEdgeFlags="right"
             android:keyLabel="@string/button_save" />

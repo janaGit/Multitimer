@@ -5,107 +5,116 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
 
 
 public class EditDurationFields extends LinearLayout {
-    AppNumberField field1;
-    AppNumberField field2;
-    AppNumberField field3;
-    AppNumberField field4;
-    AppNumberField field5;
-    AppNumberField field6;
+    AppNumberField[] appNumberFields = new AppNumberField[6];
+    EditDurationFieldsFocusChangeListener callback;
 
-    public EditDurationFields(Context context, @Nullable AttributeSet attrs) {
+
+    public EditDurationFields(LifecycleOwner parent, Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setFields(context);
+        setCallBackListener(parent);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        callback = null;
+    }
+
+    protected void setCallBackListener(LifecycleOwner parent) {
+        if (parent instanceof EditDurationFieldsFocusChangeListener) {
+            callback = (EditDurationFieldsFocusChangeListener) parent;
+        } else {
+            throw new RuntimeException(parent.toString()
+                    + " must implement EditDurationFieldsFocusChangeListener");
+        }
+    }
+
+    public void setNumber(int indexField, int number) {
+        appNumberFields[indexField].getTextField().setText(number + "");
+    }
+
+    public int getNumber(int indexField) {
+        return Integer.parseInt(appNumberFields[indexField].getTextField().getText().toString());
+    }
+
+    public void setFocus(int indexField) {
+        appNumberFields[indexField].requestFocus();
     }
 
     protected void setFields(Context context) {
-        field1 = new AppNumberField(context);
-        field2 = new AppNumberField(context);
+        appNumberFields[0] = new AppNumberField(context);
+        appNumberFields[1] = new AppNumberField(context);
         TextView textView1 = new TextView(context);
-        field3 = new AppNumberField(context);
-        field4 = new AppNumberField(context);
+        appNumberFields[2] = new AppNumberField(context);
+        appNumberFields[3] = new AppNumberField(context);
         TextView textView2 = new TextView(context);
-        field5 = new AppNumberField(context);
-        field6 = new AppNumberField(context);
+        appNumberFields[4] = new AppNumberField(context);
+        appNumberFields[5] = new AppNumberField(context);
 
-        field1.setTextHint("h");
-        field1.getTextField().addTextChangedListener(new EditDurationTextListener() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                if (!s.toString().equals("")) {
-                    field2.requestFocus();
-                }
-
-            }
-        });
-        addView(field1);
+        appNumberFields[0].setTextHint("h");
+        appNumberFields[0].getTextField().addTextChangedListener(new EditDurationTextListener());
+        appNumberFields[0].getTextField().setOnFocusChangeListener(new EditDurationFocusChangeListener(0));
+        addView(appNumberFields[0]);
 
 
-        field2.setTextHint("h");
-        field2.getTextField().addTextChangedListener(new EditDurationTextListener() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                if (!s.toString().equals("")) {
-                    field3.requestFocus();
-                }
-            }
-        });
-        addView(field2);
+        appNumberFields[1].setTextHint("h");
+        appNumberFields[1].getTextField().addTextChangedListener(new EditDurationTextListener());
+        appNumberFields[1].getTextField().setOnFocusChangeListener(new EditDurationFocusChangeListener(1));
+        addView(appNumberFields[1]);
 
         textView1.setText(":");
         addView(textView1);
 
-        field3.setTextHint("m");
-        field3.getTextField().addTextChangedListener(new EditDurationTextListener() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                if (!s.toString().equals("")) {
-                    field4.requestFocus();
-                }
-            }
-        });
-        addView(field3);
+        appNumberFields[2].setTextHint("m");
+        appNumberFields[2].getTextField().addTextChangedListener(new EditDurationTextListener());
+        appNumberFields[2].getTextField().setOnFocusChangeListener(new EditDurationFocusChangeListener(2));
+        addView(appNumberFields[2]);
 
-        field4.setTextHint("m");
-        field4.getTextField().addTextChangedListener(new EditDurationTextListener() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                if (!s.toString().equals("")) {
-                    field5.requestFocus();
-                }
-            }
-        });
-        addView(field4);
+        appNumberFields[3].setTextHint("m");
+        appNumberFields[3].getTextField().addTextChangedListener(new EditDurationTextListener());
+        appNumberFields[3].getTextField().setOnFocusChangeListener(new EditDurationFocusChangeListener(3));
+        addView(appNumberFields[3]);
 
         textView2.setText(":");
         addView(textView2);
 
-        field5.setTextHint("s");
-        field5.getTextField().addTextChangedListener(new EditDurationTextListener() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                super.afterTextChanged(s);
-                if (!s.toString().equals("")) {
-                    field6.requestFocus();
-                }
+        appNumberFields[4].setTextHint("s");
+        appNumberFields[4].getTextField().addTextChangedListener(new EditDurationTextListener());
+        appNumberFields[4].getTextField().setOnFocusChangeListener(new EditDurationFocusChangeListener(4));
+        addView(appNumberFields[4]);
 
-            }
-        });
-        addView(field5);
+        appNumberFields[5].setTextHint("s");
+        appNumberFields[5].getTextField().addTextChangedListener(new EditDurationTextListener());
+        appNumberFields[5].getTextField().setOnFocusChangeListener(new EditDurationFocusChangeListener(5));
+        addView(appNumberFields[5]);
+    }
 
-        field6.setTextHint("s");
-        field6.getTextField().addTextChangedListener(new EditDurationTextListener());
-        addView(field6);
+    public interface EditDurationFieldsFocusChangeListener {
+        void onHasFocus(int indexField);
+    }
+
+    class EditDurationFocusChangeListener implements OnFocusChangeListener {
+        int indexField;
+
+        EditDurationFocusChangeListener(int indexField) {
+            this.indexField = indexField;
+        }
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            callback.onHasFocus(indexField);
+        }
     }
 
     class EditDurationTextListener implements TextWatcher {
