@@ -23,7 +23,7 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        editDuration = new EditDuration(this);
+        editDuration = new EditDuration(this, true);
         durationInSec.observe(this, durationInSec -> this.editDuration.durationInSec.setValue(durationInSec));
         return dialog;
     }

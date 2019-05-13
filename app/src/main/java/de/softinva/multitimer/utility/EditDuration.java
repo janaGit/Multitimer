@@ -22,9 +22,11 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
     private IAppModelBinding appModelBinding;
     private UpdateDurationInSecListener callbackDurationInSec;
     private EditDurationActionsListener callbackActions;
+    private boolean isWithActionButtons;
 
-    public EditDuration(IAppModelBinding appModelBinding) {
+    public EditDuration(IAppModelBinding appModelBinding, boolean isWithActionButtons) {
         this.appModelBinding = appModelBinding;
+        this.isWithActionButtons = isWithActionButtons;
         editDurationFields = new EditDurationFields(this, appModelBinding.getContext(), null);
 
         FrameLayout view = appModelBinding.getBinding().getRoot().findViewById(R.id.edit_duration_fields_container);
@@ -53,16 +55,23 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
                     + " must implement UpdateDurationInSecListener");
         }
 
-        if (this.appModelBinding instanceof EditDurationActionsListener) {
-            callbackActions = (EditDurationActionsListener) this.appModelBinding;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement EditDurationActionsListener");
+        if (isWithActionButtons) {
+            if (this.appModelBinding instanceof EditDurationActionsListener) {
+                callbackActions = (EditDurationActionsListener) this.appModelBinding;
+            } else {
+                throw new RuntimeException(context.toString()
+                        + " must implement EditDurationActionsListener");
+            }
         }
+
     }
 
     private void setKeyboard() {
-        keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard_09);
+        if (isWithActionButtons) {
+            keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard_action_buttons);
+        } else {
+            keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard);
+        }
         keyboardView = appModelBinding.getBinding().getRoot().findViewById(R.id.keyboard_view);
         keyboardView.setKeyboard(keyboard);
         keyboardView.setOnKeyboardActionListener(mOnKeyboardActionListener);
@@ -88,7 +97,7 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         this.durationInSec.setValue(durationInSec);
     }
 
-    private void saveDuration() {
+    public void saveDuration() {
         int durationInSec;
         int hours10 = editDurationFields.getNumber(0);
         durationInSec = hours10 * 36000;
