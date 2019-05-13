@@ -9,24 +9,25 @@ import android.widget.FrameLayout;
 import androidx.lifecycle.MutableLiveData;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
+import de.softinva.multitimer.classes.IAppModelBinding;
 import de.softinva.multitimer.viewcomponents.EditDurationFields;
 
 public class EditDuration implements EditDurationFields.EditDurationFieldsFocusChangeListener {
-    boolean areKeysDisabled = false;
-    Keyboard keyboard;
-    KeyboardView keyboardView;
-    EditDurationFields editDurationFields;
-    int indexOfFieldHasFocus = 0;
+    private boolean areKeysDisabled = false;
+    private Keyboard keyboard;
+    private KeyboardView keyboardView;
+    private EditDurationFields editDurationFields;
+    private int indexOfFieldHasFocus = 0;
     public MutableLiveData<Integer> durationInSec = new MutableLiveData<>();
-    AppDialogFragmentDataBinding parent;
-    UpdateDurationInSecListener callback;
+    private IAppModelBinding appModelBinding;
+    private UpdateDurationInSecListener callbackDurationInSec;
+    private EditDurationActionsListener callbackActions;
 
-    public EditDuration(AppDialogFragmentDataBinding parent) {
-        this.parent = parent;
-        editDurationFields = new EditDurationFields(this, parent.getContext(), null);
+    public EditDuration(IAppModelBinding appModelBinding) {
+        this.appModelBinding = appModelBinding;
+        editDurationFields = new EditDurationFields(this, appModelBinding.getContext(), null);
 
-        FrameLayout view = parent.getBinding().getRoot().findViewById(R.id.edit_duration_fields_container);
+        FrameLayout view = appModelBinding.getBinding().getRoot().findViewById(R.id.edit_duration_fields_container);
         if (view != null) {
             view.addView(editDurationFields);
         } else {
@@ -34,28 +35,35 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         }
         setKeyboard();
         setCallBackListener();
-        setFocus(0);
-        durationInSec.observe(parent, durationInSec -> updateDurationFields(durationInSec));
+        setFocusToStart();
+        durationInSec.observe(appModelBinding.getLifecycleOwner(), this::updateDurationFields);
 
     }
 
     public void setCallbackToNull() {
-        callback = null;
+        callbackDurationInSec = null;
     }
 
-    protected void setCallBackListener() {
-        Context context = parent.getContext();
+    private void setCallBackListener() {
+        Context context = this.appModelBinding.getContext();
         if (context instanceof UpdateDurationInSecListener) {
-            callback = (UpdateDurationInSecListener) context;
+            callbackDurationInSec = (UpdateDurationInSecListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement UpdateDurationInSecListener");
         }
+
+        if (this.appModelBinding instanceof EditDurationActionsListener) {
+            callbackActions = (EditDurationActionsListener) this.appModelBinding;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement EditDurationActionsListener");
+        }
     }
 
-    protected void setKeyboard() {
-        keyboard = new Keyboard(parent.getContext(), R.xml.keyboard_09);
-        keyboardView = parent.getBinding().getRoot().findViewById(R.id.keyboard_view);
+    private void setKeyboard() {
+        keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard_09);
+        keyboardView = appModelBinding.getBinding().getRoot().findViewById(R.id.keyboard_view);
         keyboardView.setKeyboard(keyboard);
         keyboardView.setOnKeyboardActionListener(mOnKeyboardActionListener);
         keyboardView.setPreviewEnabled(false);
@@ -63,7 +71,7 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         keyboardView.setEnabled(true);
     }
 
-    protected void disableKeys() {
+    private void disableKeys() {
         keyboard.getKeys().get(5).label = "";
         keyboard.getKeys().get(6).label = "";
         keyboard.getKeys().get(7).label = "";
@@ -72,18 +80,15 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         areKeysDisabled = true;
     }
 
-    protected boolean deactivatableKey(int primaryCode) {
-        if (primaryCode >= 6 && primaryCode <= 9) {
-            return true;
-        }
-        return false;
+    private boolean deactivatableKey(int primaryCode) {
+        return primaryCode >= 6 && primaryCode <= 9;
     }
 
     public void setDurationInSec(int durationInSec) {
         this.durationInSec.setValue(durationInSec);
     }
 
-    protected void saveDuration() {
+    private void saveDuration() {
         int durationInSec;
         int hours10 = editDurationFields.getNumber(0);
         durationInSec = hours10 * 36000;
@@ -98,14 +103,20 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         int seconds = editDurationFields.getNumber(5);
         durationInSec += seconds;
 
-        callback.updateDurationInSec(durationInSec);
+        callbackDurationInSec.updateDurationInSec(durationInSec);
     }
 
     public interface UpdateDurationInSecListener {
         void updateDurationInSec(int durationInSec);
     }
 
-    protected void enableKeys() {
+    public interface EditDurationActionsListener {
+        void onCancel();
+
+        void onSave();
+    }
+
+    private void enableKeys() {
         keyboard.getKeys().get(5).label = "6";
         keyboard.getKeys().get(6).label = "7";
         keyboard.getKeys().get(7).label = "8";
@@ -114,18 +125,15 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         areKeysDisabled = false;
     }
 
-    protected void moveFocusRight() {
+    private void moveFocusRight() {
         if (indexOfFieldHasFocus < 5) {
             editDurationFields.setFocus(indexOfFieldHasFocus + 1);
         }
 
     }
 
-    protected boolean isFocusOndeactivateableField() {
-        if (indexOfFieldHasFocus == 2 || indexOfFieldHasFocus == 4) {
-            return true;
-        }
-        return false;
+    private boolean isFocusOndeactivateableField() {
+        return indexOfFieldHasFocus == 2 || indexOfFieldHasFocus == 4;
     }
 
     @Override
@@ -138,13 +146,13 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         }
     }
 
-    protected void moveFocusLeft() {
+    private void moveFocusLeft() {
         if (indexOfFieldHasFocus > 0) {
             editDurationFields.setFocus(indexOfFieldHasFocus - 1);
         }
     }
 
-    void updateDurationFields(int durationInSec) {
+    private void updateDurationFields(int durationInSec) {
         int hours = durationInSec / 3600;
         int minutes = (durationInSec - (hours * 3600)) / 60;
         int seconds = (durationInSec - (hours * 3600) - (minutes * 60));
@@ -159,8 +167,8 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         editDurationFields.setNumber(5, seconds % 10);
     }
 
-    protected void setFocus(int indexFocus) {
-        editDurationFields.setFocus(indexFocus);
+    private void setFocusToStart() {
+        editDurationFields.setFocus(0);
     }
 
     private KeyboardView.OnKeyboardActionListener mOnKeyboardActionListener = new KeyboardView.OnKeyboardActionListener() {
@@ -182,12 +190,11 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
                     moveFocusRight();
                     return;
                 case -3:
-                    parent.dismiss();
+                    callbackActions.onCancel();
                     return;
                 case -4:
                     saveDuration();
-                    parent.dismiss();
-                    return;
+                    callbackActions.onSave();
             }
         }
 

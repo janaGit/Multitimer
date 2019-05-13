@@ -6,12 +6,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleOwner;
 
 
 public class EditDurationFields extends LinearLayout {

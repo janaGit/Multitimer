@@ -1,5 +1,6 @@
 package de.softinva.multitimer.classes;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.LifecycleOwner;
 
 import de.softinva.multitimer.BR;
 import de.softinva.multitimer.utility.AppLogger;
 
-public abstract class AppFragmentDataBinding<T> extends AppFragment {
+public abstract class AppFragmentDataBinding<T> extends AppFragment implements IAppModelBinding<T> {
     protected AppLogger logger = new AppLogger(this);
     protected T model;
     protected AppViewObject viewObject;
@@ -23,6 +25,16 @@ public abstract class AppFragmentDataBinding<T> extends AppFragment {
 
     }
 
+    @Override
+    public T getModel() {
+        return model;
+    }
+
+
+    @Override
+    public ViewDataBinding getBinding() {
+        return binding;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -34,7 +46,7 @@ public abstract class AppFragmentDataBinding<T> extends AppFragment {
                 ((ViewGroup) binding.getRoot().getParent()).removeView(view);
             }
         }
-        if(model == null){
+        if (model == null) {
             model = setModel();
             setClassSpecificObjects();
             viewObject = setViewObject();

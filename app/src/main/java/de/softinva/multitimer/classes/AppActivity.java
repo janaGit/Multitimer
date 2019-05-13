@@ -1,15 +1,17 @@
 package de.softinva.multitimer.classes;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.LifecycleOwner;
 
 import de.softinva.multitimer.BR;
 
 
-public abstract class AppActivity<T> extends AppCompatActivity {
+public abstract class AppActivity<T> extends AppCompatActivity implements IAppModelBinding<T> {
     protected T model;
     protected AppViewObject viewObject;
     protected ViewDataBinding binding;
@@ -33,6 +35,26 @@ public abstract class AppActivity<T> extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public T getModel() {
+        return model;
+    }
+
+    @Override
+    public Context getContext() {
+        return getContext();
+    }
+
+    @Override
+    public ViewDataBinding getBinding() {
+        return binding;
+    }
+
+    @Override
+    public LifecycleOwner getLifecycleOwner() {
+        return this;
     }
 
     protected abstract void setViewObject();

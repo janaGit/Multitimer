@@ -14,12 +14,13 @@ import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 
 import de.softinva.multitimer.BR;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.utility.AppLogger;
 
-public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment {
+public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment implements IAppModelBinding<T>{
     protected AppLogger logger = new AppLogger(this);
     protected T model;
     protected AppViewObject viewObject;
@@ -28,7 +29,16 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment {
     public AppDialogFragmentDataBinding() {
         super();
     }
+    @Override
+    public T getModel() {
+        return model;
+    }
 
+
+    @Override
+    public ViewDataBinding getBinding() {
+        return binding;
+    }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
@@ -61,9 +71,9 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment {
         }
 
     }
-
-    public ViewDataBinding getBinding() {
-        return binding;
+    @Override
+    public LifecycleOwner getLifecycleOwner() {
+        return this;
     }
     protected abstract T setModel();
 

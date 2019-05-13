@@ -1,7 +1,6 @@
 package de.softinva.multitimer.fragments.editdurationdialog;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -17,7 +16,7 @@ import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.databinding.EditDurationDialogBinding;
 import de.softinva.multitimer.utility.EditDuration;
 
-public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> {
+public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> implements EditDuration.EditDurationActionsListener {
     EditDuration editDuration;
     public MutableLiveData<Integer> durationInSec = new MutableLiveData<>();
 
@@ -64,4 +63,13 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
     }
 
 
+    @Override
+    public void onCancel() {
+        dismiss();
+    }
+
+    @Override
+    public void onSave() {
+        dismiss();
+    }
 }
