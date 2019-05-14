@@ -16,7 +16,6 @@ public class EditDurationFields extends LinearLayout {
     AppNumberField[] appNumberFields = new AppNumberField[6];
     EditDurationFieldsFocusChangeListener callback;
 
-
     public EditDurationFields(Object parent, Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setFields(context);
@@ -59,6 +58,7 @@ public class EditDurationFields extends LinearLayout {
         TextView textView2 = new TextView(context);
         appNumberFields[4] = new AppNumberField(context);
         appNumberFields[5] = new AppNumberField(context);
+
 
         appNumberFields[0].setTextHint("h");
         appNumberFields[0].getTextField().addTextChangedListener(new EditDurationTextListener());

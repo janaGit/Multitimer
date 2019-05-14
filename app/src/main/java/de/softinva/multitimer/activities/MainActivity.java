@@ -15,9 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.timergroup.add.AddTimerGroupActivity;
-import de.softinva.multitimer.activities.timergroup.edit.EditTimerGroupActivity;
 import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.databinding.ActivityMainBinding;
+import de.softinva.multitimer.fragments.addTempTimerDialog.AddTempTimerDialog;
+import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.temp.TempTimerList;
 import de.softinva.multitimer.fragments.list.timergroup.TimerGroupList;
@@ -25,25 +26,30 @@ import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
 
 
 public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
+    private AddTempTimerDialog addtempTimerDialog;
 
     public static void startNewActivity(Context context, boolean clearBackStack) {
         Intent intent = new Intent(context, MainActivity.class);
-        if(clearBackStack){
+        if (clearBackStack) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         context.startActivity(intent);
     }
 
+    public void showAddTempTimerDialog() {
+        addtempTimerDialog.show(getSupportFragmentManager(), "addTempTimer");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        addtempTimerDialog = new AddTempTimerDialog();
         manageFloatingAddButton();
     }
 
     @Override
     protected void setViewObject() {
-        viewObject = new MainActivityViewObject(null);
+        viewObject = new MainActivityViewObject(this);
     }
 
     @Override
@@ -60,10 +66,12 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
             model.getActiveTab().setValue(MAIN_ACTIVITY_TABS.List);
         }
     }
+
     @Override
     protected void setHomeUpButton() {
 
     }
+
     protected void manageFloatingAddButton() {
         model.getActiveTab().observe(this, activeTab -> {
             if (activeTab == MAIN_ACTIVITY_TABS.Temp) {
@@ -116,6 +124,7 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     protected void setTitle() {
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

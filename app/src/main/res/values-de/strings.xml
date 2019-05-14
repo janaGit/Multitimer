@@ -13,4 +13,7 @@
     <string name="description">Beschreibung</string>
     <string name="button_save">SPEICHERN</string>
     <string name="button_abort">ABRECHEN</string>
+    <string name="timer_title">Title</string>
+    <string name="button_OK">OK</string>
+    <string name="start_timer">Start</string>
 </resources>
