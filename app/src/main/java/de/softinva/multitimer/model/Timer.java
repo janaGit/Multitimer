@@ -15,9 +15,10 @@ public class Timer extends BaseObservable implements Parcelable {
     protected Integer durationInSec;
     protected String imageName;
 
-    public Timer(){
+    public Timer() {
 
     }
+
     public Timer(String id, String title, Integer durationInSec, String imageName) {
         this.id = id;
         this.groupId = "";
@@ -26,19 +27,22 @@ public class Timer extends BaseObservable implements Parcelable {
         this.imageName = imageName;
     }
 
-    public Timer(String id,String groupId, String title, Integer durationInSec, String imageName) {
+    public Timer(String id, String groupId, String title, Integer durationInSec, String imageName) {
         this.id = id;
         this.groupId = groupId;
         this.durationInSec = durationInSec;
         this.title = title;
         this.imageName = imageName;
     }
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getGroupId() {
         return groupId;
     }
@@ -56,6 +60,7 @@ public class Timer extends BaseObservable implements Parcelable {
         this.title = title;
         notifyPropertyChanged(BR.title);
     }
+
     @Bindable
     public Integer getDurationInSec() {
         return durationInSec;
@@ -65,6 +70,7 @@ public class Timer extends BaseObservable implements Parcelable {
         this.durationInSec = durationInSec;
         notifyPropertyChanged(BR.durationInSec);
     }
+
     @Bindable
     public String getImageName() {
         return imageName;
@@ -108,7 +114,7 @@ public class Timer extends BaseObservable implements Parcelable {
         return this.title;
     }
 
-    public Timer toTimer(){
+    public Timer toTimer() {
         return new Timer(id, groupId, title, durationInSec, imageName);
     }
 

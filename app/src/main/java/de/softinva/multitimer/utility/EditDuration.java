@@ -48,20 +48,18 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
 
     private void setCallBackListener() {
 
-        if (appModelBinding instanceof UpdateDurationInSecListener) {
-            callbackDurationInSec = (UpdateDurationInSecListener) appModelBinding;
-        } else {
-            Context context = this.appModelBinding.getContext();
-            if (context instanceof UpdateDurationInSecListener) {
-                callbackDurationInSec = (UpdateDurationInSecListener) context;
-            } else {
-                throw new RuntimeException(context.toString() + " or " + appModelBinding.toString()
-                        + " must implement UpdateDurationInSecListener");
-            }
-        }
-
-
         if (isWithActionButtons) {
+            if (appModelBinding instanceof UpdateDurationInSecListener) {
+                callbackDurationInSec = (UpdateDurationInSecListener) appModelBinding;
+            } else {
+                Context context = this.appModelBinding.getContext();
+                if (context instanceof UpdateDurationInSecListener) {
+                    callbackDurationInSec = (UpdateDurationInSecListener) context;
+                } else {
+                    throw new RuntimeException(context.toString() + " or " + appModelBinding.toString()
+                            + " must implement UpdateDurationInSecListener");
+                }
+            }
             if (this.appModelBinding instanceof EditDurationActionsListener) {
                 callbackActions = (EditDurationActionsListener) this.appModelBinding;
             } else {
@@ -104,6 +102,15 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
     }
 
     public void saveDuration() {
+        int durationInSec = calculateDurationInSec();
+        callbackDurationInSec.updateDurationInSec(durationInSec);
+    }
+
+    public int getDurationInSec() {
+        return calculateDurationInSec();
+    }
+
+    private int calculateDurationInSec() {
         int durationInSec;
         int hours10 = editDurationFields.getNumber(0);
         durationInSec = hours10 * 36000;
@@ -117,8 +124,7 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
         durationInSec += seconds10 * 10;
         int seconds = editDurationFields.getNumber(5);
         durationInSec += seconds;
-
-        callbackDurationInSec.updateDurationInSec(durationInSec);
+        return durationInSec;
     }
 
     public interface UpdateDurationInSecListener {

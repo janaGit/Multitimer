@@ -16,4 +16,5 @@
     <string name="timer_title">Title</string>
     <string name="button_OK">OK</string>
     <string name="start_timer">Start</string>
+    <string name="temp_timer">Temp Timer</string>
 </resources>

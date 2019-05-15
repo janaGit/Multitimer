@@ -11,14 +11,14 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
+import de.softinva.multitimer.CountDownService;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityAddTempTimerBinding;
-import de.softinva.multitimer.model.TempTimer;
 import de.softinva.multitimer.utility.EditDuration;
 
-public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTimerDialogViewModel> implements EditDuration.UpdateDurationInSecListener {
+public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTimerDialogViewModel> {
     EditDuration editDuration;
 
     @Override
@@ -30,11 +30,11 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(binding.getRoot())
                 .setPositiveButton(R.string.start_timer, (dialog, id) -> {
-
+                    model.tempTimer.setDurationInSec(editDuration.getDurationInSec());
+                    CountDownService.startNewTimer(model.tempTimer.toTimer(), getContext());
                 })
                 .setNegativeButton(R.string.button_abort, (dialog, id) -> {
                 });
-        ;
         return builder.create();
     }
 
@@ -52,7 +52,7 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
 
     @Override
     protected AppViewObject setViewObject() {
-        return new AddTempTimerViewObject(new TempTimer());
+        return new AddTempTimerViewObject(model.tempTimer);
     }
 
     @Override
@@ -67,8 +67,4 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
         return binding;
     }
 
-    @Override
-    public void updateDurationInSec(int durationInSec) {
-
-    }
 }
