@@ -18,10 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import de.softinva.multitimer.BR;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link Object} and makes a call to the
- * specified.
- * TODO: Replace the implementation with code for your data type.
- * <p>
  * From https://medium.com/androiddevelopers/android-data-binding-recyclerview-db7c40d9f0e4
  * and from generated code after created new class
  */

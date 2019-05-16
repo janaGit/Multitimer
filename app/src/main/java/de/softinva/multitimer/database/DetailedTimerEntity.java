@@ -12,7 +12,9 @@ public class DetailedTimerEntity implements AppEntity {
     public String groupId;
     public Integer positionInGroup;
     public String title;
+    public Integer coolDownInSec;
     public Integer durationInSec;
+    public boolean isEnabled;
     public String imageName;
     public String description;
 }

@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
+
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.TimerGroupViewModel;
 import de.softinva.multitimer.classes.AppFragment;
@@ -39,7 +41,7 @@ public class TimerGroupTabs extends AppFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(TimerGroupTabsViewModel.class);
+        mViewModel = ViewModelProviders.of(this, new SavedStateVMFactory(this)).get(TimerGroupTabsViewModel.class);
     }
 
     @Override
@@ -61,7 +63,7 @@ public class TimerGroupTabs extends AppFragment {
 
         @Override
         public void onPageSelected(int position) {
-            TimerGroupViewModel  model = ViewModelProviders.of(getActivity()).get(TimerGroupViewModel.class);
+            TimerGroupViewModel model = ViewModelProviders.of(getActivity()).get(TimerGroupViewModel.class);
             model.getActiveTab().setValue(TIMER_GROUP_ACTIVITY_TABS.values()[position]);
         }
 

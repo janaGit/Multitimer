@@ -5,13 +5,6 @@ import java.util.TreeMap;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.TempTimer;
 
-
-/**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
- */
 public class DummyTempTimer {
     public static final TreeMap<Integer, TempTimer> TEMP_TIMERS;
     public static final TempTimer TEMP_TIMER_1;

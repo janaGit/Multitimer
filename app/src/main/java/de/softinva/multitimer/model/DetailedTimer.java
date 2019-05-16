@@ -7,8 +7,10 @@ import de.softinva.multitimer.database.DetailedTimerEntity;
 import de.softinva.multitimer.utility.UtilityMethods;
 
 public class DetailedTimer extends Timer {
-    protected String description;
-    protected Integer positionInGroup;
+    private String description;
+    private Integer positionInGroup;
+    private int coolDownInSec;
+    private boolean isEnabled;
 
     public DetailedTimer() {
         super();
@@ -21,12 +23,15 @@ public class DetailedTimer extends Timer {
         description = "";
     }
 
-    public DetailedTimer(String id, String groupId, String title, Integer durationInSec, String imageName, Integer positionInGroup, String description) {
+    public DetailedTimer(String id, String groupId, String title, Integer durationInSec, Integer coolDownInSec, boolean isEnabled, String imageName, Integer positionInGroup, String description) {
         super(id, groupId, title, durationInSec, imageName);
         this.groupId = groupId;
         this.description = description;
         this.positionInGroup = positionInGroup;
+        this.coolDownInSec = coolDownInSec;
+        this.isEnabled = isEnabled;
     }
+
 
     public DetailedTimer(DetailedTimerEntity entity) {
         this.id = entity.id;
@@ -36,6 +41,8 @@ public class DetailedTimer extends Timer {
         this.imageName = entity.imageName;
         this.description = entity.description;
         this.positionInGroup = entity.positionInGroup;
+        this.coolDownInSec = entity.coolDownInSec;
+        this.isEnabled = entity.isEnabled;
     }
 
     @Bindable
@@ -61,6 +68,7 @@ public class DetailedTimer extends Timer {
         timer.setImageName(imageName);
         timer.setDescription(description);
         timer.setPositionInGroup(positionInGroup);
+        timer.setCoolDownInSec(coolDownInSec);
     }
 
     public DetailedTimerEntity toEntity() {
@@ -72,6 +80,8 @@ public class DetailedTimer extends Timer {
         entity.imageName = imageName;
         entity.description = description;
         entity.positionInGroup = positionInGroup;
+        entity.coolDownInSec = coolDownInSec;
+        entity.isEnabled = isEnabled;
         return entity;
     }
 
@@ -81,5 +91,9 @@ public class DetailedTimer extends Timer {
 
     public void setPositionInGroup(int positionInGroup) {
         this.positionInGroup = positionInGroup;
+    }
+
+    public void setCoolDownInSec(int coolDownInSec) {
+        this.coolDownInSec = coolDownInSec;
     }
 }

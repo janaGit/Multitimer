@@ -6,20 +6,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.AppFragment;
-import de.softinva.multitimer.classes.OnTimerListInteractionListener;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnTimerListInteractionListener}
- * interface.
- */
-public abstract class AppList extends AppFragment{
+
+
+public abstract class AppList extends AppFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

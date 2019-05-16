@@ -1,7 +1,13 @@
 package de.softinva.multitimer.fragments.tabs.mainactivity;
+import android.app.Application;
 
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.SavedStateHandle;
 
-public class MainActivityTabsViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+import de.softinva.multitimer.classes.AppViewModel;
+
+public class MainActivityTabsViewModel extends AppViewModel {
+
+    public MainActivityTabsViewModel(Application application, SavedStateHandle savedStateHandle) {
+        super(application, savedStateHandle);
+    }
 }

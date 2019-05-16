@@ -32,4 +32,13 @@ public interface DetailedTimerDao extends AppDao<DetailedTimerEntity> {
 
     @Query("UPDATE detailedtimer SET positionInGroup = positionInGroup -1 where groupId = :id  AND positionInGroup > :removedPosition")
     void removePosition(String id, Integer removedPosition);
+
+    @Query("UPDATE detailedtimer SET isEnabled = 'false' where groupId = :groupId  AND id = :timerId")
+    void disableTimer(String groupId, String timerId);
+
+    @Query("UPDATE detailedtimer SET isEnabled = 'true' where groupId = :groupId  AND id = :timerId")
+    void enableTimer(String groupId, String timerId);
+
+    @Query("UPDATE detailedtimer SET isEnabled = 'true'")
+    void enableAllTimer();
 }

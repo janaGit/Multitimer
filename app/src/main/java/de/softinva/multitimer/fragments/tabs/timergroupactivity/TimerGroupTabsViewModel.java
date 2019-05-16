@@ -1,7 +1,14 @@
 package de.softinva.multitimer.fragments.tabs.timergroupactivity;
 
-import androidx.lifecycle.ViewModel;
 
-public class TimerGroupTabsViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+import android.app.Application;
+
+import androidx.lifecycle.SavedStateHandle;
+
+import de.softinva.multitimer.classes.AppViewModel;
+
+public class TimerGroupTabsViewModel extends AppViewModel {
+    public TimerGroupTabsViewModel(Application application, SavedStateHandle savedStateHandle) {
+        super(application, savedStateHandle);
+    }
 }

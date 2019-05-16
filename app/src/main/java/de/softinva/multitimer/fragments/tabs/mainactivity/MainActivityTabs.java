@@ -1,5 +1,6 @@
 package de.softinva.multitimer.fragments.tabs.mainactivity;
 
+import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.viewpager.widget.ViewPager;
+
 import de.softinva.multitimer.activities.MainActivityViewModel;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.AppFragment;
@@ -38,7 +40,7 @@ public class MainActivityTabs extends AppFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(MainActivityTabsViewModel.class);
+        mViewModel = ViewModelProviders.of(this, new SavedStateVMFactory(this)).get(MainActivityTabsViewModel.class);
     }
 
     @Override
@@ -61,7 +63,7 @@ public class MainActivityTabs extends AppFragment {
 
         @Override
         public void onPageSelected(int position) {
-            MainActivityViewModel  model = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
+            MainActivityViewModel model = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
             model.getActiveTab().setValue(MAIN_ACTIVITY_TABS.values()[position]);
         }
 
