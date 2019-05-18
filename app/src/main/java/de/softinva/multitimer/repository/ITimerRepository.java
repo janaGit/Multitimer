@@ -42,4 +42,8 @@ public interface ITimerRepository {
     void updateDetailedTimer(DetailedTimer detailedTimer);
 
     void deleteDetailedTimer(DetailedTimer detailedTimer);
+
+    void enableDetailedTimer(String timerGroupId, String detailedTimerId);
+
+    void disableDetailedTimer(String timerGroupId, String detailedTimerId);
 }

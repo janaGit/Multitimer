@@ -37,11 +37,12 @@ public class TimerRepository implements ITimerRepository {
         repository = new TimerRepositoryDatabase(application);
     }
 
-
+    @Override
     public LiveData<TreeMap<Integer, TimerGroup>> getTimerGroups() {
         return repository.getTimerGroups();
     }
 
+    @Override
     public LiveData<TimerGroup> getTimerGroup(String groupId) {
         return repository.getTimerGroup(groupId);
     }
@@ -99,6 +100,16 @@ public class TimerRepository implements ITimerRepository {
     @Override
     public void deleteDetailedTimer(DetailedTimer detailedTimer) {
         repository.deleteDetailedTimer(detailedTimer);
+    }
+
+    @Override
+    public void enableDetailedTimer(String timerGroupId, String detailedTimerId) {
+        repository.enableDetailedTimer(timerGroupId, detailedTimerId);
+    }
+
+    @Override
+    public void disableDetailedTimer(String timerGroupId, String detailedTimerId) {
+        repository.disableDetailedTimer(timerGroupId, detailedTimerId);
     }
 
 }

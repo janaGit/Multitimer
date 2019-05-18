@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="viewObject" type="de.softinva.multitimer.fragments.list.timer.DetailedTimerViewObject" />
+
+        <import type="de.softinva.multitimer.model.DetailedTimer" />
+
+        <variable
+            name="viewObject"
+            type="de.softinva.multitimer.fragments.list.timer.DetailedTimerViewObject" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +30,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
+            android:alpha="@{((DetailedTimer) viewObject.obj.timer).isEnabled() ? 1f : 0.75f}"
             android:contentDescription="Image"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/content"
@@ -41,26 +47,27 @@
             android:layout_marginLeft="16dp"
             android:text="@{viewObject.obj.timer.title}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/startStopTimerButton2"
+            app:layout_constraintEnd_toStartOf="@+id/startStopTimerButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.softinva.multitimer.viewcomponents.StartStopTimerButton
-            android:id="@+id/startStopTimerButton2"
+            android:id="@+id/startStopTimerButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="24dp"
+            app:isEnabled="@{((DetailedTimer) viewObject.obj.timer).isEnabled()}"
             app:isRunning="@{viewObject.obj.isRunning}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/content"
             app:layout_constraintTop_toTopOf="parent"
-            app:timer="@{viewObject.obj.timer.toTimer()}" />
+            app:timer="@{viewObject.obj.timer}" />
 
         <View
             android:id="@+id/divider"
@@ -72,5 +79,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

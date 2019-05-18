@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import de.softinva.multitimer.repository.dummy.DummyNudelGericht;
 import de.softinva.multitimer.repository.dummy.DummyPizza;
 
-@Database(entities = {DetailedTimerEntity.class, TimerGroupEntity.class}, version = 1)
+@Database(entities = {DetailedTimerEntity.class, TimerGroupEntity.class}, exportSchema = false, version = 1)
 public abstract class DummyAppDatabase extends RoomDatabase {
     public abstract TimerGroupDao timerGroupDao();
 

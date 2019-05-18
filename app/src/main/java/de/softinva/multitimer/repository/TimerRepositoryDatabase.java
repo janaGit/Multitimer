@@ -187,6 +187,16 @@ public class TimerRepositoryDatabase implements ITimerRepository {
         new TimerRepositoryDatabase.deleteDetailedTimer(detailedTimerDao).execute(detailedTimer.toEntity());
     }
 
+    @Override
+    public void enableDetailedTimer(String timerGroupId, String detailedTimerId) {
+        new TimerRepositoryDatabase.updateTimerStatus(detailedTimerDao, timerGroupId, detailedTimerId).execute(true);
+    }
+
+    @Override
+    public void disableDetailedTimer(String timerGroupId, String detailedTimerId) {
+        new TimerRepositoryDatabase.updateTimerStatus(detailedTimerDao, timerGroupId, detailedTimerId).execute(false);
+    }
+
     protected TimerGroup getTimerGroup(String
                                                timerGroupId, TreeMap<Integer, TimerGroup> timerGroupMap) {
         for (Map.Entry<Integer, TimerGroup> entry : timerGroupMap.entrySet()) {
@@ -251,6 +261,29 @@ public class TimerRepositoryDatabase implements ITimerRepository {
         @Override
         protected Void doInBackground(final AppEntity... params) {
             dao.delete(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateTimerStatus extends AsyncTask<Boolean, Void, Void> {
+        private DetailedTimerDao dao;
+        String groupId;
+        String timerId;
+
+        updateTimerStatus(DetailedTimerDao dao, String groupId, String timerId) {
+            this.dao = dao;
+            this.groupId = groupId;
+            this.timerId = timerId;
+        }
+
+        @Override
+        protected Void doInBackground(final Boolean... params) {
+            if (params[0]) {
+                dao.enableTimer(groupId, timerId);
+            } else {
+                dao.disableTimer(groupId, timerId);
+            }
+
             return null;
         }
     }

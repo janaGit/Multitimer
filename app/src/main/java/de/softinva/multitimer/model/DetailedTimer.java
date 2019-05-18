@@ -85,6 +85,16 @@ public class DetailedTimer extends Timer {
         return entity;
     }
 
+    @Bindable
+    public int getCoolDownInSec() {
+        return coolDownInSec;
+    }
+
+    @Bindable
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
     public int getPositionInGroup() {
         return positionInGroup;
     }
