@@ -2,9 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <import type="de.softinva.multitimer.model.DetailedTimer"/>
+
+        <import type="android.view.View" />
+
+        <import type="de.softinva.multitimer.model.DetailedTimer" />
+
         <import type="de.softinva.multitimer.utility.UtilityMethods" />
+
         <variable
             name="viewObject"
             type="de.softinva.multitimer.activities.detailedtimer.info.DetailedTimerInfoViewObject" />
@@ -34,21 +40,29 @@
             android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar"
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
             app:srcCompat="@drawable/logo_fertig" />
+
         <TextView
             android:id="@+id/editDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="@{UtilityMethods.transformToTextString(((DetailedTimer)viewObject.obj.timer).durationInSec)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintEnd_toEndOf="@id/imageView"
+            app:layout_constraintStart_toStartOf="@id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+        <ImageView
+            android:id="@+id/detailedTimerDisabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/colorDisabled"
+            android:visibility='@{((DetailedTimer)viewObject.obj.timer).isEnabled ? View.INVISIBLE: View.VISIBLE}'
+            app:layout_constraintStart_toEndOf="@id/editDuration"
+            app:layout_constraintTop_toTopOf="@id/editDuration"
+            app:srcCompat="@drawable/ic_timer_off_black_24dp" />
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
@@ -62,7 +76,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editDuration" />
+            app:layout_constraintTop_toBottomOf="@id/editDuration" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
