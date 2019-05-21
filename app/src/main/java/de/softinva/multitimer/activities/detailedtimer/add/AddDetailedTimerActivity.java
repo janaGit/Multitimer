@@ -14,40 +14,54 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
+import de.softinva.multitimer.fragments.editcooldowndialog.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
-import de.softinva.multitimer.utility.EditDuration;
 
 import static android.text.InputType.TYPE_NULL;
 
-public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewModel> implements EditDuration.UpdateDurationInSecListener {
+public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener, EditCoolDownDialog.UpdateCollDownInSecListener {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
     EditDurationDialog editDurationDialog;
+    EditCoolDownDialog editCoolDownDialog;
 
     public static void startNewActivity(String groupId, Context context) {
         Intent intent = new Intent(context, AddDetailedTimerActivity.class);
         intent.putExtra(AddDetailedTimerActivity.GROUP_ID, groupId);
         context.startActivity(intent);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupEditDurationField();
+        setupEditDurationFields();
     }
 
-    protected void setupEditDurationField() {
+    protected void setupEditDurationFields() {
         EditText durationField = ((ActivityAddeditDetailedTimerBinding) binding).editDuration;
         durationField.setInputType(TYPE_NULL);
         durationField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    ((AddEditDetailedTimerViewObject) viewObject).onClickDurationView(v);
+                if (hasFocus) {
+                    ((AddEditDetailedTimerViewObject) viewObject).onClickDuration(v);
+                }
+
+            }
+        });
+        EditText coolDownField = ((ActivityAddeditDetailedTimerBinding) binding).editCoolDown;
+        coolDownField.setInputType(TYPE_NULL);
+        coolDownField.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    ((AddEditDetailedTimerViewObject) viewObject).onClickCoolDown(v);
                 }
 
             }
         });
     }
+
     @Override
     protected void setActionBar() {
         setSupportActionBar(((ActivityAddeditDetailedTimerBinding) binding).appBar);
@@ -55,7 +69,7 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
 
     @Override
     protected void setViewObject() {
-        viewObject = new AddEditDetailedTimerViewObject(false, model.getDetailedTimer(), editDurationDialog);
+        viewObject = new AddEditDetailedTimerViewObject(false, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog);
     }
 
     @Override
@@ -83,7 +97,9 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     protected void setClassSpecificObjects() {
         createNewDetailedTimer();
         editDurationDialog = new EditDurationDialog();
+        editCoolDownDialog = new EditCoolDownDialog();
         editDurationDialog.setDurationInSec(model.detailedTimer.getDurationInSec());
+        editCoolDownDialog.setCoolDownInSec(model.detailedTimer.getCoolDownInSec());
     }
 
     protected void createNewDetailedTimer() {
@@ -96,5 +112,11 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     public void updateDurationInSec(int durationInSec) {
         model.detailedTimer.setDurationInSec(durationInSec);
         editDurationDialog.setDurationInSec(durationInSec);
+    }
+
+    @Override
+    public void updateCoolDownInSec(int coolDownInSec) {
+        model.detailedTimer.setCoolDownInSec(coolDownInSec);
+        editCoolDownDialog.setCoolDownInSec(coolDownInSec);
     }
 }

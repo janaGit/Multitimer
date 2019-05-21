@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="de.softinva.multitimer.model.DetailedTimer" />
-
         <import type="de.softinva.multitimer.utility.UtilityMethods" />
 
         <variable
@@ -26,8 +24,7 @@
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
             app:layout_constraintBottom_toTopOf="@+id/addeditDetailedTimer_scrollView"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/addeditDetailedTimer_scrollView"
@@ -68,20 +65,88 @@
                     app:layout_constraintTop_toBottomOf="@+id/addeditDetailedTimer_title"
                     app:srcCompat="@drawable/logo_fertig" />
 
-                <EditText
-                    android:id="@+id/editDuration"
-                    android:layout_width="wrap_content"
+                <de.softinva.multitimer.viewcomponents.DetailedTimerStatusButton
+                    android:id="@+id/toggleStatus"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:padding="12dp"
+                    app:isEnabled="@{viewObject.obj.isEnabled}"
+                    android:onClick="@{viewObject::onClickStatusButton}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                <TextView
+                    android:id="@+id/editDuration_label"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
-                    android:onClick="@{viewObject::onClickDurationView}"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/label_durationInSec"
+                    app:layout_constraintBottom_toBottomOf="@+id/editDuration"
+                    app:layout_constraintEnd_toStartOf="@+id/editDuration"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toggleStatus" />
+
+                <EditText
+                    android:id="@+id/editDuration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:onClick="@{viewObject::onClickDuration}"
                     android:text="@{UtilityMethods.transformToTextString(viewObject.obj.durationInSec)}"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/editDuration_label"
+                    app:layout_constraintTop_toBottomOf="@+id/toggleStatus" />
+
+                <TextView
+                    android:id="@+id/editCoolDown_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/label_coolDown"
+                    app:layout_constraintBottom_toBottomOf="@+id/editCoolDown"
+                    app:layout_constraintEnd_toStartOf="@+id/editCoolDown"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@+id/editDuration" />
+
+                <EditText
+                    android:id="@+id/editCoolDown"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:onClick="@{viewObject::onClickCoolDown}"
+                    android:text="@{UtilityMethods.transformToTextString(viewObject.obj.coolDownInSec)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/editCoolDown_label"
+                    app:layout_constraintTop_toBottomOf="@+id/editDuration" />
+
 
                 <EditText
                     android:id="@+id/addeditDetailedTimer_description"
@@ -98,7 +163,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editDuration" />
+                    app:layout_constraintTop_toBottomOf="@+id/editCoolDown" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

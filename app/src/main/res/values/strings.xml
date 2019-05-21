@@ -17,4 +17,6 @@
     <string name="button_OK">OK</string>
     <string name="start_timer">Start</string>
     <string name="temp_timer">Temp Timer</string>
+    <string name="label_durationInSec">Time</string>
+    <string name="label_coolDown">Cool Down</string>
 </resources>

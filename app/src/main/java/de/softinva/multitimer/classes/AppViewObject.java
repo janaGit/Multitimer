@@ -1,10 +1,11 @@
 package de.softinva.multitimer.classes;
 
-import android.content.Context;
+
 
 public abstract class AppViewObject<T> {
     protected T obj;
     protected Object context;
+
     public AppViewObject(T obj) {
         this.obj = obj;
     }

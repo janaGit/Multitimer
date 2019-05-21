@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="GlobalAttrDeclare">
-        <attr name="isEnabled" format="boolean" />
+        <attr name="isEnabled" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="StartStopTimerButton">
         <attr name="isRunning" format="boolean" />
         <attr name="isEnabled" />
         <attr name="timer" />
+    </declare-styleable>
+    <declare-styleable name="DetailedTimerStatusButton">
+        <attr name="isEnabled" />
     </declare-styleable>
     <declare-styleable name="CountDown">
         <attr name="countDownInSec" />

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import de.softinva.multitimer.classes.AppViewObject;
+import de.softinva.multitimer.fragments.editcooldowndialog.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.repository.TimerRepository;
@@ -14,11 +15,13 @@ import de.softinva.multitimer.repository.TimerRepository;
 public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer> {
     protected boolean isEditDetailedTimer;
     protected EditDurationDialog editDurationDialog;
+    protected EditCoolDownDialog editCoolDownDialog;
 
-    public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj, EditDurationDialog editDurationDialog) {
+    public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj, EditDurationDialog editDurationDialog, EditCoolDownDialog editCoolDownDialog) {
         super(obj);
         this.isEditDetailedTimer = isEditDetailedTimer;
         this.editDurationDialog = editDurationDialog;
+        this.editCoolDownDialog = editCoolDownDialog;
     }
 
     public void onClickSaveButton(View view) {
@@ -36,15 +39,26 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
         }
     }
 
-    public void onClickDurationView(View view) {
+    public void onClickDuration(View view) {
         if (!editDurationDialog.isAdded()) {
             editDurationDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "editDuration");
         }
 
     }
 
+    public void onClickCoolDown(View view) {
+        if (!editCoolDownDialog.isAdded()) {
+            editCoolDownDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "editCoolDown");
+        }
+
+    }
+
     public void onClickAbortButton(View view) {
         ((AppCompatActivity) getContext()).onBackPressed();
+    }
+
+    public void onClickStatusButton(View view) {
+        obj.setIsEnabled(!obj.isEnabled());
     }
 }
 

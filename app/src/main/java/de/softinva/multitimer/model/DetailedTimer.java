@@ -69,6 +69,7 @@ public class DetailedTimer extends Timer {
         timer.setDescription(description);
         timer.setPositionInGroup(positionInGroup);
         timer.setCoolDownInSec(coolDownInSec);
+        timer.setIsEnabled(isEnabled);
     }
 
     public DetailedTimerEntity toEntity() {
@@ -105,5 +106,11 @@ public class DetailedTimer extends Timer {
 
     public void setCoolDownInSec(int coolDownInSec) {
         this.coolDownInSec = coolDownInSec;
+        notifyPropertyChanged(BR.coolDownInSec);
+    }
+
+    public void setIsEnabled(boolean enabled) {
+        isEnabled = enabled;
+        notifyPropertyChanged(BR.enabled);
     }
 }

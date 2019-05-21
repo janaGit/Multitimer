@@ -18,7 +18,6 @@ import de.softinva.multitimer.activities.timergroup.add.AddTimerGroupActivity;
 import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.databinding.ActivityMainBinding;
 import de.softinva.multitimer.fragments.addTempTimerDialog.AddTempTimerDialog;
-import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.temp.TempTimerList;
 import de.softinva.multitimer.fragments.list.timergroup.TimerGroupList;

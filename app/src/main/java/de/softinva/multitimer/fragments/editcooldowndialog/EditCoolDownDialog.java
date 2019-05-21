@@ -1,4 +1,4 @@
-package de.softinva.multitimer.fragments.editdurationdialog;
+package de.softinva.multitimer.fragments.editcooldowndialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -14,34 +14,33 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.classes.AppViewObject;
 import de.softinva.multitimer.databinding.EditDurationDialogBinding;
-import de.softinva.multitimer.fragments.editcooldowndialog.EditCoolDownDialogViewModel;
 import de.softinva.multitimer.utility.EditDuration;
 
-public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> implements EditDuration.EditDurationActionsListener, EditDuration.UpdateDurationInSecListener {
+public class EditCoolDownDialog extends AppDialogFragmentDataBinding<EditCoolDownDialogViewModel> implements EditDuration.EditDurationActionsListener, EditDuration.UpdateDurationInSecListener {
     EditDuration editDuration;
-    public MutableLiveData<Integer> durationInSec = new MutableLiveData<>();
-    private UpdateDurationInSecListener callbackDurationInSec;
+    public MutableLiveData<Integer> coolDownInSec = new MutableLiveData<>();
+    private UpdateCollDownInSecListener callbackCoolDownInSec;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         editDuration = new EditDuration(this, true);
-        durationInSec.observe(this, durationInSec -> this.editDuration.durationInSec.setValue(durationInSec));
+        coolDownInSec.observe(this, durationInSec -> this.editDuration.durationInSec.setValue(durationInSec));
         setCallBackListener();
         return dialog;
     }
 
     private void setCallBackListener() {
-        if (getContext() instanceof UpdateDurationInSecListener) {
-            callbackDurationInSec = (UpdateDurationInSecListener) getContext();
+        if (getContext() instanceof UpdateCollDownInSecListener) {
+            callbackCoolDownInSec = (UpdateCollDownInSecListener) getContext();
         } else {
             throw new RuntimeException(getContext().toString()
                     + " must implement UpdateCollDownInSecListener");
         }
     }
 
-    public interface UpdateDurationInSecListener {
-        void updateDurationInSec(int durationInSec);
+    public interface UpdateCollDownInSecListener {
+        void updateCoolDownInSec(int durationInSec);
     }
 
     @Override
@@ -57,8 +56,8 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
 
     }
 
-    public void setDurationInSec(int durationInSec) {
-        this.durationInSec.setValue(durationInSec);
+    public void setCoolDownInSec(int durationInSec) {
+        this.coolDownInSec.setValue(durationInSec);
     }
 
     @Override
@@ -67,9 +66,9 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
     }
 
     @Override
-    protected EditDurationDialogViewModel setModel() {
+    protected EditCoolDownDialogViewModel setModel() {
         return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(EditDurationDialogViewModel.class);
+                .get(EditCoolDownDialogViewModel.class);
     }
 
     @Override
@@ -91,6 +90,6 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
 
     @Override
     public void updateDurationInSec(int durationInSec) {
-        callbackDurationInSec.updateDurationInSec(durationInSec);
+        callbackCoolDownInSec.updateCoolDownInSec(durationInSec);
     }
 }

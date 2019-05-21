@@ -1,16 +1,13 @@
 package de.softinva.multitimer.viewcomponents;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.util.AttributeSet;
-import android.view.View;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.widget.ImageViewCompat;
-import androidx.fragment.app.Fragment;
 
 import de.softinva.multitimer.CountDownService;
 import de.softinva.multitimer.R;
@@ -76,7 +73,7 @@ public class StartStopTimerButton extends AppCompatImageButton {
                 ColorStateList csl = AppCompatResources.getColorStateList(context, R.color.colorAccent);
                 ImageViewCompat.setImageTintList(this, csl);
             } else {
-                ColorStateList csl = AppCompatResources.getColorStateList(context, R.color.color_disabled);
+                ColorStateList csl = AppCompatResources.getColorStateList(context, R.color.colorDisabled);
                 ImageViewCompat.setImageTintList(this, csl);
             }
 

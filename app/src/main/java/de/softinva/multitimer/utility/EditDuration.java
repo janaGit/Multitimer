@@ -52,13 +52,8 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
             if (appModelBinding instanceof UpdateDurationInSecListener) {
                 callbackDurationInSec = (UpdateDurationInSecListener) appModelBinding;
             } else {
-                Context context = this.appModelBinding.getContext();
-                if (context instanceof UpdateDurationInSecListener) {
-                    callbackDurationInSec = (UpdateDurationInSecListener) context;
-                } else {
-                    throw new RuntimeException(context.toString() + " or " + appModelBinding.toString()
-                            + " must implement UpdateDurationInSecListener");
-                }
+                    throw new RuntimeException(appModelBinding.toString()
+                            + " must implement UpdateCollDownInSecListener");
             }
             if (this.appModelBinding instanceof EditDurationActionsListener) {
                 callbackActions = (EditDurationActionsListener) this.appModelBinding;
