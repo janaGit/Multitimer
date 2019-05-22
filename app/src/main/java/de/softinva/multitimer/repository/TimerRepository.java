@@ -2,32 +2,16 @@ package de.softinva.multitimer.repository;
 
 
 import android.app.Application;
-import android.os.AsyncTask;
 
-import java.util.Map;
 import java.util.TreeMap;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 
-import de.softinva.multitimer.CountDownService;
-import de.softinva.multitimer.database.AppDao;
-import de.softinva.multitimer.database.AppDatabase;
-import de.softinva.multitimer.database.AppEntity;
-import de.softinva.multitimer.database.DetailedTimerDao;
-import de.softinva.multitimer.database.DetailedTimerEntity;
-import de.softinva.multitimer.database.TimerGroupDao;
-import de.softinva.multitimer.database.TimerGroupEntity;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 
 import de.softinva.multitimer.model.TempTimer;
 import de.softinva.multitimer.model.TimerGroup;
-import de.softinva.multitimer.repository.dummy.DummyNudelGericht;
-import de.softinva.multitimer.repository.dummy.DummyPizza;
-import de.softinva.multitimer.repository.dummy.DummyRunningTimer;
-import de.softinva.multitimer.repository.dummy.DummyTempTimer;
 
 
 public class TimerRepository implements ITimerRepository {
@@ -55,6 +39,11 @@ public class TimerRepository implements ITimerRepository {
     @Override
     public LiveData<TreeMap<Integer, DetailedTimer>> getDetailedTimersForTimerGroup(String groupId) {
         return repository.getDetailedTimersForTimerGroup(groupId);
+    }
+
+    @Override
+    public LiveData<TreeMap<Integer, DetailedTimer>> getAllDisabledTimersForTimerGroup(String groupId) {
+        return repository.getAllDisabledTimersForTimerGroup(groupId);
     }
 
     @Override
@@ -110,6 +99,11 @@ public class TimerRepository implements ITimerRepository {
     @Override
     public void disableDetailedTimer(String timerGroupId, String detailedTimerId) {
         repository.disableDetailedTimer(timerGroupId, detailedTimerId);
+    }
+
+    @Override
+    public void enableAllDetailedTimer(String timerGroupId) {
+        repository.enableAllDetailedTimer(timerGroupId);
     }
 
 }

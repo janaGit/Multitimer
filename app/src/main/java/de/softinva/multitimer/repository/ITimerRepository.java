@@ -3,8 +3,10 @@ package de.softinva.multitimer.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.List;
 import java.util.TreeMap;
 
+import de.softinva.multitimer.database.DetailedTimerEntity;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.TempTimer;
@@ -21,6 +23,7 @@ public interface ITimerRepository {
 
     LiveData<TreeMap<Integer, DetailedTimer>> getDetailedTimersForTimerGroup(String groupId);
 
+    LiveData<TreeMap<Integer, DetailedTimer>> getAllDisabledTimersForTimerGroup(String groupId);
 
     LiveData<TreeMap<Integer, TempTimer>> getTempTimer();
 
@@ -46,4 +49,6 @@ public interface ITimerRepository {
     void enableDetailedTimer(String timerGroupId, String detailedTimerId);
 
     void disableDetailedTimer(String timerGroupId, String detailedTimerId);
+
+    void enableAllDetailedTimer(String timerGroupId);
 }

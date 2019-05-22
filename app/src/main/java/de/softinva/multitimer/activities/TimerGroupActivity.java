@@ -21,6 +21,7 @@ import de.softinva.multitimer.databinding.ActivityTimerGroupBinding;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.timer.DetailedTimerList;
 import de.softinva.multitimer.model.TIMER_GROUP_ACTIVITY_TABS;
+import de.softinva.multitimer.repository.TimerRepository;
 
 
 public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
@@ -35,7 +36,7 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     public static void startNewActivity(String groupId, Context context, boolean clearBackStack) {
         Intent intent = new Intent(context, TimerGroupActivity.class);
         intent.putExtra(TimerGroupActivity.GROUP_ID, groupId);
-        if(clearBackStack){
+        if (clearBackStack) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         context.startActivity(intent);
@@ -59,8 +60,16 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.timer_group_activity_menu, menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.timer_group_activity_menu, menu);
+
+        model.doDisabledTimersExists().observe(this, doDisabledTimersExists -> {
+            if (doDisabledTimersExists) {
+                menu.findItem(R.id.action_enable_all_timer).setVisible(true);
+            } else {
+                menu.findItem(R.id.action_enable_all_timer).setVisible(false);
+            }
+        });
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -133,6 +142,9 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
         switch (item.getItemId()) {
             case R.id.action_new_detailed_timer:
                 AddDetailedTimerActivity.startNewActivity(model.getTimerGroupId$().getValue(), this);
+                return true;
+            case R.id.action_enable_all_timer:
+                new TimerRepository(getApplication()).enableAllDetailedTimer(model.getTimerGroupId$().getValue());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

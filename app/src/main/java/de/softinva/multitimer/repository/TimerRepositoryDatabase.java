@@ -34,6 +34,7 @@ public class TimerRepositoryDatabase implements ITimerRepository {
     private LiveData<TreeMap<Integer, TempTimer>> tempTimerMap;
 
     private TreeMap<String, LiveData<TreeMap<Integer, DetailedTimer>>> detailedTimersForTimerGroups;
+    private TreeMap<String, LiveData<TreeMap<Integer, DetailedTimer>>> disabledDetailedTimersForTimerGroups;
     private TreeMap<String, LiveData<DetailedTimer>> detailedTimerMap;
     private TreeMap<String, LiveData<TimerGroup>> timerGroupMap;
     private TimerGroupDao timerGroupDao;
@@ -44,6 +45,7 @@ public class TimerRepositoryDatabase implements ITimerRepository {
         timerGroupDao = db.timerGroupDao();
         detailedTimerDao = db.detailedTimerDao();
         detailedTimersForTimerGroups = new TreeMap<>();
+        disabledDetailedTimersForTimerGroups = new TreeMap<>();
         detailedTimerMap = new TreeMap<>();
         timerGroupMap = new TreeMap<>();
     }
@@ -98,15 +100,13 @@ public class TimerRepositoryDatabase implements ITimerRepository {
     @Override
     public LiveData<TreeMap<Integer, DetailedTimer>> getDetailedTimersForTimerGroup(String groupId) {
         if (detailedTimersForTimerGroups.get(groupId) == null) {
-            LiveData<TreeMap<Integer, DetailedTimer>> map = Transformations.map(detailedTimerDao.getAll(), detailedTimerEntity -> {
+            LiveData<TreeMap<Integer, DetailedTimer>> map = Transformations.map(detailedTimerDao.getAllDetailedTimersForGroup(groupId), detailedTimerEntity -> {
                 TreeMap<Integer, DetailedTimer> treeMap = new TreeMap<>();
                 Iterator<DetailedTimerEntity> iterator = detailedTimerEntity.iterator();
                 while (iterator.hasNext()) {
                     DetailedTimerEntity entity = iterator.next();
-                    if (entity.groupId.equals(groupId)) {
-                        DetailedTimer detailedTimer = new DetailedTimer(entity);
-                        treeMap.put(detailedTimer.getPositionInGroup(), detailedTimer);
-                    }
+                    DetailedTimer detailedTimer = new DetailedTimer(entity);
+                    treeMap.put(detailedTimer.getPositionInGroup(), detailedTimer);
                 }
                 return treeMap;
             });
@@ -114,6 +114,25 @@ public class TimerRepositoryDatabase implements ITimerRepository {
         }
 
         return detailedTimersForTimerGroups.get(groupId);
+    }
+
+    @Override
+    public LiveData<TreeMap<Integer, DetailedTimer>> getAllDisabledTimersForTimerGroup(String groupId) {
+        if (disabledDetailedTimersForTimerGroups.get(groupId) == null) {
+            LiveData<TreeMap<Integer, DetailedTimer>> map = Transformations.map(detailedTimerDao.getAllDisabledTimerForTimerGroup(groupId), detailedTimerEntity -> {
+                TreeMap<Integer, DetailedTimer> treeMap = new TreeMap<>();
+                Iterator<DetailedTimerEntity> iterator = detailedTimerEntity.iterator();
+                while (iterator.hasNext()) {
+                    DetailedTimerEntity entity = iterator.next();
+                    DetailedTimer detailedTimer = new DetailedTimer(entity);
+                    treeMap.put(detailedTimer.getPositionInGroup(), detailedTimer);
+                }
+                return treeMap;
+            });
+            disabledDetailedTimersForTimerGroups.put(groupId, map);
+        }
+
+        return disabledDetailedTimersForTimerGroups.get(groupId);
     }
 
     public LiveData<TreeMap<Integer, TempTimer>> getDummyTempTimer() {
@@ -195,6 +214,11 @@ public class TimerRepositoryDatabase implements ITimerRepository {
     @Override
     public void disableDetailedTimer(String timerGroupId, String detailedTimerId) {
         new TimerRepositoryDatabase.updateTimerStatus(detailedTimerDao, timerGroupId, detailedTimerId).execute(false);
+    }
+
+    @Override
+    public void enableAllDetailedTimer(String timerGroupId) {
+        new TimerRepositoryDatabase.enableAllDetailedTimerForTimerGroup(detailedTimerDao).execute(timerGroupId);
     }
 
     protected TimerGroup getTimerGroup(String
@@ -283,6 +307,21 @@ public class TimerRepositoryDatabase implements ITimerRepository {
             } else {
                 dao.disableTimer(groupId, timerId);
             }
+
+            return null;
+        }
+    }
+
+    private static class enableAllDetailedTimerForTimerGroup extends AsyncTask<String, Void, Void> {
+        private DetailedTimerDao dao;
+
+        enableAllDetailedTimerForTimerGroup(DetailedTimerDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final String... params) {
+            dao.enableAllTimerForGroup(params[0]);
 
             return null;
         }

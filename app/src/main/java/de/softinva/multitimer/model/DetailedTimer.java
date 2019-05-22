@@ -42,7 +42,7 @@ public class DetailedTimer extends Timer {
         this.description = entity.description;
         this.positionInGroup = entity.positionInGroup;
         this.coolDownInSec = entity.coolDownInSec;
-        this.isEnabled = entity.isEnabled;
+        this.isEnabled = entity.isEnabled == 1;
     }
 
     @Bindable
@@ -82,7 +82,7 @@ public class DetailedTimer extends Timer {
         entity.description = description;
         entity.positionInGroup = positionInGroup;
         entity.coolDownInSec = coolDownInSec;
-        entity.isEnabled = isEnabled;
+        entity.isEnabled = isEnabled ? 1 : 0;
         return entity;
     }
 

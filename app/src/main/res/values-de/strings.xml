@@ -19,4 +19,5 @@
     <string name="temp_timer">Temp Timer</string>
     <string name="label_durationInSec">Zeit</string>
     <string name="label_coolDown">Cool Down</string>
+    <string name="menu_item_enable_all_detailed_timer">Alle Timer freischalten</string>
 </resources>

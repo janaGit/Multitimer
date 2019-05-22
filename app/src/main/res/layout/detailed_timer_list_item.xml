@@ -47,9 +47,9 @@
             android:layout_marginLeft="16dp"
             android:text="@{viewObject.obj.timer.title}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/startStopTimerButton"
+            app:layout_constraintEnd_toStartOf="@id/startStopTimerButton"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.softinva.multitimer.viewcomponents.StartStopTimerButton
@@ -65,7 +65,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/content"
+            app:layout_constraintStart_toEndOf="@id/content"
             app:layout_constraintTop_toTopOf="parent"
             app:timer="@{viewObject.obj.timer}" />
 
@@ -78,7 +78,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image" />
+            app:layout_constraintStart_toEndOf="@id/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
