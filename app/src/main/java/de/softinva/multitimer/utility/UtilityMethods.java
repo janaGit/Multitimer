@@ -73,14 +73,14 @@ public class UtilityMethods {
         return UUID.randomUUID().toString();
     }
 
-    public static String transformToTextString(Integer countDownInSec) {
+    public static String transformSecIntoString(Integer countDownInSec) {
         if (countDownInSec == null) {
             return "";
         }
-        return UtilityMethods.transformToTextString(countDownInSec.longValue());
+        return UtilityMethods.transformSecIntoString(countDownInSec.longValue());
     }
 
-    public static String transformToTextString(Long countDownInSec) {
+    public static String transformSecIntoString(Long countDownInSec) {
         if (countDownInSec == null) {
             return "";
         }
@@ -90,13 +90,13 @@ public class UtilityMethods {
         int minutes = (countDownInSec.intValue() - (hours * 3600)) / 60;
         int seconds = (countDownInSec.intValue() - (hours * 3600) - (minutes * 60));
         if (hours != 0) {
-            countDownAsString += hours + " h ";
+            countDownAsString += hours + " h";
         }
         if (minutes != 0) {
-            countDownAsString += minutes + " min ";
+            countDownAsString += " " + minutes + " min";
         }
         if (seconds != 0) {
-            countDownAsString += seconds + " sec";
+            countDownAsString += " " + seconds + " sec";
         }
 
         logger.info("countDownInSec: " + countDownInSec + " countDownAsString: " + countDownAsString);

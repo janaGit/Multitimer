@@ -22,7 +22,7 @@ public class CountDown extends AppCompatTextView {
     public void setCountDownInSec(Long countDownInSec) {
         if (countDownInSec != null) {
             this.countDownInSec = countDownInSec;
-            countDownAsString = UtilityMethods.transformToTextString(countDownInSec);
+            countDownAsString = UtilityMethods.transformSecIntoString(countDownInSec);
             setText(countDownAsString);
         }
 
