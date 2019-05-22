@@ -57,8 +57,11 @@
             android:id="@+id/detailedTimerDisabled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             android:tint="@color/colorDisabled"
             android:visibility='@{((DetailedTimer)viewObject.obj.timer).isEnabled ? View.INVISIBLE: View.VISIBLE}'
+            app:layout_constraintBottom_toBottomOf="@+id/editDuration"
             app:layout_constraintStart_toEndOf="@id/editDuration"
             app:layout_constraintTop_toTopOf="@id/editDuration"
             app:srcCompat="@drawable/ic_timer_off_black_24dp" />
