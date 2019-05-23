@@ -54,9 +54,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/content"
+            app:layout_constraintStart_toEndOf="@id/content"
             app:layout_constraintTop_toTopOf="parent"
-            app:timer="@{viewObject.obj.timer.toTimer()}" />
+            app:timer="@{viewObject.obj.timer}" />
 
         <View
             android:id="@+id/divider"
@@ -67,7 +67,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image" />
+            app:layout_constraintStart_toEndOf="@id/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

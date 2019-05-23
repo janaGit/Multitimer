@@ -11,6 +11,7 @@ import androidx.core.widget.ImageViewCompat;
 
 import de.softinva.multitimer.CountDownService;
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.Timer;
 import de.softinva.multitimer.repository.TimerRepository;
 import de.softinva.multitimer.utility.AppLogger;
@@ -29,11 +30,14 @@ public class StartStopTimerButton extends AppCompatImageButton {
         updateTintColor();
         setOnClickListener(view -> {
             if (isRunning) {
-                CountDownService.cancelTimer(timer.toTimer(), view.getContext());
+                CountDownService.cancelTimer(timer, view.getContext());
             } else {
                 if (isEnabled) {
-                    CountDownService.startNewTimer(timer.toTimer(), view.getContext());
-                    new TimerRepository((Application) context.getApplicationContext()).disableDetailedTimer(timer.getGroupId(), timer.getId());
+                    CountDownService.startNewTimer(timer, view.getContext());
+                    if (timer instanceof DetailedTimer) {
+                        new TimerRepository((Application) context.getApplicationContext()).disableDetailedTimer(((DetailedTimer) timer).getGroupId(), timer.getId());
+
+                    }
                 }
             }
         });

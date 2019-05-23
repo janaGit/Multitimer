@@ -58,7 +58,7 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
     }
 
     public void onClickStatusButton(View view) {
-        obj.setIsEnabled(!obj.isEnabled());
+        obj.setIsEnabled(!obj.getIsEnabled());
     }
 }
 

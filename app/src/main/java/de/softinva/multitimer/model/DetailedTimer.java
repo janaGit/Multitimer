@@ -1,14 +1,18 @@
 package de.softinva.multitimer.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.databinding.Bindable;
 
 import de.softinva.multitimer.BR;
 import de.softinva.multitimer.database.DetailedTimerEntity;
 import de.softinva.multitimer.utility.UtilityMethods;
 
-public class DetailedTimer extends Timer {
+public class DetailedTimer extends Timer implements Parcelable {
+    private String groupId;
     private String description;
-    private Integer positionInGroup;
+    private int positionInGroup;
     private int coolDownInSec;
     private boolean isEnabled;
 
@@ -18,13 +22,13 @@ public class DetailedTimer extends Timer {
     }
 
     public DetailedTimer(String groupId) {
-        super(UtilityMethods.createID(), groupId, "", 30, "");
+        super(UtilityMethods.createID(), "", 30, "");
         this.groupId = groupId;
         description = "";
     }
 
-    public DetailedTimer(String id, String groupId, String title, Integer durationInSec, Integer coolDownInSec, boolean isEnabled, String imageName, Integer positionInGroup, String description) {
-        super(id, groupId, title, durationInSec, imageName);
+    public DetailedTimer(String id, String groupId, String title, int durationInSec, int coolDownInSec, boolean isEnabled, String imageName, int positionInGroup, String description) {
+        super(id, title, durationInSec, imageName);
         this.groupId = groupId;
         this.description = description;
         this.positionInGroup = positionInGroup;
@@ -43,6 +47,14 @@ public class DetailedTimer extends Timer {
         this.positionInGroup = entity.positionInGroup;
         this.coolDownInSec = entity.coolDownInSec;
         this.isEnabled = entity.isEnabled == 1;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     @Bindable
@@ -92,7 +104,7 @@ public class DetailedTimer extends Timer {
     }
 
     @Bindable
-    public boolean isEnabled() {
+    public boolean getIsEnabled() {
         return isEnabled;
     }
 
@@ -100,17 +112,54 @@ public class DetailedTimer extends Timer {
         return positionInGroup;
     }
 
-    public void setPositionInGroup(int positionInGroup) {
+    public void setPositionInGroup(Integer positionInGroup) {
         this.positionInGroup = positionInGroup;
     }
 
-    public void setCoolDownInSec(int coolDownInSec) {
+
+    public void setCoolDownInSec(Integer coolDownInSec) {
         this.coolDownInSec = coolDownInSec;
         notifyPropertyChanged(BR.coolDownInSec);
     }
 
     public void setIsEnabled(boolean enabled) {
         isEnabled = enabled;
-        notifyPropertyChanged(BR.enabled);
+        notifyPropertyChanged(BR.isEnabled);
+    }
+
+    protected DetailedTimer(Parcel in) {
+        super(in);
+        description = in.readString();
+        groupId = in.readString();
+        title = in.readString();
+        isEnabled = in.readByte() != 0;
+        coolDownInSec = in.readInt();
+        positionInGroup = in.readInt();
+    }
+
+    public static final Creator<Timer> CREATOR = new Creator<Timer>() {
+        @Override
+        public DetailedTimer createFromParcel(Parcel in) {
+            return new DetailedTimer(in);
+        }
+
+        @Override
+        public DetailedTimer[] newArray(int size) {
+            return new DetailedTimer[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(description);
+        dest.writeString(groupId);
+        dest.writeString(title);
+
+        dest.writeByte((byte) (isEnabled ? 1 : 0));
+        dest.writeInt(coolDownInSec);
+        dest.writeInt(positionInGroup);
+
+
     }
 }

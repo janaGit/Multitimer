@@ -31,7 +31,7 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
         builder.setView(binding.getRoot())
                 .setPositiveButton(R.string.start_timer, (dialog, id) -> {
                     model.tempTimer.setDurationInSec(editDuration.getDurationInSec());
-                    CountDownService.startNewTimer(model.tempTimer.toTimer(), getContext());
+                    CountDownService.startNewTimer(model.tempTimer, getContext());
                 })
                 .setNegativeButton(R.string.button_abort, (dialog, id) -> {
                 });

@@ -26,7 +26,7 @@
             android:layout_marginBottom="8dp"
             android:contentDescription="Image"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/content"
+            app:layout_constraintEnd_toStartOf="@id/content"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -40,9 +40,9 @@
             android:layout_marginLeft="16dp"
             android:text="@{viewObject.obj.title}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/icon"
+            app:layout_constraintEnd_toStartOf="@id/icon"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -61,7 +61,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/content"
+            app:layout_constraintStart_toEndOf="@id/content"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -73,7 +73,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image" />
+            app:layout_constraintStart_toEndOf="@id/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

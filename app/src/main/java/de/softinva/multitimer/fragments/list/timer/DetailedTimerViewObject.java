@@ -4,6 +4,7 @@ import android.view.View;
 
 import de.softinva.multitimer.activities.detailedtimer.info.DetailedTimerInfoActivity;
 import de.softinva.multitimer.classes.AppViewObject;
+import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 
 public class DetailedTimerViewObject extends AppViewObject<RunningTimer> {
@@ -13,7 +14,7 @@ public class DetailedTimerViewObject extends AppViewObject<RunningTimer> {
     }
 
     public void onClickTimer(View view) {
-        DetailedTimerInfoActivity.startNewActivity(obj.getTimer().getGroupId(), obj.getTimer().getId(), view.getContext());
+        DetailedTimerInfoActivity.startNewActivity(((DetailedTimer) obj.getTimer()).getGroupId(), obj.getTimer().getId(), view.getContext());
     }
 
 }

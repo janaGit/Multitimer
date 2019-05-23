@@ -39,9 +39,9 @@
             android:layout_weight="2"
             android:text="@{viewObject.obj.timer.title}"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/startStopTimerButton"
+            app:layout_constraintEnd_toStartOf="@id/startStopTimerButton"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.softinva.multitimer.viewcomponents.CountDown
@@ -54,9 +54,9 @@
             android:layout_marginRight="16dp"
             android:textSize="14sp"
             app:countDownInSec="@{viewObject.obj.countDownInSec}"
-            app:layout_constraintEnd_toStartOf="@+id/startStopTimerButton"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/content">
+            app:layout_constraintEnd_toStartOf="@id/startStopTimerButton"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/content">
 
         </de.softinva.multitimer.viewcomponents.CountDown>
 
@@ -73,7 +73,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:timer="@{viewObject.obj.timer.toTimer()}" />
+            app:timer="@{viewObject.obj.timer}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

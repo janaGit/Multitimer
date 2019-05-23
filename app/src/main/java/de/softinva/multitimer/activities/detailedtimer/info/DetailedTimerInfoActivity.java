@@ -15,6 +15,7 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.edit.EditDetailedTimerActivity;
 import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
 import de.softinva.multitimer.databinding.ActivityDetailedTimerInfoBinding;
+import de.softinva.multitimer.model.DetailedTimer;
 
 public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<DetailedTimerInfoViewModel> {
     public static void startNewActivity(String groupId, String timerId, Context context) {
@@ -61,7 +62,7 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit_detailed_timer:
-                EditDetailedTimerActivity.startNewActivity(runningTimer$.getValue().getTimer().getGroupId(), runningTimer$.getValue().getTimer().getId(), this);
+                EditDetailedTimerActivity.startNewActivity(((DetailedTimer) runningTimer$.getValue().getTimer()).getGroupId(), runningTimer$.getValue().getTimer().getId(), this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

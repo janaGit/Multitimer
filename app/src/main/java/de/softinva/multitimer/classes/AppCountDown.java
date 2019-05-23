@@ -12,9 +12,9 @@ public class AppCountDown {
     protected CountDownTimer countDownTimer;
     protected AppLogger logger;
     protected RunningTimer runningTimer;
-    protected CountDownService service;
+    protected AbstractCountDownService service;
 
-    public AppCountDown(RunningTimer runningTimer, CountDownService service) {
+    public AppCountDown(RunningTimer runningTimer, AbstractCountDownService service) {
         logger = UtilityMethods.createLogger(this);
         this.runningTimer = runningTimer;
         this.service = service;

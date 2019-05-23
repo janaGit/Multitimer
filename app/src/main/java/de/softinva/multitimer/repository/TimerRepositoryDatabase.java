@@ -151,7 +151,7 @@ public class TimerRepositoryDatabase implements ITimerRepository {
                 for (Map.Entry<Long, RunningTimer> runningTimerEntry : runningTimerTreeMap.entrySet()) {
                     RunningTimer runningTimer = runningTimerEntry.getValue();
                     Timer timer = runningTimer.getTimer();
-                    if (timer.getGroupId().equals("")) {
+                    if (timer instanceof TempTimer) {
                         TempTimer tempTimer = new TempTimer(timer);
                         tempTimerTreeMap.put(tempTimerTreeMap.size(), tempTimer);
                     }
