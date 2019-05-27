@@ -1,32 +1,164 @@
 package de.softinva.multitimer;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
+import android.os.IBinder;
 
-import de.softinva.multitimer.classes.AbstractCountDownService;
+import androidx.lifecycle.MutableLiveData;
+
+import java.util.TreeMap;
+
+import de.softinva.multitimer.classes.AppCountDown;
+import de.softinva.multitimer.model.DetailedTimer;
+import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
+import de.softinva.multitimer.utility.AppLogger;
+import de.softinva.multitimer.utility.UtilityMethods;
 
 
-public class CountDownService extends AbstractCountDownService {
+public class CountDownService extends Service {
+    public static final String TIMER = "de.softinva.multitimer.CountDownService.Timer";
+    public static final String ACTION_START_TIMER = "de.softinva.multitimer.CountDownService.ActionStartTimer";
+    public static final String ACTION_CANCEL_TIMER = "de.softinva.multitimer.CountDownService.ActionCancelTimer";
+
+    public static MutableLiveData<TreeMap<Long, RunningTimer>> runningTimerByFinishTimeMap = new MutableLiveData<>();
+    public static MutableLiveData<TreeMap<String, RunningTimer>> runningTimerByIDMap = new MutableLiveData<>();
+
+    protected final IBinder binder = new CountDownService.LocalBinder();
+    protected final AppLogger logger = UtilityMethods.createLogger(this);
+
+
+    protected TreeMap<Long, RunningTimer> runningTimerMapByFinishTime;
+    protected TreeMap<String, RunningTimer> runningTimerMapByID;
+    protected TreeMap<String, AppCountDown> appCountDownTimerTreeMap;
+
+
+    static {
+        runningTimerByFinishTimeMap.setValue(new TreeMap<>());
+        runningTimerByIDMap.setValue(new TreeMap<>());
+    }
 
     public static void startNewTimer(Timer timer, Context context) {
         Intent intent = new Intent(context, CountDownService.class);
-        intent.setAction(AbstractCountDownService.ACTION_START_TIMER);
-        intent.putExtra(AbstractCountDownService.TIMER, timer);
+        intent.setAction(CountDownService.ACTION_START_TIMER);
+        intent.putExtra(CountDownService.TIMER, timer);
         context.startService(intent);
     }
 
 
     public static void cancelTimer(Timer timer, Context context) {
         Intent intent = new Intent(context, CountDownService.class);
-        intent.setAction(AbstractCountDownService.ACTION_CANCEL_TIMER);
-        intent.putExtra(AbstractCountDownService.TIMER, timer);
+        intent.setAction(CountDownService.ACTION_CANCEL_TIMER);
+        intent.putExtra(CountDownService.TIMER, timer);
         context.startService(intent);
     }
 
     @Override
-    public synchronized void removeTimer(Timer timer) {
-        super.removeTimer(timer);
+    public void onCreate() {
+        runningTimerMapByFinishTime = new TreeMap<>();
+        runningTimerMapByID = new TreeMap<>();
+        appCountDownTimerTreeMap = new TreeMap<>();
 
     }
+
+    public class LocalBinder extends Binder {
+        public CountDownService getService() {
+            return CountDownService.this;
+        }
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return binder;
+    }
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        logger.info("Start CountDownService: onStartCommand()");
+        String action = intent.getAction();
+        Timer timer = intent.getParcelableExtra(TIMER);
+        switch (action) {
+            case ACTION_START_TIMER:
+                addNewTimer(timer);
+                break;
+            case ACTION_CANCEL_TIMER:
+                cancelTimer(timer);
+                break;
+            default:
+                throw new Error("Intent with action " + action + " not supported!");
+        }
+
+        return START_STICKY;
+    }
+
+    protected void addNewTimer(Timer timer) {
+        if (runningTimerMapByID.get(timer.getId()) == null) {
+            RunningTimer runningTimer = new RunningTimer(timer);
+
+            AppCountDown appCountDown = new AppCountDown(runningTimer, this);
+            appCountDownTimerTreeMap.put(timer.getId(), appCountDown);
+
+            appCountDown.run();
+            if (runningTimer.isCountDownRunning().getValue() != null && runningTimer.isCountDownRunning().getValue()) {
+                runningTimerMapByFinishTime.put(runningTimer.getFinishTimeCountDownInSec(), runningTimer);
+                runningTimerMapByID.put(timer.getId(), runningTimer);
+                updateLiveData();
+            } else {
+                throw new Error("timer ist not running, but should!");
+            }
+
+        } else {
+            throw new Error("Timer is running!");
+        }
+    }
+
+    protected void cancelTimer(Timer timer) {
+        AppCountDown countDown = appCountDownTimerTreeMap.get(timer.getId());
+        if (countDown != null) {
+            countDown.cancel();
+        } else {
+            throw new Error("count down should not be null!");
+        }
+    }
+
+    public synchronized void onStopTimer(Timer timer) {
+        RunningTimer runningTimer = runningTimerMapByID.get(timer.getId());
+        if (runningTimer != null) {
+            Long finishTime = runningTimer.stopCountDown();
+            removeTimer(timer, finishTime);
+            updateLiveData();
+        } else {
+            throw new Error("running Timer should not be null!");
+        }
+    }
+
+    protected void removeTimer(Timer timer, Long finishTimeInSec) {
+        if (finishTimeInSec != null) {
+            runningTimerMapByFinishTime.remove(finishTimeInSec);
+        } else {
+            throw new Error("finishTime should not be null!");
+        }
+        runningTimerMapByID.remove(timer.getId());
+
+        appCountDownTimerTreeMap.remove(timer.getId());
+    }
+
+    protected void updateLiveData() {
+        runningTimerByFinishTimeMap.setValue(runningTimerMapByFinishTime);
+        runningTimerByIDMap.setValue(runningTimerMapByID);
+    }
+
+    public void onFinishTimer(Timer timer) {
+        if (timer instanceof DetailedTimer) {
+            DetailedTimer detailedTimer = (DetailedTimer) timer;
+            if (detailedTimer.getCoolDownInSec() > 0) {
+                CoolDownService.startNewTimer(detailedTimer, this);
+            }
+
+        }
+    }
+
 }

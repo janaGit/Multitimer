@@ -32,6 +32,7 @@ public interface ITimerRepository {
 
     LiveData<TreeMap<String, RunningTimer>> getRunningTimerByIDMap();
 
+    LiveData<TreeMap<String, RunningTimer>> getCoolDownTimerTimerByIDMap();
 
     void insertTimerGroup(TimerGroup timerGroup);
 

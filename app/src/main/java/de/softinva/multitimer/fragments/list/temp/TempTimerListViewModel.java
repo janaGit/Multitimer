@@ -12,6 +12,7 @@ import androidx.lifecycle.Transformations;
 import de.softinva.multitimer.classes.FragmentViewModel;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.repository.TimerRepository;
+import de.softinva.multitimer.utility.LiveDataZipRunningTimer;
 import de.softinva.multitimer.utility.UtilityMethods;
 
 public class TempTimerListViewModel extends FragmentViewModel {
@@ -35,7 +36,7 @@ public class TempTimerListViewModel extends FragmentViewModel {
         timerList = Transformations.switchMap(
                 new TimerRepository(getApplication()).getTempTimer(), timerMap -> {
                     TreeMap<Integer, RunningTimer> treeMap = UtilityMethods.createRunningTimerListForTempTimer(timerMap);
-                    return UtilityMethods.updateTimerList(treeMap, getApplication());
+                    return new LiveDataZipRunningTimer(treeMap, getApplication());
                 });
 
     }

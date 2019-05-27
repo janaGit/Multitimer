@@ -1,61 +1,108 @@
 package de.softinva.multitimer.model;
 
+import de.softinva.multitimer.BR;
+
 import java.util.Date;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 import androidx.lifecycle.MutableLiveData;
 
 import de.softinva.multitimer.utility.AppLogger;
 
 
-public class RunningTimer {
-    AppLogger logger = new AppLogger(this);
+public class RunningTimer extends BaseObservable {
+    private AppLogger logger = new AppLogger(this);
     protected Timer timer;
-    protected Long finishTimeInSec;
-    protected MutableLiveData<Long> countDownInSec;
-    protected MutableLiveData<Boolean> isRunning;
+
+    private Long finishTimeCountDownInSec;
+    private MutableLiveData<Long> countDownInSec;
+
+    private MutableLiveData<Boolean> isCountDownRunning;
+
+    private MutableLiveData<Long> coolDownInSec;
+    private MutableLiveData<Boolean> isCoolDownRunning;
 
     public RunningTimer(Timer timer) {
         this.timer = timer;
         countDownInSec = new MutableLiveData<>();
-        isRunning = new MutableLiveData<>(false);
+        coolDownInSec = new MutableLiveData<>();
+        isCountDownRunning = new MutableLiveData<>(false);
+        isCoolDownRunning = new MutableLiveData<>(false);
     }
 
-    public MutableLiveData<Boolean> isRunning() {
-        return isRunning;
+    public void setCountDownInSec(MutableLiveData<Long> countDownInSec) {
+        this.countDownInSec = countDownInSec;
     }
 
+    public void setCoolDownInSec(MutableLiveData<Long> coolDownInSec) {
+        this.coolDownInSec = coolDownInSec;
+    }
+
+    public void setIsCountDownRunning(MutableLiveData<Boolean> isCountDownRunning) {
+        this.isCountDownRunning = isCountDownRunning;
+    }
+
+    public void setIsCoolDownRunning(MutableLiveData<Boolean> isCoolDownRunning) {
+        this.isCoolDownRunning = isCoolDownRunning;
+    }
+
+    public MutableLiveData<Boolean> isCountDownRunning() {
+        return isCountDownRunning;
+    }
+
+    public MutableLiveData<Boolean> isCoolDownRunning() {
+        return isCoolDownRunning;
+    }
+
+    @Bindable
     public Timer getTimer() {
         return timer;
     }
 
     public void setTimer(Timer timer) {
         this.timer = timer;
+        notifyPropertyChanged(BR.timer);
     }
 
     public MutableLiveData<Long> getCountDownInSec() {
         return countDownInSec;
     }
 
+    public MutableLiveData<Long> getCoolDownInSec() {
+        return coolDownInSec;
+    }
 
-    public Long getFinishTimeInSec() {
-        if (finishTimeInSec == null) {
+
+    public Long getFinishTimeCountDownInSec() {
+        if (finishTimeCountDownInSec == null) {
             logger.info("Timer not yet started!");
-            finishTimeInSec = new Date().getTime();
+            finishTimeCountDownInSec = new Date().getTime();
         }
+        return finishTimeCountDownInSec;
+    }
+
+    public void startCountDown() {
+        if (finishTimeCountDownInSec != null) {
+            throw new Error("Finish time already set!");
+        }
+        finishTimeCountDownInSec = new Date().getTime() + (timer.durationInSec * 1000);
+        isCountDownRunning.setValue(true);
+    }
+
+    public Long stopCountDown() {
+        Long finishTimeInSec = finishTimeCountDownInSec;
+        finishTimeCountDownInSec = null;
+        isCountDownRunning.setValue(false);
         return finishTimeInSec;
     }
 
-    public void setToStart() {
-        if (finishTimeInSec != null) {
-            throw new Error("Finish time already set!");
-        }
-        finishTimeInSec = new Date().getTime() + (timer.durationInSec * 1000);
-        isRunning.setValue(true);
+    public void startCoolDown() {
+        isCoolDownRunning.setValue(true);
     }
 
-    public void setToStop() {
-        finishTimeInSec = null;
-        isRunning.setValue(false);
+    public void stopCoolDown() {
+        isCoolDownRunning.setValue(false);
     }
 
 }

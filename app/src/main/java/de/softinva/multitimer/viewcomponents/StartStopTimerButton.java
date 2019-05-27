@@ -52,35 +52,30 @@ public class StartStopTimerButton extends AppCompatImageButton {
         }
     }
 
-    public void setIsEnabled(Boolean isEnabled) {
-        if (isEnabled != null) {
-            this.isEnabled = isEnabled;
-            updateTintColor();
-            invalidate();
-            requestLayout();
-        }
-    }
-
     public void setTimer(Timer timer) {
         this.timer = timer;
+        if (timer instanceof DetailedTimer) {
+            isEnabled = ((DetailedTimer) timer).getIsEnabled();
+        }
         updateTintColor();
         invalidate();
         requestLayout();
     }
 
     protected void updateTintColor() {
-        if (isRunning) {
-            ColorStateList csl = AppCompatResources.getColorStateList(context, R.color.colorPrimary);
-            ImageViewCompat.setImageTintList(this, csl);
-        } else {
-            if (isEnabled) {
-                ColorStateList csl = AppCompatResources.getColorStateList(context, R.color.colorAccent);
-                ImageViewCompat.setImageTintList(this, csl);
+        if (timer != null) {
+            ColorStateList csl;
+            if (isRunning) {
+                csl = AppCompatResources.getColorStateList(context, R.color.colorPrimary);
             } else {
-                ColorStateList csl = AppCompatResources.getColorStateList(context, R.color.colorDisabled);
-                ImageViewCompat.setImageTintList(this, csl);
+                if (isEnabled) {
+                    csl = AppCompatResources.getColorStateList(context, R.color.colorAccent);
+                } else {
+                    csl = AppCompatResources.getColorStateList(context, R.color.colorDisabled);
+                }
             }
-
+            ImageViewCompat.setImageTintList(this, csl);
         }
+
     }
 }

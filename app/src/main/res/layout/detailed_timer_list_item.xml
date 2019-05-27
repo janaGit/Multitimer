@@ -18,8 +18,8 @@
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="horizontal"
-        android:onClick="@{viewObject::onClickTimer}">
+        android:onClick="@{viewObject::onClickTimer}"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/image"
@@ -52,6 +52,18 @@
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <de.softinva.multitimer.viewcomponents.CountDown
+            android:id="@+id/countDown"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="14sp"
+            app:countDownInSec="@{viewObject.obj.coolDownInSec}"
+            app:layout_constraintEnd_toStartOf="@id/startStopTimerButton"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/content" />
+
         <de.softinva.multitimer.viewcomponents.StartStopTimerButton
             android:id="@+id/startStopTimerButton"
             android:layout_width="24dp"
@@ -60,8 +72,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="24dp"
-            app:isEnabled="@{((DetailedTimer) viewObject.obj.timer).isEnabled}"
-            app:isRunning="@{viewObject.obj.isRunning}"
+            app:isRunning="@{viewObject.obj.isCountDownRunning}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

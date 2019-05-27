@@ -13,6 +13,7 @@ import de.softinva.multitimer.classes.FragmentViewModel;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
 import de.softinva.multitimer.repository.TimerRepository;
+import de.softinva.multitimer.utility.LiveDataZipRunningTimer;
 import de.softinva.multitimer.utility.UtilityMethods;
 
 
@@ -34,7 +35,7 @@ public class DetailedTimerListViewModel extends FragmentViewModel {
     private void createTimerList(String timerGroupId) {
         timerList = Transformations.switchMap(new TimerRepository(getApplication()).getDetailedTimersForTimerGroup(timerGroupId), detailedTimerMap -> {
             TreeMap<Integer, RunningTimer> treeMap = UtilityMethods.createRunningTimerListForDetailedTimer(detailedTimerMap);
-            return UtilityMethods.updateTimerList(treeMap, getApplication());
+            return new LiveDataZipRunningTimer(treeMap, getApplication());
 
         });
     }

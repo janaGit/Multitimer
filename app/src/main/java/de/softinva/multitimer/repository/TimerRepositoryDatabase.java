@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import de.softinva.multitimer.CoolDownService;
 import de.softinva.multitimer.CountDownService;
 import de.softinva.multitimer.database.AppDao;
 import de.softinva.multitimer.database.AppDatabase;
@@ -30,6 +31,7 @@ import de.softinva.multitimer.repository.dummy.DummyTempTimer;
 public class TimerRepositoryDatabase implements ITimerRepository {
     private LiveData<TreeMap<Long, RunningTimer>> runningTimerByFinishTimeMap;
     private LiveData<TreeMap<String, RunningTimer>> runningTimerByIDMap;
+    private LiveData<TreeMap<String, RunningTimer>> coolDownTimerByIDMap;
     private LiveData<TreeMap<Integer, TimerGroup>> timerGroups;
     private LiveData<TreeMap<Integer, TempTimer>> tempTimerMap;
 
@@ -175,6 +177,15 @@ public class TimerRepositoryDatabase implements ITimerRepository {
         }
         return runningTimerByIDMap;
     }
+
+    @Override
+    public LiveData<TreeMap<String, RunningTimer>> getCoolDownTimerTimerByIDMap() {
+        if (coolDownTimerByIDMap == null) {
+            coolDownTimerByIDMap = CoolDownService.runningTimerByIDMap;
+        }
+        return coolDownTimerByIDMap;
+    }
+
 
     @Override
     public void insertTimerGroup(TimerGroup timerGroup) {

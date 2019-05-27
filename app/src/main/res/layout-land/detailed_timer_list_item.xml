@@ -56,7 +56,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/item_margin"
                     android:layout_marginRight="@dimen/item_margin"
-                    startStop:isRunning="@{viewObject.obj.isRunning}"
+                    startStop:isRunning="@{viewObject.obj.isCountDownRunning}"
                     startStop:timer="@{viewObject.obj.timer}"/>
 
             </LinearLayout>

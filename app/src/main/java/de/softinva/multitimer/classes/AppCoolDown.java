@@ -3,26 +3,31 @@ package de.softinva.multitimer.classes;
 
 import android.os.CountDownTimer;
 
-import de.softinva.multitimer.CountDownService;
+import de.softinva.multitimer.CoolDownService;
+import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;
 
-public class AppCountDown {
+public class AppCoolDown {
     private CountDownTimer countDownTimer;
     private AppLogger logger;
     private RunningTimer runningTimer;
-    private CountDownService service;
+    CoolDownService service;
 
-    public AppCountDown(RunningTimer runningTimer, CountDownService service) {
+    public AppCoolDown(RunningTimer runningTimer, CoolDownService service) {
         logger = UtilityMethods.createLogger(this);
         this.runningTimer = runningTimer;
         this.service = service;
+        if (!(runningTimer.getTimer() instanceof DetailedTimer)) {
+            throw new Error("timer not instance of DetailedTtmer: " + runningTimer.getTimer().getClass());
+        }
+        DetailedTimer detailedTimer = (DetailedTimer) runningTimer.getTimer();
 
-        countDownTimer = new CountDownTimer(runningTimer.getTimer().getDurationInSec() * 1000, 1000) {
+        countDownTimer = new CountDownTimer(detailedTimer.getCoolDownInSec() * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                runningTimer.getCountDownInSec().setValue(millisUntilFinished / 1000);
+                runningTimer.getCoolDownInSec().setValue(millisUntilFinished / 1000);
                 logger.info(runningTimer.getTimer().getTitle() + ": seconds remaining " + millisUntilFinished / 1000);
             }
 
@@ -36,15 +41,14 @@ public class AppCountDown {
     }
 
     public void run() {
-        logger.info("start count down timer: " + runningTimer.getTimer().getTitle());
-        runningTimer.startCountDown();
+        logger.info("start cool down timer: " + runningTimer.getTimer().getTitle());
+        runningTimer.startCoolDown();
         countDownTimer.start();
     }
 
     public void cancel() {
-        logger.info("on cancel count down timer: " + runningTimer.getTimer().getTitle());
         service.onStopTimer(runningTimer.getTimer());
+        logger.info("on cancel cool down timer: " + runningTimer.getTimer().getTitle());
         countDownTimer.cancel();
-
     }
 }

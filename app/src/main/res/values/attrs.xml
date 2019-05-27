@@ -5,7 +5,6 @@
     </declare-styleable>
     <declare-styleable name="StartStopTimerButton">
         <attr name="isRunning" format="boolean" />
-        <attr name="isEnabled" />
         <attr name="timer" />
     </declare-styleable>
     <declare-styleable name="DetailedTimerStatusButton">

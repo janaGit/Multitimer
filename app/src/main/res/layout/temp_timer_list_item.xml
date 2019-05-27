@@ -50,7 +50,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="24dp"
-            app:isRunning="@{viewObject.obj.isRunning}"
+            app:isRunning="@{viewObject.obj.isCountDownRunning}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

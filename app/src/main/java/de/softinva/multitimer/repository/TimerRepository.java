@@ -62,6 +62,11 @@ public class TimerRepository implements ITimerRepository {
     }
 
     @Override
+    public LiveData<TreeMap<String, RunningTimer>> getCoolDownTimerTimerByIDMap() {
+        return repository.getCoolDownTimerTimerByIDMap();
+    }
+
+    @Override
     public void insertTimerGroup(TimerGroup timerGroup) {
         repository.insertTimerGroup(timerGroup);
     }

@@ -18,7 +18,7 @@ public class DummyRunningTimer {
 
     protected static void addTimer(Timer timer) {
         RunningTimer runningTimer = new RunningTimer(timer);
-        runningTimer.setToStart();
-        RUNNING_TIMER.put(runningTimer.getFinishTimeInSec(), runningTimer);
+        runningTimer.startCountDown();
+        RUNNING_TIMER.put(runningTimer.getFinishTimeCountDownInSec(), runningTimer);
     }
 }
