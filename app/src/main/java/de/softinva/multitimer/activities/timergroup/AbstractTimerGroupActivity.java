@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.lifecycle.LiveData;
 
-import de.softinva.multitimer.classes.AppActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.model.TimerGroup;
 
 public abstract class AbstractTimerGroupActivity<T> extends AppActivity<T> {

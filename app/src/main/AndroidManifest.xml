@@ -83,11 +83,11 @@
         </activity>
 
         <service
-            android:name=".CountDownService"
+            android:name=".services.countdown.CountDownService"
             android:exported="false" />
 
         <service
-            android:name=".CoolDownService"
+            android:name=".services.cooldown.CoolDownService"
             android:exported="false" />
 
     </application>

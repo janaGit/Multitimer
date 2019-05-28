@@ -2,7 +2,6 @@ package de.softinva.multitimer.fragments.addTempTimerDialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -11,10 +10,10 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
-import de.softinva.multitimer.CountDownService;
+import de.softinva.multitimer.services.countdown.CountDownService;
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
-import de.softinva.multitimer.classes.AppViewObject;
+import de.softinva.multitimer.classes.abstract_classes.AppDialogFragmentDataBinding;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityAddTempTimerBinding;
 import de.softinva.multitimer.utility.EditDuration;
 

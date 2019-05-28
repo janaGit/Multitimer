@@ -7,14 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.TimerGroupViewModel;
-import de.softinva.multitimer.classes.AppFragment;
+import de.softinva.multitimer.classes.abstract_classes.AppFragment;
 import de.softinva.multitimer.model.TIMER_GROUP_ACTIVITY_TABS;
 
 public class TimerGroupTabs extends AppFragment {

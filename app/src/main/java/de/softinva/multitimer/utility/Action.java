@@ -5,7 +5,7 @@ import android.app.Application;
 import java.util.LinkedList;
 import java.util.TreeMap;
 
-import de.softinva.multitimer.CoolDownService;
+import de.softinva.multitimer.services.cooldown.CoolDownService;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 

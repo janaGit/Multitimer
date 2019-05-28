@@ -1,9 +1,8 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.services.countdown;
 
 
 import android.os.CountDownTimer;
 
-import de.softinva.multitimer.CountDownService;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;

@@ -1,11 +1,9 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.classes.abstract_classes;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.utility.AppLogger;

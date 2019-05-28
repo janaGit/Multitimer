@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.timergroup.add.AddTimerGroupActivity;
-import de.softinva.multitimer.classes.AppTabsActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppTabsActivity;
 import de.softinva.multitimer.databinding.ActivityMainBinding;
 import de.softinva.multitimer.fragments.addTempTimerDialog.AddTempTimerDialog;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;

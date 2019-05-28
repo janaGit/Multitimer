@@ -1,4 +1,4 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.classes.abstract_classes;
 
 import android.app.Application;
 

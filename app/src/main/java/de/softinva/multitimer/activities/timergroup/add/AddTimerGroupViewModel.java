@@ -5,7 +5,7 @@ import android.app.Application;
 
 import androidx.lifecycle.SavedStateHandle;
 
-import de.softinva.multitimer.classes.AppViewModel;
+import de.softinva.multitimer.classes.abstract_classes.AppViewModel;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.utility.UtilityMethods;
 

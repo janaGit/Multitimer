@@ -9,7 +9,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.widget.ImageViewCompat;
 
-import de.softinva.multitimer.CountDownService;
+import de.softinva.multitimer.services.countdown.CountDownService;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.Timer;

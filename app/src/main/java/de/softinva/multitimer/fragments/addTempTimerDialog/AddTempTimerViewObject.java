@@ -1,6 +1,6 @@
 package de.softinva.multitimer.fragments.addTempTimerDialog;
 
-import de.softinva.multitimer.classes.AppViewObject;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.model.TempTimer;
 
 

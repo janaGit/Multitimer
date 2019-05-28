@@ -6,9 +6,8 @@ import java.util.TreeMap;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import de.softinva.multitimer.classes.FragmentViewModel;
+import de.softinva.multitimer.classes.abstract_classes.FragmentViewModel;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
 

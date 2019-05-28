@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle;
 import java.util.TreeMap;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.classes.AppViewModel;
+import de.softinva.multitimer.classes.abstract_classes.AppViewModel;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.TempTimer;
 import de.softinva.multitimer.repository.TimerRepository;

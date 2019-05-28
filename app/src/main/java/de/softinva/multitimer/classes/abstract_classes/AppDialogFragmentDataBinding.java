@@ -1,26 +1,18 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.classes.abstract_classes;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 
 import de.softinva.multitimer.BR;
-import de.softinva.multitimer.R;
+import de.softinva.multitimer.classes.interfaces.IAppModelBinding;
 import de.softinva.multitimer.utility.AppLogger;
 
-public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment implements IAppModelBinding<T>{
+public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment implements IAppModelBinding<T> {
     protected AppLogger logger = new AppLogger(this);
     protected T model;
     protected AppViewObject viewObject;

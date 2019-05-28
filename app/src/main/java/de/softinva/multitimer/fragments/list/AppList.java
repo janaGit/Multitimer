@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.classes.AppFragment;
+import de.softinva.multitimer.classes.abstract_classes.AppFragment;
 
 
 

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
-import de.softinva.multitimer.classes.AppActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.model.TimerGroup;
 

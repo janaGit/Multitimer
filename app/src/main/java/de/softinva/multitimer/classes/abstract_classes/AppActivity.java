@@ -1,4 +1,4 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.classes.abstract_classes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleOwner;
 
 import de.softinva.multitimer.BR;
+import de.softinva.multitimer.classes.interfaces.IAppModelBinding;
 
 
 public abstract class AppActivity<T> extends AppCompatActivity implements IAppModelBinding<T> {

@@ -1,6 +1,5 @@
 package de.softinva.multitimer.utility;
 
-import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.FrameLayout;
 import androidx.lifecycle.MutableLiveData;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.classes.IAppModelBinding;
+import de.softinva.multitimer.classes.interfaces.IAppModelBinding;
 import de.softinva.multitimer.viewcomponents.EditDurationFields;
 
 public class EditDuration implements EditDurationFields.EditDurationFieldsFocusChangeListener {

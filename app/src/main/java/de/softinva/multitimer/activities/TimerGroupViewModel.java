@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupViewModel;
-import de.softinva.multitimer.classes.ActivityTabsViewModel;
+import de.softinva.multitimer.classes.interfaces.ActivityTabsViewModel;
 import de.softinva.multitimer.model.TABS;
 
 

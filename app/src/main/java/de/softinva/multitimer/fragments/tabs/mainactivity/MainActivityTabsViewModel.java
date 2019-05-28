@@ -3,7 +3,7 @@ import android.app.Application;
 
 import androidx.lifecycle.SavedStateHandle;
 
-import de.softinva.multitimer.classes.AppViewModel;
+import de.softinva.multitimer.classes.abstract_classes.AppViewModel;
 
 public class MainActivityTabsViewModel extends AppViewModel {
 

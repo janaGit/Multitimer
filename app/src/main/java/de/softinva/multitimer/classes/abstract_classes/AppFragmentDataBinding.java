@@ -1,6 +1,5 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.classes.abstract_classes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.LifecycleOwner;
 
 import de.softinva.multitimer.BR;
+import de.softinva.multitimer.classes.interfaces.IAppModelBinding;
 import de.softinva.multitimer.utility.AppLogger;
 
 public abstract class AppFragmentDataBinding<T> extends AppFragment implements IAppModelBinding<T> {

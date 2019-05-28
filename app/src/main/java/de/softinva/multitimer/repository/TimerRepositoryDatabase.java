@@ -11,8 +11,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
-import de.softinva.multitimer.CoolDownService;
-import de.softinva.multitimer.CountDownService;
+import de.softinva.multitimer.services.cooldown.CoolDownService;
+import de.softinva.multitimer.services.countdown.CountDownService;
 import de.softinva.multitimer.database.AppDao;
 import de.softinva.multitimer.database.AppDatabase;
 import de.softinva.multitimer.database.AppEntity;

@@ -1,13 +1,12 @@
 package de.softinva.multitimer.activities;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 
-import de.softinva.multitimer.classes.ActivityTabsViewModel;
-import de.softinva.multitimer.classes.AppViewModel;
+import de.softinva.multitimer.classes.interfaces.ActivityTabsViewModel;
+import de.softinva.multitimer.classes.abstract_classes.AppViewModel;
 import de.softinva.multitimer.model.TABS;
 
 public class MainActivityViewModel extends AppViewModel implements ActivityTabsViewModel {

@@ -11,10 +11,9 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.classes.AppDialogFragmentDataBinding;
-import de.softinva.multitimer.classes.AppViewObject;
+import de.softinva.multitimer.classes.abstract_classes.AppDialogFragmentDataBinding;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.EditDurationDialogBinding;
-import de.softinva.multitimer.fragments.editcooldowndialog.EditCoolDownDialogViewModel;
 import de.softinva.multitimer.utility.EditDuration;
 
 public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> implements EditDuration.EditDurationActionsListener, EditDuration.UpdateDurationInSecListener {

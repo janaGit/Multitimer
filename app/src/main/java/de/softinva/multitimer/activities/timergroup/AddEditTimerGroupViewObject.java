@@ -1,11 +1,10 @@
 package de.softinva.multitimer.activities.timergroup;
 
-import android.app.Application;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import de.softinva.multitimer.classes.AppViewObject;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
 

@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import de.softinva.multitimer.activities.MainActivityViewModel;
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.classes.AppFragment;
+import de.softinva.multitimer.classes.abstract_classes.AppFragment;
 import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
 
 public class MainActivityTabs extends AppFragment {

@@ -1,4 +1,4 @@
-package de.softinva.multitimer;
+package de.softinva.multitimer.services.countdown;
 
 import android.app.Service;
 import android.content.Context;
@@ -11,23 +11,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
-import org.xml.sax.DTDHandler;
-
 import java.util.TreeMap;
 
-import de.softinva.multitimer.classes.AppCountDown;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
 import de.softinva.multitimer.repository.TimerRepository;
+import de.softinva.multitimer.services.cooldown.CoolDownService;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;
 
 
 public class CountDownService extends Service {
-    public static final String TIMER = "de.softinva.multitimer.CountDownService.Timer";
-    public static final String ACTION_START_TIMER = "de.softinva.multitimer.CountDownService.ActionStartTimer";
-    public static final String ACTION_CANCEL_TIMER = "de.softinva.multitimer.CountDownService.ActionCancelTimer";
+    public static final String TIMER = "de.softinva.multitimer.services.countdown.CountDownService.Timer";
+    public static final String ACTION_START_TIMER = "de.softinva.multitimer.services.countdown.CountDownService.ActionStartTimer";
+    public static final String ACTION_CANCEL_TIMER = "de.softinva.multitimer.services.countdown.CountDownService.ActionCancelTimer";
 
     public static MutableLiveData<TreeMap<Long, RunningTimer>> runningTimerByFinishTimeMap = new MutableLiveData<>();
     public static MutableLiveData<TreeMap<String, RunningTimer>> runningTimerByIDMap = new MutableLiveData<>();

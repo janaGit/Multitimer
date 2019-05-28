@@ -1,9 +1,9 @@
-package de.softinva.multitimer.classes;
+package de.softinva.multitimer.services.cooldown;
 
 
 import android.os.CountDownTimer;
 
-import de.softinva.multitimer.CoolDownService;
+import de.softinva.multitimer.services.cooldown.CoolDownService;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.utility.AppLogger;
