@@ -6,7 +6,12 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import org.xml.sax.DTDHandler;
 
 import java.util.TreeMap;
 
@@ -160,11 +165,21 @@ public class CountDownService extends Service {
         if (timer instanceof DetailedTimer) {
             DetailedTimer detailedTimer = (DetailedTimer) timer;
             if (detailedTimer.getCoolDownInSec() > 0) {
-                DetailedTimer detailedTimerFromDatabase = new TimerRepository(this.getApplication()).getDetailedTimer(detailedTimer.getGroupId(), detailedTimer.getId()).getValue();
-                if (detailedTimerFromDatabase != null && !detailedTimerFromDatabase.getIsEnabled()) {
-                    CoolDownService.startNewTimer(detailedTimer, this);
-                }
+                LiveData<DetailedTimer> liveData = new TimerRepository(this.getApplication()).getDetailedTimer(detailedTimer.getGroupId(), detailedTimer.getId());
+                CountDownService service = this;
+                Observer<DetailedTimer> observer = new Observer<DetailedTimer>() {
+                    @Override
+                    public void onChanged(@Nullable DetailedTimer detailedTimerFromDatabase) {
 
+                        if (detailedTimerFromDatabase != null && !detailedTimerFromDatabase.getIsEnabled()) {
+                            CoolDownService.startNewTimer(detailedTimerFromDatabase, service);
+                        }
+
+                        liveData.removeObserver(this);
+                    }
+                };
+
+                liveData.observeForever(observer);
             }
 
         }
