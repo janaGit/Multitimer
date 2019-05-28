@@ -28,14 +28,14 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
     public void onClickSaveButton(View view) {
         Application application = ((AppCompatActivity) getContext()).getApplication();
         if (isEditDetailedTimer) {
+            if (obj.getIsEnabled()) {
+                Action.cancelCoolDownIfRunning(((AppCompatActivity) getContext()).getApplication(), obj.getGroupId(), obj.getId());
+            }
             new TimerRepository(application).updateDetailedTimer(obj);
             ((AppCompatActivity) getContext()).onBackPressed();
         } else {
             new TimerRepository(application).getDetailedTimersForTimerGroup(obj.getGroupId()).observe(((AppCompatActivity) getContext()), treeMap -> {
                 obj.setPositionInGroup(treeMap.size());
-                if (obj.getIsEnabled()) {
-                    Action.cancelCoolDownIfRunning(((AppCompatActivity) getContext()).getApplication(), obj.getGroupId(), obj.getId());
-                }
                 new TimerRepository(application).insertDetailedTimer(obj);
                 ((AppCompatActivity) getContext()).onBackPressed();
             });

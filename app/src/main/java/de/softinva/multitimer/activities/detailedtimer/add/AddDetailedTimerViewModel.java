@@ -16,7 +16,7 @@ public class AddDetailedTimerViewModel extends AppViewModel {
 
     public DetailedTimer getDetailedTimer() {
         if (detailedTimer == null) {
-            detailedTimer = new DetailedTimer();
+            throw new Error("Detailed timer not yet created!");
         }
         return detailedTimer;
     }

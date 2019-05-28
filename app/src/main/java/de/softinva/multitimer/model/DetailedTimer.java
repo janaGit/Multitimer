@@ -11,10 +11,10 @@ import de.softinva.multitimer.utility.UtilityMethods;
 
 public class DetailedTimer extends Timer implements Parcelable {
     private String groupId;
-    private String description;
+    private String description = "";
     private int positionInGroup;
     private int coolDownInSec;
-    private boolean isEnabled;
+    private boolean isEnabled = true;
 
     public DetailedTimer() {
         super();
@@ -24,7 +24,6 @@ public class DetailedTimer extends Timer implements Parcelable {
     public DetailedTimer(String groupId) {
         super(UtilityMethods.createID(), "", 30, "");
         this.groupId = groupId;
-        description = "";
     }
 
     public DetailedTimer(String id, String groupId, String title, int durationInSec, int coolDownInSec, boolean isEnabled, String imageName, int positionInGroup, String description) {
