@@ -11,8 +11,10 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.TreeMap;
 
 import de.softinva.multitimer.classes.AppCoolDown;
+import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
+import de.softinva.multitimer.repository.TimerRepository;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;
 
@@ -75,12 +77,16 @@ public class CoolDownService extends Service {
         logger.info("Start CountDownService: onStartCommand()");
         String action = intent.getAction();
         Timer timer = intent.getParcelableExtra(TIMER);
+        if (!(timer instanceof DetailedTimer)) {
+            throw new Error("timer not instance of DetailedTimer! " + timer.getClass());
+        }
+        DetailedTimer detailedTimer = (DetailedTimer) timer;
         switch (action) {
             case ACTION_START_TIMER:
-                addNewTimer(timer);
+                addNewTimer(detailedTimer);
                 break;
             case ACTION_CANCEL_TIMER:
-                cancelTimer(timer);
+                cancelTimer(detailedTimer);
                 break;
             default:
                 throw new Error("Intent with action " + action + " not supported!");
@@ -89,16 +95,17 @@ public class CoolDownService extends Service {
         return START_STICKY;
     }
 
-    protected void addNewTimer(Timer timer) {
-        if (runningTimerMapByID.get(timer.getId()) == null) {
+    protected void addNewTimer(DetailedTimer timer) {
+        String timerMapId = returnTimerMapId(timer.getGroupId(), timer.getId());
+        if (runningTimerMapByID.get(timerMapId) == null) {
             RunningTimer runningTimer = new RunningTimer(timer);
 
             AppCoolDown appCountDown = new AppCoolDown(runningTimer, this);
-            appCoolDownTimerTreeMap.put(timer.getId(), appCountDown);
+            appCoolDownTimerTreeMap.put(timerMapId, appCountDown);
 
             appCountDown.run();
             if (runningTimer.isCoolDownRunning().getValue() != null && runningTimer.isCoolDownRunning().getValue()) {
-                runningTimerMapByID.put(timer.getId(), runningTimer);
+                runningTimerMapByID.put(timerMapId, runningTimer);
                 updateLiveData();
             } else {
                 throw new Error("timer should be running!");
@@ -109,8 +116,9 @@ public class CoolDownService extends Service {
         }
     }
 
-    protected void cancelTimer(Timer timer) {
-        AppCoolDown countDown = appCoolDownTimerTreeMap.get(timer.getId());
+    protected void cancelTimer(DetailedTimer timer) {
+        String timerMapId = returnTimerMapId(timer.getGroupId(), timer.getId());
+        AppCoolDown countDown = appCoolDownTimerTreeMap.get(timerMapId);
         if (countDown != null) {
             countDown.cancel();
         } else {
@@ -118,8 +126,9 @@ public class CoolDownService extends Service {
         }
     }
 
-    public synchronized void onStopTimer(Timer timer) {
-        RunningTimer runningTimer = runningTimerMapByID.get(timer.getId());
+    public synchronized void onStopTimer(DetailedTimer timer) {
+        String timerMapId = returnTimerMapId(timer.getGroupId(), timer.getId());
+        RunningTimer runningTimer = runningTimerMapByID.get(timerMapId);
         if (runningTimer != null) {
             runningTimer.stopCoolDown();
             removeTimer(timer);
@@ -130,16 +139,21 @@ public class CoolDownService extends Service {
     }
 
 
-    protected void removeTimer(Timer timer) {
-        runningTimerMapByID.remove(timer.getId());
-        appCoolDownTimerTreeMap.remove(timer.getId());
+    protected void removeTimer(DetailedTimer timer) {
+        String timerMapId = returnTimerMapId(timer.getGroupId(), timer.getId());
+        runningTimerMapByID.remove(timerMapId);
+        appCoolDownTimerTreeMap.remove(timerMapId);
     }
 
     protected void updateLiveData() {
         runningTimerByIDMap.setValue(runningTimerMapByID);
     }
 
-    public void onFinishTimer(Timer timer) {
+    public void onFinishTimer(DetailedTimer detailedTimer) {
+        new TimerRepository(getApplication()).enableDetailedTimer(detailedTimer.getGroupId(), detailedTimer.getId());
+    }
 
+    public static String returnTimerMapId(String timerGroupId, String timerId) {
+        return timerGroupId + timerId;
     }
 }

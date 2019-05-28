@@ -14,6 +14,7 @@ import de.softinva.multitimer.classes.AppCountDown;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
+import de.softinva.multitimer.repository.TimerRepository;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;
 
@@ -96,15 +97,16 @@ public class CountDownService extends Service {
 
     protected void addNewTimer(Timer timer) {
         if (runningTimerMapByID.get(timer.getId()) == null) {
+            String timerMapId = returnTimerMapId(timer);
             RunningTimer runningTimer = new RunningTimer(timer);
 
             AppCountDown appCountDown = new AppCountDown(runningTimer, this);
-            appCountDownTimerTreeMap.put(timer.getId(), appCountDown);
+            appCountDownTimerTreeMap.put(timerMapId, appCountDown);
 
             appCountDown.run();
             if (runningTimer.isCountDownRunning().getValue() != null && runningTimer.isCountDownRunning().getValue()) {
                 runningTimerMapByFinishTime.put(runningTimer.getFinishTimeCountDownInSec(), runningTimer);
-                runningTimerMapByID.put(timer.getId(), runningTimer);
+                runningTimerMapByID.put(timerMapId, runningTimer);
                 updateLiveData();
             } else {
                 throw new Error("timer ist not running, but should!");
@@ -116,7 +118,8 @@ public class CountDownService extends Service {
     }
 
     protected void cancelTimer(Timer timer) {
-        AppCountDown countDown = appCountDownTimerTreeMap.get(timer.getId());
+        String timerMapId = returnTimerMapId(timer);
+        AppCountDown countDown = appCountDownTimerTreeMap.get(timerMapId);
         if (countDown != null) {
             countDown.cancel();
         } else {
@@ -125,7 +128,8 @@ public class CountDownService extends Service {
     }
 
     public synchronized void onStopTimer(Timer timer) {
-        RunningTimer runningTimer = runningTimerMapByID.get(timer.getId());
+        String timerMapId = returnTimerMapId(timer);
+        RunningTimer runningTimer = runningTimerMapByID.get(timerMapId);
         if (runningTimer != null) {
             Long finishTime = runningTimer.stopCountDown();
             removeTimer(timer, finishTime);
@@ -136,14 +140,15 @@ public class CountDownService extends Service {
     }
 
     protected void removeTimer(Timer timer, Long finishTimeInSec) {
+        String timerMapId = returnTimerMapId(timer);
         if (finishTimeInSec != null) {
             runningTimerMapByFinishTime.remove(finishTimeInSec);
         } else {
             throw new Error("finishTime should not be null!");
         }
-        runningTimerMapByID.remove(timer.getId());
+        runningTimerMapByID.remove(timerMapId);
 
-        appCountDownTimerTreeMap.remove(timer.getId());
+        appCountDownTimerTreeMap.remove(timerMapId);
     }
 
     protected void updateLiveData() {
@@ -155,10 +160,22 @@ public class CountDownService extends Service {
         if (timer instanceof DetailedTimer) {
             DetailedTimer detailedTimer = (DetailedTimer) timer;
             if (detailedTimer.getCoolDownInSec() > 0) {
-                CoolDownService.startNewTimer(detailedTimer, this);
+                DetailedTimer detailedTimerFromDatabase = new TimerRepository(this.getApplication()).getDetailedTimer(detailedTimer.getGroupId(), detailedTimer.getId()).getValue();
+                if (detailedTimerFromDatabase != null && !detailedTimerFromDatabase.getIsEnabled()) {
+                    CoolDownService.startNewTimer(detailedTimer, this);
+                }
+
             }
 
         }
     }
 
+    public String returnTimerMapId(Timer timer) {
+        if (timer instanceof DetailedTimer) {
+            DetailedTimer detailedTimer = (DetailedTimer) timer;
+            return detailedTimer.getGroupId() + detailedTimer.getId();
+        } else {
+            return "00" + timer.getId();
+        }
+    }
 }

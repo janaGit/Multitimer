@@ -15,13 +15,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.add.AddDetailedTimerActivity;
-import de.softinva.multitimer.activities.detailedtimer.edit.EditDetailedTimerActivity;
 import de.softinva.multitimer.classes.AppTabsActivity;
 import de.softinva.multitimer.databinding.ActivityTimerGroupBinding;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.timer.DetailedTimerList;
 import de.softinva.multitimer.model.TIMER_GROUP_ACTIVITY_TABS;
 import de.softinva.multitimer.repository.TimerRepository;
+import de.softinva.multitimer.utility.Action;
 
 
 public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
@@ -144,6 +144,7 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
                 AddDetailedTimerActivity.startNewActivity(model.getTimerGroupId$().getValue(), this);
                 return true;
             case R.id.action_enable_all_timer:
+                Action.cancelCoolDownOfAllRunningTimerInGroup(getApplication(), model.getTimerGroupId$().getValue());
                 new TimerRepository(getApplication()).enableAllDetailedTimer(model.getTimerGroupId$().getValue());
                 return true;
             default:

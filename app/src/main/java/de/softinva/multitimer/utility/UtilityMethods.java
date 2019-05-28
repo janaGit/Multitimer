@@ -4,6 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -11,6 +13,7 @@ import java.util.UUID;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.TempTimer;
+import de.softinva.multitimer.model.Timer;
 
 
 public class UtilityMethods {
@@ -69,4 +72,18 @@ public class UtilityMethods {
         return countDownAsString;
     }
 
+    public static LinkedList<DetailedTimer> getDetailedTimerOfTimerGroupInMap(TreeMap<String, RunningTimer> map, String timerGroupId) {
+        LinkedList<DetailedTimer> list = new LinkedList<>();
+        for (Map.Entry<String, RunningTimer> entry : map.entrySet()) {
+            Timer timer = entry.getValue().getTimer();
+            if (timer instanceof DetailedTimer) {
+                DetailedTimer detailedTimer = (DetailedTimer) timer;
+                if (detailedTimer.getGroupId().equals(timerGroupId)) {
+                    list.add(detailedTimer);
+                }
+            }
+
+        }
+        return list;
+    }
 }

@@ -33,8 +33,8 @@ public class AppCoolDown {
 
             @Override
             public void onFinish() {
-                service.onStopTimer(runningTimer.getTimer());
-                service.onFinishTimer(runningTimer.getTimer());
+                service.onStopTimer((DetailedTimer) runningTimer.getTimer());
+                service.onFinishTimer((DetailedTimer) runningTimer.getTimer());
                 logger.info(runningTimer.getTimer().getTitle() + " timer stopped running!");
             }
         };
@@ -47,7 +47,7 @@ public class AppCoolDown {
     }
 
     public void cancel() {
-        service.onStopTimer(runningTimer.getTimer());
+        service.onStopTimer((DetailedTimer) runningTimer.getTimer());
         logger.info("on cancel cool down timer: " + runningTimer.getTimer().getTitle());
         countDownTimer.cancel();
     }

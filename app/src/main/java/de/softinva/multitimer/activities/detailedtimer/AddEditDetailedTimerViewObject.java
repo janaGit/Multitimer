@@ -11,6 +11,7 @@ import de.softinva.multitimer.fragments.editcooldowndialog.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.repository.TimerRepository;
+import de.softinva.multitimer.utility.Action;
 
 public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer> {
     protected boolean isEditDetailedTimer;
@@ -32,6 +33,9 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
         } else {
             new TimerRepository(application).getDetailedTimersForTimerGroup(obj.getGroupId()).observe(((AppCompatActivity) getContext()), treeMap -> {
                 obj.setPositionInGroup(treeMap.size());
+                if (obj.getIsEnabled()) {
+                    Action.cancelCoolDownIfRunning(((AppCompatActivity) getContext()).getApplication(), obj.getGroupId(), obj.getId());
+                }
                 new TimerRepository(application).insertDetailedTimer(obj);
                 ((AppCompatActivity) getContext()).onBackPressed();
             });
