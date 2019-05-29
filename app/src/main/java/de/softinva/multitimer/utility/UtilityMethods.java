@@ -86,4 +86,16 @@ public class UtilityMethods {
         }
         return list;
     }
+
+    public String returnImageFileName(String imageName, ImageSize size) {
+        switch (size) {
+            case thumbnail:
+                return imageName + "_" + "thumbnail.jpg";
+            case normal:
+                return imageName + "_" + "normal.jpg";
+            default:
+                throw new Error("size not supported!");
+        }
+
+    }
 }

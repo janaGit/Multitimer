@@ -3,9 +3,9 @@ package de.softinva.multitimer.services.cooldown;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.IBinder;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.TreeMap;
@@ -24,7 +24,6 @@ public class CoolDownService extends Service {
 
     public static MutableLiveData<TreeMap<String, RunningTimer>> runningTimerByIDMap = new MutableLiveData<>();
 
-    protected final IBinder binder = new LocalBinder();
     protected final AppLogger logger = UtilityMethods.createLogger(this);
 
 
@@ -59,17 +58,6 @@ public class CoolDownService extends Service {
 
     }
 
-    public class LocalBinder extends Binder {
-        public CoolDownService getService() {
-            return CoolDownService.this;
-        }
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return binder;
-    }
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -92,6 +80,12 @@ public class CoolDownService extends Service {
         }
 
         return START_STICKY;
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     protected void addNewTimer(DetailedTimer timer) {

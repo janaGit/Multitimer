@@ -92,6 +92,11 @@
             android:name=".services.cooldown.CoolDownService"
             android:exported="false" />
 
+
+        <service
+            android:name=".services.imagecreator.ImageCreatorService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

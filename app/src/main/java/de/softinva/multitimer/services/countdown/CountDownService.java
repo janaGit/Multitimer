@@ -3,7 +3,6 @@ package de.softinva.multitimer.services.countdown;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.IBinder;
 
 import androidx.annotation.Nullable;
@@ -30,7 +29,6 @@ public class CountDownService extends Service {
     public static MutableLiveData<TreeMap<Long, RunningTimer>> runningTimerByFinishTimeMap = new MutableLiveData<>();
     public static MutableLiveData<TreeMap<String, RunningTimer>> runningTimerByIDMap = new MutableLiveData<>();
 
-    protected final IBinder binder = new CountDownService.LocalBinder();
     protected final AppLogger logger = UtilityMethods.createLogger(this);
 
 
@@ -67,17 +65,6 @@ public class CountDownService extends Service {
 
     }
 
-    public class LocalBinder extends Binder {
-        public CountDownService getService() {
-            return CountDownService.this;
-        }
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return binder;
-    }
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -96,6 +83,12 @@ public class CountDownService extends Service {
         }
 
         return START_STICKY;
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     protected void addNewTimer(Timer timer) {

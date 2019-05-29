@@ -6,19 +6,22 @@ import android.net.Uri;
 import android.os.Bundle;
 
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
-import de.softinva.multitimer.classes.abstract_classes.AppActivity;
+
+import de.softinva.multitimer.services.imagecreator.ImageCreatorService;
 
 
-public class SelectImageActivity extends AppActivity<SelectImageViewModel> {
+public class SelectImageActivity extends AppCompatActivity {
     public static final String TIMER_GROUP_ID = "SelectImageActivity.TimerGroupId";
     public static final String TIMER_ID = "SelectImageActivity.TimerId";
+    public static final String RESULT_IMAGE_NAME = "SelectImageActivity.ImageName";
 
     public static final String ACTION_SELECT_IMAGE_FOR_DETAILED_TIMER = "SelectImageActivity.TimerId.ActionSelectIamgeForDetailedTimer";
     public static final String ACTION_SELECT_IMAGE_FOR_TIMER_GROUP = "SelectImageActivity.TimerId.ActionSelectImageForTimerGroup";
-
+    private SelectImageViewModel model;
     static final int REQUEST_IMAGE_OPEN = 1;
 
     public static void startNewActivity(Context context, String timerGroupId, String timerId) {
@@ -39,11 +42,11 @@ public class SelectImageActivity extends AppActivity<SelectImageViewModel> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setModel();
+        setClassSpecificObjects();
         selectImage();
     }
 
-
-    @Override
     protected void setModel() {
         model = new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(SelectImageViewModel.class);
@@ -63,12 +66,22 @@ public class SelectImageActivity extends AppActivity<SelectImageViewModel> {
         if (requestCode == REQUEST_IMAGE_OPEN && resultCode == RESULT_OK) {
             Uri fullPhotoUri = data.getData();
 
+            String imageName = createNameForImage();
 
-            finish();
+            Intent intentImageCreator = new Intent(this, ImageCreatorService.class);
+            intentImageCreator.putExtra(ImageCreatorService.INTENT_EXTRA_IMAGE_PATH, fullPhotoUri);
+            intentImageCreator.putExtra(ImageCreatorService.INTENT_EXTRA_NEW_IMAGE_NAME, imageName);
+            startService(intentImageCreator);
+
+            Intent intent = new Intent();
+            intent.putExtra(RESULT_IMAGE_NAME, imageName);
+            setResult(RESULT_OK, intent);
+
         }
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
-    @Override
     protected void setClassSpecificObjects() {
         setGroupId();
         setTimerId();
@@ -104,25 +117,8 @@ public class SelectImageActivity extends AppActivity<SelectImageViewModel> {
         }
     }
 
-    @Override
-    protected void setViewObject() {
-
+    private String createNameForImage() {
+        return model.getTimerGroupId().getValue() + "_" + model.getTimerId().getValue();
     }
-
-    @Override
-    protected void setActionBar() {
-
-    }
-
-    @Override
-    protected void setBinding() {
-
-    }
-
-    @Override
-    protected void setTitle() {
-
-    }
-
 
 }
