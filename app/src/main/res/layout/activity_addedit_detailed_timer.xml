@@ -63,6 +63,7 @@
                     android:background="@drawable/detailed_timer_status_button_border"
                     android:clickable="true"
                     android:focusable="true"
+                    android:onClick="@{viewObject::onClickImage}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/addeditDetailedTimer_title"

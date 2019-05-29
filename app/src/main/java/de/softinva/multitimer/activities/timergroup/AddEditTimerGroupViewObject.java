@@ -4,6 +4,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
@@ -27,5 +28,9 @@ public class AddEditTimerGroupViewObject extends AppViewObject<TimerGroup> {
 
     public void onClickAbortButton(View view) {
         ((AppCompatActivity) getContext()).onBackPressed();
+    }
+
+    public void onClickImage(View view) {
+        SelectImageActivity.startNewActivity(view.getContext(), obj.getId());
     }
 }

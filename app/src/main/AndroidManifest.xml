@@ -82,6 +82,8 @@
                 android:value=".activities.MainActivity" />
         </activity>
 
+        <activity android:name=".activities.selectimage.SelectImageActivity"></activity>
+
         <service
             android:name=".services.countdown.CountDownService"
             android:exported="false" />

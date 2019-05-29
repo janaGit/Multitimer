@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.fragments.editcooldowndialog.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
@@ -63,6 +64,10 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
 
     public void onClickStatusButton(View view) {
         obj.setIsEnabled(!obj.getIsEnabled());
+    }
+
+    public void onClickImage(View view) {
+        SelectImageActivity.startNewActivity(view.getContext(), obj.getGroupId(), obj.getId());
     }
 }
 
