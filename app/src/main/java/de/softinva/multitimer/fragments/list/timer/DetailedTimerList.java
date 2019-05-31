@@ -45,8 +45,8 @@ public class DetailedTimerList extends AppList {
 
     public TreeMap<Integer, DetailedTimerViewObject> createViewObject(TreeMap<Integer, RunningTimer> detailedTimerTreeMap) {
         TreeMap<Integer, DetailedTimerViewObject> timerGroupMap = new TreeMap<>();
-        for (Map.Entry<Integer,RunningTimer>entry : detailedTimerTreeMap.entrySet()) {
-            RunningTimer runningTimer =  entry.getValue();
+        for (Map.Entry<Integer, RunningTimer> entry : detailedTimerTreeMap.entrySet()) {
+            RunningTimer runningTimer = entry.getValue();
             DetailedTimerViewObject detailedTimerViewObject = new DetailedTimerViewObject(runningTimer);
             timerGroupMap.put(entry.getKey(), detailedTimerViewObject);
         }

@@ -1,6 +1,7 @@
 package de.softinva.multitimer.utility;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -87,12 +88,14 @@ public class UtilityMethods {
         return list;
     }
 
-    public String returnImageFileName(String imageName, ImageSize size) {
+    public static String returnImageFileName(String imageName, ImageSize size) {
         switch (size) {
             case thumbnail:
                 return imageName + "_" + "thumbnail.jpg";
             case normal:
                 return imageName + "_" + "normal.jpg";
+            case original:
+                return imageName + ".jpg";
             default:
                 throw new Error("size not supported!");
         }

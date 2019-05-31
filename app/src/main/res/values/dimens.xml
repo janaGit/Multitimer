@@ -9,4 +9,8 @@
     <dimen name="item_padding">16dp</dimen>
     <dimen name="corner_radius">4dp</dimen>
     <integer name="z_index_actions">10</integer>
+    <dimen name="image_size_thumbnail_height">56dp</dimen>
+    <dimen name="image_size_thumbnail_width">56dp</dimen>
+    <dimen name="image_size_normal_height">186dp</dimen>
+    <dimen name="image_size_normal_width">186dp</dimen>
 </resources>

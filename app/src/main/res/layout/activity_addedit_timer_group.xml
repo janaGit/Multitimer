@@ -50,8 +50,8 @@
 
                 <ImageView
                     android:id="@+id/addeditTimerGroup_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/image_size_normal_width"
+                    android:layout_height="@dimen/image_size_normal_height"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
