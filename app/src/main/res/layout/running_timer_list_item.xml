@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="de.softinva.multitimer.model.DetailedTimer" />
+
         <import type="de.softinva.multitimer.utility.ImageSize" />
-        <variable name="viewObject" type="de.softinva.multitimer.fragments.list.running.RunningTimerViewObject" />
+
+        <variable
+            name="viewObject"
+            type="de.softinva.multitimer.fragments.list.running.RunningTimerViewObject" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,10 +30,10 @@
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:contentDescription="Image"
+            app:imageName="@{viewObject.obj.timer instanceof DetailedTimer ? ((DetailedTimer) viewObject.obj.timer).imageName : null}"
+            app:imageSize='@{ImageSize.thumbnail}'
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:imageName="@{viewObject.obj.timer.imageName}"
-            app:imageSize='@{ImageSize.thumbnail}'/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/content"

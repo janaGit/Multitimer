@@ -28,7 +28,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:imageName="@{viewObject.obj.timer.imageName}"
+            app:imageName="@{null}"
             app:imageSize='@{ImageSize.thumbnail}'/>
 
         <TextView

@@ -7,18 +7,16 @@ import de.softinva.multitimer.utility.UtilityMethods;
 
 public class TempTimer extends Timer implements Parcelable {
 
-    String imageName = "default.jpg";
-
     public TempTimer() {
         id = UtilityMethods.createID();
     }
 
     public TempTimer(Timer timer) {
-        super(timer.id, timer.title, timer.durationInSec, timer.imageName);
+        super(timer.id, timer.title, timer.durationInSec);
     }
 
     public TempTimer(String id, String title, Integer durationInSec) {
-        super(id, title, durationInSec, null);
+        super(id, title, durationInSec);
     }
 
     public static final Creator<Timer> CREATOR = new Creator<Timer>() {

@@ -11,6 +11,7 @@ import de.softinva.multitimer.utility.UtilityMethods;
 
 public class DetailedTimer extends Timer implements Parcelable {
     private String groupId;
+    protected String imageName;
     private String description = "";
     private int positionInGroup;
     private int coolDownInSec;
@@ -22,13 +23,14 @@ public class DetailedTimer extends Timer implements Parcelable {
     }
 
     public DetailedTimer(String groupId) {
-        super(UtilityMethods.createID(), "", 30, "");
+        super(UtilityMethods.createID(), "", 30);
         this.groupId = groupId;
     }
 
     public DetailedTimer(String id, String groupId, String title, int durationInSec, int coolDownInSec, boolean isEnabled, String imageName, int positionInGroup, String description) {
-        super(id, title, durationInSec, imageName);
+        super(id, title, durationInSec);
         this.groupId = groupId;
+        this.imageName = imageName;
         this.description = description;
         this.positionInGroup = positionInGroup;
         this.coolDownInSec = coolDownInSec;
@@ -95,6 +97,16 @@ public class DetailedTimer extends Timer implements Parcelable {
         entity.coolDownInSec = coolDownInSec;
         entity.isEnabled = isEnabled ? 1 : 0;
         return entity;
+    }
+
+    @Bindable
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+        notifyPropertyChanged(BR.imageName);
     }
 
     @Bindable

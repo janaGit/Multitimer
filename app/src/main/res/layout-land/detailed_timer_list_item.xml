@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="de.softinva.multitimer.model.DetailedTimer" />
+
         <import type="de.softinva.multitimer.utility.ImageSize" />
-        <variable name="viewObject" type="de.softinva.multitimer.fragments.list.timer.DetailedTimerViewObject" />
+
+        <variable
+            name="viewObject"
+            type="de.softinva.multitimer.fragments.list.timer.DetailedTimerViewObject" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,8 +44,8 @@
                     android:layout_height="@dimen/image_size_thumbnail_height"
                     android:layout_weight="1"
                     android:contentDescription="Image"
-                    app:imageName="@{viewObject.obj.timer.imageName}"
-                    app:imageSize='@{ImageSize.thumbnail}'/>
+                    app:imageName="@{((DetailedTimer) viewObject.obj.timer).imageName}"
+                    app:imageSize='@{ImageSize.thumbnail}' />
 
                 <TextView
                     android:id="@+id/content"
@@ -51,15 +57,14 @@
                     android:text="@{viewObject.obj.timer.title}"
                     android:textStyle="bold" />
 
-                <de.softinva.multitimer.viewcomponents.StartStopTimerButton
-                    xmlns:startStop="http://schemas.android.com/apk/res/de.softinva.multitimer"
+                <de.softinva.multitimer.viewcomponents.StartStopTimerButton xmlns:startStop="http://schemas.android.com/apk/res/de.softinva.multitimer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/item_margin"
                     android:layout_marginRight="@dimen/item_margin"
                     startStop:isRunning="@{viewObject.obj.isCountDownRunning}"
-                    startStop:timer="@{viewObject.obj.timer}"/>
+                    startStop:timer="@{viewObject.obj.timer}" />
 
             </LinearLayout>
 

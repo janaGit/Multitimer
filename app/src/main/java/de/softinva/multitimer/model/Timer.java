@@ -12,17 +12,17 @@ public class Timer extends BaseObservable implements Parcelable {
     protected String id;
     protected String title;
     protected int durationInSec;
-    protected String imageName;
+
 
     public Timer() {
 
     }
 
-    public Timer(String id, String title, int durationInSec, String imageName) {
+    public Timer(String id, String title, int durationInSec) {
         this.id = id;
         this.durationInSec = durationInSec;
         this.title = title;
-        this.imageName = imageName;
+
     }
 
 
@@ -30,7 +30,6 @@ public class Timer extends BaseObservable implements Parcelable {
         id = in.readString();
         title = in.readString();
         durationInSec = in.readInt();
-        imageName = in.readString();
     }
 
     public static final Creator<Timer> CREATOR = new Creator<Timer>() {
@@ -74,16 +73,6 @@ public class Timer extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.durationInSec);
     }
 
-    @Bindable
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-        notifyPropertyChanged(BR.imageName);
-    }
-
     @Override
     public String toString() {
         return this.title;
@@ -99,7 +88,6 @@ public class Timer extends BaseObservable implements Parcelable {
         dest.writeString(id);
         dest.writeString(title);
         dest.writeInt(durationInSec);
-        dest.writeString(imageName);
     }
 
 

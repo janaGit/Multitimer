@@ -2,12 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
+        <import type="de.softinva.multitimer.model.DetailedTimer" />
+
         <import type="de.softinva.multitimer.utility.ImageSize" />
-        <variable name="viewObject" type="de.softinva.multitimer.fragments.list.running.RunningTimerViewObject" />
+
+        <variable
+            name="viewObject"
+            type="de.softinva.multitimer.fragments.list.running.RunningTimerViewObject" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -40,8 +45,8 @@
                     android:layout_height="@dimen/image_size_thumbnail_height"
                     android:layout_weight="1"
                     android:contentDescription="Image"
-                    app:imageName="@{viewObject.obj.timer.imageName}"
-                    app:imageSize='@{ImageSize.thumbnail}'/>
+                    app:imageName="@{viewObject.obj.timer instanceof DetailedTimer ? ((DetailedTimer) viewObject.obj.timer).imageName : null}"
+                    app:imageSize='@{ImageSize.thumbnail}' />
 
                 <TextView
                     android:id="@+id/content"
@@ -60,7 +65,7 @@
                     android:layout_marginEnd="@dimen/item_margin"
                     android:layout_marginRight="@dimen/item_margin"
                     app:isRunning="@{viewObject.obj.isCountDownRunning}"
-                    app:timer="@{viewObject.obj.timer}"/>
+                    app:timer="@{viewObject.obj.timer}" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
