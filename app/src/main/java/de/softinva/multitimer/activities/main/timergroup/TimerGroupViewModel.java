@@ -1,4 +1,4 @@
-package de.softinva.multitimer.activities;
+package de.softinva.multitimer.activities.main.timergroup;
 
 import android.app.Application;
 
@@ -6,20 +6,19 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupViewModel;
-import de.softinva.multitimer.classes.interfaces.ActivityTabsViewModel;
-import de.softinva.multitimer.model.TABS;
+import de.softinva.multitimer.model.TIMER_GROUP_ACTIVITY_TABS;
 
 
-public class TimerGroupViewModel extends AbstractTimerGroupViewModel implements ActivityTabsViewModel {
-    private MutableLiveData<TABS> activeTab;
+public class TimerGroupViewModel extends AbstractTimerGroupViewModel {
+    private MutableLiveData<TIMER_GROUP_ACTIVITY_TABS> activeTab;
 
     public TimerGroupViewModel(Application application, SavedStateHandle savedStateHandle) {
         super(application, savedStateHandle);
     }
 
 
-    @Override
-    public MutableLiveData<TABS> getActiveTab() {
+
+    public MutableLiveData<TIMER_GROUP_ACTIVITY_TABS> getActiveTab() {
         if (activeTab == null) {
             activeTab = new MutableLiveData<>();
         }

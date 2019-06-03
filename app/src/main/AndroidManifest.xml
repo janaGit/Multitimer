@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.TimerGroupActivity"
+            android:name=".activities.main.timergroup.TimerGroupActivity"
             android:parentActivityName=".activities.MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -38,12 +38,12 @@
         </activity>
         <activity
             android:name=".activities.detailedtimer.info.DetailedTimerInfoActivity"
-            android:parentActivityName=".activities.TimerGroupActivity">
+            android:parentActivityName=".activities.main.timergroup.TimerGroupActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.TimerGroupActivity" />
+                android:value=".activities.main.timergroup.TimerGroupActivity" />
         </activity>
         <activity
             android:name=".activities.detailedtimer.edit.EditDetailedTimerActivity"
@@ -56,12 +56,12 @@
         </activity>
         <activity
             android:name=".activities.detailedtimer.add.AddDetailedTimerActivity"
-            android:parentActivityName=".activities.TimerGroupActivity">
+            android:parentActivityName=".activities.main.timergroup.TimerGroupActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.TimerGroupActivity" />
+                android:value=".activities.main.timergroup.TimerGroupActivity" />
         </activity>
         <activity
             android:name=".activities.timergroup.edit.EditTimerGroupActivity"

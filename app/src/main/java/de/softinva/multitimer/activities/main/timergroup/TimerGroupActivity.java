@@ -1,4 +1,4 @@
-package de.softinva.multitimer.activities;
+package de.softinva.multitimer.activities.main.timergroup;
 
 import android.content.Context;
 import android.content.Intent;
@@ -62,9 +62,8 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.timer_group_activity_menu, menu);
-
-        model.doDisabledTimersExists().observe(this, doDisabledTimersExists -> {
-            if (doDisabledTimersExists) {
+        new LiveDataZipIsMenuIconShown(model.doDisabledTimersExists(), model.getActiveTab()).observe(this, isMenuIconShown -> {
+            if (isMenuIconShown) {
                 menu.findItem(R.id.action_enable_all_timer).setVisible(true);
             } else {
                 menu.findItem(R.id.action_enable_all_timer).setVisible(false);

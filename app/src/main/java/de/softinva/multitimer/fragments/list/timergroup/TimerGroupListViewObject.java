@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import androidx.databinding.BindingAdapter;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.TimerGroupActivity;
+import de.softinva.multitimer.activities.main.timergroup.TimerGroupActivity;
 import de.softinva.multitimer.activities.timergroup.info.TimerGroupInfoActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.model.TimerGroup;

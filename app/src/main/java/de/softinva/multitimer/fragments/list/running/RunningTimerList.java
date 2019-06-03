@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.TimerGroupActivity;
-import de.softinva.multitimer.activities.TimerGroupViewModel;
+import de.softinva.multitimer.activities.main.timergroup.TimerGroupActivity;
+import de.softinva.multitimer.activities.main.timergroup.TimerGroupViewModel;
 import de.softinva.multitimer.fragments.list.AppList;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.utility.AppRunningTimerRecyclerAdapter;

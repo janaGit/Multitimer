@@ -1,4 +1,4 @@
-package de.softinva.multitimer.activities;
+package de.softinva.multitimer.activities.main.timergroup;
 
 import androidx.lifecycle.LiveData;
 

@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.AppBroadcastReceiver;
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.TimerGroupActivity;
+import de.softinva.multitimer.activities.main.timergroup.TimerGroupActivity;
 import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
