@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
+import de.softinva.multitimer.AppBroadcastReceiver;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.TimerGroupActivity;
 import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
@@ -26,10 +27,12 @@ import de.softinva.multitimer.model.Timer;
 import de.softinva.multitimer.repository.TimerRepository;
 
 import static android.text.InputType.TYPE_NULL;
+import static de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
 
-public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener, EditCoolDownDialog.UpdateCollDownInSecListener {
+public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener, EditCoolDownDialog.UpdateCollDownInSecListener, AppBroadcastReceiver.UpdateImageName {
     EditDurationDialog editDurationDialog;
     EditCoolDownDialog editCoolDownDialog;
+    AppBroadcastReceiver broadcastReceiver;
 
     public static void startNewActivity(String groupId, String timerId, Context context) {
         Intent intent = new Intent(context, EditDetailedTimerActivity.class);
@@ -42,6 +45,12 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupEditDurationFields();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppBroadcastReceiver.unregisterReceiver(this, broadcastReceiver);
     }
 
     protected void setupEditDurationFields() {
@@ -106,6 +115,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
         });
         editDurationDialog = new EditDurationDialog();
         editCoolDownDialog = new EditCoolDownDialog();
+        broadcastReceiver = AppBroadcastReceiver.registerReceiverForImageNameUpdates(this);
 
     }
 
@@ -152,5 +162,18 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     public void updateCoolDownInSec(int coolDownInSec) {
         model.detailedTimer.setCoolDownInSec(coolDownInSec);
         editCoolDownDialog.setCoolDownInSec(coolDownInSec);
+    }
+
+    @Override
+    public void updateImageName(String imageName) {
+        model.getDetailedTimer().setImageName(imageName);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUESTCODE_SELECT_IMAGE_ACTIVITY) {
+            ((AddEditDetailedTimerViewObject) viewObject).setSelectImageActivityIsOpen(false);
+        }
     }
 }

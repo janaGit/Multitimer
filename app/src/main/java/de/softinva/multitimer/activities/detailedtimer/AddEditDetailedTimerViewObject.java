@@ -1,5 +1,6 @@
 package de.softinva.multitimer.activities.detailedtimer;
 
+import android.app.Activity;
 import android.app.Application;
 import android.view.View;
 
@@ -18,6 +19,8 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
     protected boolean isEditDetailedTimer;
     protected EditDurationDialog editDurationDialog;
     protected EditCoolDownDialog editCoolDownDialog;
+    public final static Integer REQUESTCODE_SELECT_IMAGE_ACTIVITY = 10;
+    private Boolean isSelectImageActivityOpen = false;
 
     public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj, EditDurationDialog editDurationDialog, EditCoolDownDialog editCoolDownDialog) {
         super(obj);
@@ -67,7 +70,15 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
     }
 
     public void onClickImage(View view) {
-        SelectImageActivity.startNewActivity(view.getContext(), obj.getGroupId(), obj.getId());
+        if (!isSelectImageActivityOpen) {
+            isSelectImageActivityOpen = true;
+            SelectImageActivity.startNewActivityForResult((Activity) view.getContext(), REQUESTCODE_SELECT_IMAGE_ACTIVITY, obj.getGroupId(), obj.getId());
+        }
+
+    }
+
+    public void setSelectImageActivityIsOpen(Boolean isSelectImageActivityOpen) {
+        this.isSelectImageActivityOpen = isSelectImageActivityOpen;
     }
 }
 

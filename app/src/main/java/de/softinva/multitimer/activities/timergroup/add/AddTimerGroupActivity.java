@@ -7,13 +7,18 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
+import de.softinva.multitimer.AppBroadcastReceiver;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.model.TimerGroup;
 
-public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> {
+import static de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
+
+public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> implements AppBroadcastReceiver.UpdateImageName {
+    AppBroadcastReceiver broadcastReceiver;
+
     public static void startNewActivity(Context context) {
         Intent intent = new Intent(context, AddTimerGroupActivity.class);
         context.startActivity(intent);
@@ -24,6 +29,13 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> {
         TimerGroup timerGroup = model.createNewTimerGroup();
         timerGroup.setTitle(getString(R.string.new_timer_group));
         timerGroup.setDescription(getString(R.string.description));
+        broadcastReceiver = AppBroadcastReceiver.registerReceiverForImageNameUpdates(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppBroadcastReceiver.unregisterReceiver(this, broadcastReceiver);
     }
 
     @Override
@@ -56,4 +68,19 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> {
     protected void setHomeUpButton() {
 
     }
+
+
+    @Override
+    public void updateImageName(String imageName) {
+        model.getTimerGroup().setImageName(imageName);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUESTCODE_SELECT_IMAGE_ACTIVITY) {
+            ((AddEditTimerGroupViewObject) viewObject).setSelectImageActivityIsOpen(false);
+        }
+    }
+
 }

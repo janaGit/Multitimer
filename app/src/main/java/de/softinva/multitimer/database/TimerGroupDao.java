@@ -29,4 +29,4 @@ public interface TimerGroupDao extends AppDao<TimerGroupEntity> {
 
     @Query("DELETE FROM timergroup")
     void deleteAll();
-    }
+}

@@ -11,6 +11,7 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import de.softinva.multitimer.AppBroadcastReceiver;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.MainActivity;
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
@@ -19,12 +20,21 @@ import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
 
-public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimerGroupViewModel> {
+import static de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
+
+public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimerGroupViewModel> implements AppBroadcastReceiver.UpdateImageName {
+    AppBroadcastReceiver broadcastReceiver;
 
     public static void startNewActivityEdit(String groupId, Context context) {
         Intent intent = new Intent(context, EditTimerGroupActivity.class);
         intent.putExtra(EditTimerGroupActivity.GROUP_ID, groupId);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppBroadcastReceiver.unregisterReceiver(this, broadcastReceiver);
     }
 
     @Override
@@ -58,6 +68,7 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
                 setTimerGroup(timerGroup);
             }
         });
+        broadcastReceiver = AppBroadcastReceiver.registerReceiverForImageNameUpdates(this);
     }
 
     protected void setTimerGroup(TimerGroup timerGroup) {
@@ -83,7 +94,19 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
 
+    @Override
+    public void updateImageName(String imageName) {
+        model.getTimerGroup().setImageName(imageName);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUESTCODE_SELECT_IMAGE_ACTIVITY) {
+            ((AddEditTimerGroupViewObject) viewObject).setSelectImageActivityIsOpen(false);
         }
     }
 }

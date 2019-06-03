@@ -1,5 +1,6 @@
 package de.softinva.multitimer.activities.timergroup;
 
+import android.app.Activity;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import de.softinva.multitimer.repository.TimerRepository;
 
 public class AddEditTimerGroupViewObject extends AppViewObject<TimerGroup> {
     protected boolean isEditTimerGroup;
+    public final static Integer REQUESTCODE_SELECT_IMAGE_ACTIVITY = 10;
+    private Boolean isSelectImageActivityOpen = false;
 
     public AddEditTimerGroupViewObject(boolean isEditTimerGroup, TimerGroup obj) {
         super(obj);
@@ -31,6 +34,13 @@ public class AddEditTimerGroupViewObject extends AppViewObject<TimerGroup> {
     }
 
     public void onClickImage(View view) {
-        SelectImageActivity.startNewActivity(view.getContext(), obj.getId());
+        if (!isSelectImageActivityOpen) {
+            isSelectImageActivityOpen = true;
+            SelectImageActivity.startNewActivityForResult((Activity) view.getContext(), REQUESTCODE_SELECT_IMAGE_ACTIVITY, obj.getId());
+        }
+    }
+
+    public void setSelectImageActivityIsOpen(Boolean isSelectImageActivityOpen) {
+        this.isSelectImageActivityOpen = isSelectImageActivityOpen;
     }
 }

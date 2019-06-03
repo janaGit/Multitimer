@@ -30,6 +30,7 @@ public class AppRecyclerAdapter<T> extends RecyclerView.Adapter<AppViewHolder> {
         this.layoutId = layoutId;
     }
 
+    @Override
     public AppViewHolder onCreateViewHolder(ViewGroup parent,
                                             int viewType) {
         LayoutInflater layoutInflater =
@@ -41,6 +42,7 @@ public class AppRecyclerAdapter<T> extends RecyclerView.Adapter<AppViewHolder> {
         return viewHolder;
     }
 
+    @Override
     public void onBindViewHolder(AppViewHolder holder,
                                  int position) {
         Object viewObject = getObjForPosition(position);

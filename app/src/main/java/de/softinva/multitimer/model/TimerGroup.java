@@ -70,12 +70,14 @@ public class TimerGroup extends BaseObservable {
         isZipped = zipped;
     }
 
+    @Bindable
     public String getImageName() {
         return imageName;
     }
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+        notifyPropertyChanged(BR.imageName);
     }
 
     @Bindable

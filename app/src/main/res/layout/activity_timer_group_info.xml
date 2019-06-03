@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
+        <import type="de.softinva.multitimer.utility.ImageSize" />
+
         <variable
             name="viewObject"
             type="de.softinva.multitimer.activities.timergroup.info.TimerGroupInfoViewObject" />
@@ -20,7 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <de.softinva.multitimer.viewcomponents.AppImageView
             android:id="@+id/imageView"
             android:layout_width="@dimen/image_size_normal_width"
             android:layout_height="@dimen/image_size_normal_height"
@@ -29,10 +33,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            app:imageName="@{viewObject.obj.imageName}"
+            app:imageSize='@{ImageSize.normal}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar"
-            app:srcCompat="@drawable/logo_fertig" />
+            app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
         <TextView
             android:id="@+id/textView"

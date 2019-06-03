@@ -6,6 +6,7 @@
     <data>
 
         <import type="de.softinva.multitimer.model.DetailedTimer" />
+        <import type="de.softinva.multitimer.utility.ImageSize" />
 
         <variable
             name="viewObject"
@@ -21,7 +22,7 @@
         android:onClick="@{viewObject::onClickTimer}"
         android:orientation="horizontal">
 
-        <ImageView
+        <de.softinva.multitimer.viewcomponents.AppImageView
             android:id="@+id/image"
             android:layout_width="@dimen/image_size_thumbnail_width"
             android:layout_height="@dimen/image_size_thumbnail_height"
@@ -37,7 +38,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_fertig" />
+            app:imageName="@{viewObject.obj.timer.imageName}"
+            app:imageSize='@{ImageSize.thumbnail}'/>
 
         <TextView
             android:id="@+id/content"

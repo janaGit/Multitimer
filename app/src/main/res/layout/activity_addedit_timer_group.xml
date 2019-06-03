@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="de.softinva.multitimer.utility.ImageSize" />
+
         <variable
             name="viewObject"
             type="de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject" />
@@ -48,7 +50,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
+                <de.softinva.multitimer.viewcomponents.AppImageView
                     android:id="@+id/addeditTimerGroup_imageView"
                     android:layout_width="@dimen/image_size_normal_width"
                     android:layout_height="@dimen/image_size_normal_height"
@@ -61,10 +63,11 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:onClick="@{viewObject::onClickImage}"
+                    app:imageName="@{viewObject.obj.imageName}"
+                    app:imageSize='@{ImageSize.normal}'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/addeditTimerGroup_title"
-                    app:srcCompat="@drawable/logo_fertig" />
+                    app:layout_constraintTop_toBottomOf="@+id/addeditTimerGroup_title" />
 
                 <EditText
                     android:id="@+id/addeditTimerGroup_description"

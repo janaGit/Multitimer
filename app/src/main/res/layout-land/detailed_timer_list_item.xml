@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="de.softinva.multitimer.utility.ImageSize" />
         <variable name="viewObject" type="de.softinva.multitimer.fragments.list.timer.DetailedTimerViewObject" />
     </data>
 
@@ -31,13 +32,14 @@
                 android:clickable="true"
                 android:padding="@dimen/item_padding">
 
-                <ImageView
+                <de.softinva.multitimer.viewcomponents.AppImageView
                     android:id="@+id/image"
                     android:layout_width="@dimen/image_size_thumbnail_width"
                     android:layout_height="@dimen/image_size_thumbnail_height"
                     android:layout_weight="1"
                     android:contentDescription="Image"
-                    app:srcCompat="@drawable/logo_fertig" />
+                    app:imageName="@{viewObject.obj.timer.imageName}"
+                    app:imageSize='@{ImageSize.thumbnail}'/>
 
                 <TextView
                     android:id="@+id/content"
