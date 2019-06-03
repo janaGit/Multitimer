@@ -1,4 +1,4 @@
-package de.softinva.multitimer.fragments.addTempTimerDialog;
+package de.softinva.multitimer.fragments.dialogaddtemptimer;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

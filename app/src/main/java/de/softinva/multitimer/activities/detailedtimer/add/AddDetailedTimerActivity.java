@@ -15,8 +15,8 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
-import de.softinva.multitimer.fragments.editcooldowndialog.EditCoolDownDialog;
-import de.softinva.multitimer.fragments.editdurationdialog.EditDurationDialog;
+import de.softinva.multitimer.fragments.dialogeditcooldown.EditCoolDownDialog;
+import de.softinva.multitimer.fragments.dialogeditduration.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 
 import static android.text.InputType.TYPE_NULL;

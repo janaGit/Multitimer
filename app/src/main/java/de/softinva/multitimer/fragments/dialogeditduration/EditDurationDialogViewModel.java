@@ -1,4 +1,4 @@
-package de.softinva.multitimer.fragments.editdurationdialog;
+package de.softinva.multitimer.fragments.dialogeditduration;
 
 import android.app.Application;
 

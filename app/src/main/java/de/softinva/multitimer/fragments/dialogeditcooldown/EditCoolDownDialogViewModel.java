@@ -1,4 +1,4 @@
-package de.softinva.multitimer.fragments.editcooldowndialog;
+package de.softinva.multitimer.fragments.dialogeditcooldown;
 
 import android.app.Application;
 
