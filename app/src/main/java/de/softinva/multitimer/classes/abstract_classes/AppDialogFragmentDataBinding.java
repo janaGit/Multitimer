@@ -21,6 +21,7 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
     public AppDialogFragmentDataBinding() {
         super();
     }
+
     @Override
     public T getModel() {
         return model;
@@ -31,6 +32,7 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
     public ViewDataBinding getBinding() {
         return binding;
     }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
@@ -63,10 +65,12 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
         }
 
     }
+
     @Override
     public LifecycleOwner getLifecycleOwner() {
         return this;
     }
+
     protected abstract T setModel();
 
     protected abstract ViewDataBinding setBinding();

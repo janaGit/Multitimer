@@ -2,6 +2,7 @@ package de.softinva.multitimer.fragments.addTempTimerDialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -22,19 +23,20 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        super.onCreateDialog(savedInstanceState);
+        AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
         editDuration = new EditDuration(this, false);
         this.editDuration.durationInSec.setValue(30);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(binding.getRoot())
-                .setPositiveButton(R.string.start_timer, (dialog, id) -> {
-                    model.tempTimer.setDurationInSec(editDuration.getDurationInSec());
-                    CountDownService.startNewTimer(model.tempTimer, getContext());
-                })
-                .setNegativeButton(R.string.button_abort, (dialog, id) -> {
-                });
-        return builder.create();
+
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.start_timer), (_dialog, id) -> {
+            model.tempTimer.setDurationInSec(editDuration.getDurationInSec());
+            CountDownService.startNewTimer(model.tempTimer, getContext());
+        });
+
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.button_abort), (_dialog, id) -> {
+        });
+
+        return dialog;
     }
 
     @Override
