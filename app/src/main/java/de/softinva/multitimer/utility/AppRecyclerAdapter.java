@@ -60,7 +60,7 @@ public class AppRecyclerAdapter<T> extends RecyclerView.Adapter<AppViewHolder> {
     }
 
     protected T getObjForPosition(int position) {
-        return this.objectList.get(position);
+        return (T) this.objectList.values().toArray()[position];
     }
 
     @Override
