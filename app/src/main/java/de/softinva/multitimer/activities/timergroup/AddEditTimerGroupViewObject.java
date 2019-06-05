@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
+import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
 
@@ -36,7 +38,7 @@ public class AddEditTimerGroupViewObject extends AppViewObject<TimerGroup> {
     public void onClickImage(View view) {
         if (!isSelectImageActivityOpen) {
             isSelectImageActivityOpen = true;
-            SelectImageActivity.startNewActivityForResult((Activity) view.getContext(), REQUESTCODE_SELECT_IMAGE_ACTIVITY, obj.getId());
+            new ImageSelectionDialog((ImageSelectionDialog.OnClickImageSelectionItem) getContext()).show(((FragmentActivity) getContext()).getSupportFragmentManager(), "selectImageDialog");
         }
     }
 

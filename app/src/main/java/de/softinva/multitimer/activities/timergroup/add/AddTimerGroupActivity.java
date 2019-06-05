@@ -9,14 +9,18 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.AppBroadcastReceiver;
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
+import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
+import de.softinva.multitimer.fragments.dialogimageselection.ACTION_TYPE;
+import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
 import de.softinva.multitimer.model.TimerGroup;
 
 import static de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
 
-public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> implements AppBroadcastReceiver.UpdateImageName {
+public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> implements AppBroadcastReceiver.UpdateImageName, ImageSelectionDialog.OnClickImageSelectionItem {
     AppBroadcastReceiver broadcastReceiver;
 
     public static void startNewActivity(Context context) {
@@ -83,4 +87,24 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> i
         }
     }
 
+    @Override
+    public void onClickImageSelectionItem(ACTION_TYPE actionType) {
+        switch (actionType) {
+            case GALLERY:
+                SelectImageActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getTimerGroup().getId());
+                break;
+            case CAMERA:
+                ((AddEditTimerGroupViewObject) viewObject).setSelectImageActivityIsOpen(false);
+                break;
+            case DEFAULT:
+                model.getTimerGroup().setImageName("");
+                ((AddEditTimerGroupViewObject) viewObject).setSelectImageActivityIsOpen(false);
+                break;
+            case CANCELED:
+                ((AddEditTimerGroupViewObject) viewObject).setSelectImageActivityIsOpen(false);
+                break;
+            default:
+                throw new Error("ActionType not supported: " + actionType);
+        }
+    }
 }

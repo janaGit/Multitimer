@@ -20,4 +20,7 @@
     <string name="label_durationInSec">Time</string>
     <string name="label_coolDown">Cool Down</string>
     <string name="menu_item_enable_all_detailed_timer">Enable all timer</string>
+    <string name="select_image_gallery">Image Gallery</string>
+    <string name="select_image_camera">Take photo</string>
+    <string name="select_image_default">Default Image</string>
 </resources>

@@ -11,6 +11,7 @@ import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.fragments.dialogeditcooldown.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.dialogeditduration.EditDurationDialog;
+import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.repository.TimerRepository;
 import de.softinva.multitimer.utility.Action;
@@ -72,7 +73,7 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
     public void onClickImage(View view) {
         if (!isSelectImageActivityOpen) {
             isSelectImageActivityOpen = true;
-            SelectImageActivity.startNewActivityForResult((Activity) view.getContext(), REQUESTCODE_SELECT_IMAGE_ACTIVITY, obj.getGroupId(), obj.getId());
+            new ImageSelectionDialog((ImageSelectionDialog.OnClickImageSelectionItem) getContext()).show(((FragmentActivity) getContext()).getSupportFragmentManager(), "selectImageDialog");
         }
 
     }

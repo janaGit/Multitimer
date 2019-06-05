@@ -20,4 +20,7 @@
     <string name="label_durationInSec">Zeit</string>
     <string name="label_coolDown">Cool Down</string>
     <string name="menu_item_enable_all_detailed_timer">Alle Timer freischalten</string>
+    <string name="select_image_gallery">Eigene Bilder</string>
+    <string name="select_image_camera">Kamera</string>
+    <string name="select_image_default">Standard Bild</string>
 </resources>

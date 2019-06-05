@@ -22,8 +22,8 @@ import de.softinva.multitimer.BR;
  * and from generated code after created new class
  */
 public class AppRecyclerAdapter<T> extends RecyclerView.Adapter<AppViewHolder> {
-    protected final TreeMap<Object, T> objectList;
-    protected final int layoutId;
+    protected TreeMap<Object, T> objectList;
+    protected int layoutId;
 
     public AppRecyclerAdapter(TreeMap<Object, T> objectList, int layoutId) {
         this.objectList = objectList;

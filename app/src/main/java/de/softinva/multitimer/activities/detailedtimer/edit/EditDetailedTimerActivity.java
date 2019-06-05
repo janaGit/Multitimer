@@ -18,9 +18,12 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.main.timergroup.TimerGroupActivity;
 import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
+import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.fragments.dialogeditcooldown.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.dialogeditduration.EditDurationDialog;
+import de.softinva.multitimer.fragments.dialogimageselection.ACTION_TYPE;
+import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
@@ -29,7 +32,7 @@ import de.softinva.multitimer.repository.TimerRepository;
 import static android.text.InputType.TYPE_NULL;
 import static de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
 
-public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener, EditCoolDownDialog.UpdateCollDownInSecListener, AppBroadcastReceiver.UpdateImageName {
+public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener, EditCoolDownDialog.UpdateCollDownInSecListener, AppBroadcastReceiver.UpdateImageName, ImageSelectionDialog.OnClickImageSelectionItem {
     EditDurationDialog editDurationDialog;
     EditCoolDownDialog editCoolDownDialog;
     AppBroadcastReceiver broadcastReceiver;
@@ -174,6 +177,27 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUESTCODE_SELECT_IMAGE_ACTIVITY) {
             ((AddEditDetailedTimerViewObject) viewObject).setSelectImageActivityIsOpen(false);
+        }
+    }
+
+    @Override
+    public void onClickImageSelectionItem(ACTION_TYPE actionType) {
+        switch (actionType) {
+            case GALLERY:
+                SelectImageActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getDetailedTimer().getGroupId(), model.detailedTimer.getId());
+                break;
+            case CAMERA:
+                ((AddEditDetailedTimerViewObject) viewObject).setSelectImageActivityIsOpen(false);
+                break;
+            case DEFAULT:
+                model.getDetailedTimer().setImageName("");
+                ((AddEditDetailedTimerViewObject) viewObject).setSelectImageActivityIsOpen(false);
+                break;
+            case CANCELED:
+                ((AddEditDetailedTimerViewObject) viewObject).setSelectImageActivityIsOpen(false);
+                break;
+            default:
+                throw new Error("ActionType not supported: " + actionType);
         }
     }
 }
