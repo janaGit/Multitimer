@@ -1,8 +1,8 @@
 MultiTimer
 Copyright 2019 Jana Klemp
 
-Includes content from Google Material Design under Apache License 2.0
-https://material.io/tools/icons
+Includes content from: Google Material Design under Apache License 2.0
+https://material.io/tools/icons:
 ic_av_timer_black_24dp.xml
 ic_chevron_right_black_24dp.xml
 ic_mode_edit_black_24dp.xml
@@ -13,3 +13,6 @@ ic_timer_black_24dp.xml
 ic_timer_off_black_24dp.xml
 ic_photo_camera_black_24dp.xml
 ic_photo_library_black_24dp.xml
+
+Files that include content under Apache License 2.0
+de/softinva/multitimer/AppDocumentsProvider.java: Copyright (C) 2013 The Android Open Source Project
