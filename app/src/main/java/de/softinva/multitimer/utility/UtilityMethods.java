@@ -101,4 +101,12 @@ public class UtilityMethods {
         }
 
     }
+
+    public static String createNameForImage(String timerGroupId, String detailedTimerId) {
+        return timerGroupId + "_" + detailedTimerId;
+    }
+
+    public static String createNameForImage(String timerGroupId) {
+        return "__" + timerGroupId;
+    }
 }

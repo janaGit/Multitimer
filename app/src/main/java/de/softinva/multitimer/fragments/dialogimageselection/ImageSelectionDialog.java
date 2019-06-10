@@ -2,7 +2,11 @@ package de.softinva.multitimer.fragments.dialogimageselection;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -14,7 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 import de.softinva.multitimer.R;
@@ -43,8 +49,22 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         items.put(1, new ImageSelectionItem(ACTION_TYPE.GALLERY, getResources().getString(R.string.select_image_gallery), R.drawable.ic_photo_library_black_24dp));
-        items.put(2, new ImageSelectionItem(ACTION_TYPE.CAMERA, getResources().getString(R.string.select_image_camera), R.drawable.ic_photo_camera_black_24dp));
+
+        if (Build.VERSION.SDK_INT >= 19) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            try {
+                if (intent.resolveActivity(Objects.requireNonNull(getContext()).getPackageManager()) != null) {
+                    String state = Environment.getExternalStorageState();
+                    if (Environment.MEDIA_MOUNTED.equals(state)) {
+                        items.put(2, new ImageSelectionItem(ACTION_TYPE.CAMERA, getResources().getString(R.string.select_image_camera), R.drawable.ic_photo_camera_black_24dp));
+                    }
+                }
+            } catch (NullPointerException e) {
+                logger.info("getPackageManager() throws null pointer exception!");
+            }
+        }
         items.put(3, new ImageSelectionItem(ACTION_TYPE.DEFAULT, getResources().getString(R.string.select_image_default), R.drawable.logo_fertig));
+
         adapter = new AppRecyclerAdapter<>(createViewObject(items), R.layout.dialog_image_selection);
         recyclerView.setAdapter(adapter);
         return dialog;
@@ -73,6 +93,7 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
 
     public interface OnClickImageSelectionItem {
         void onClickImageSelectionItem(ACTION_TYPE actionType);
+
     }
 
     public TreeMap<Object, ImageSelectionViewObject> createViewObject(TreeMap<Integer, ImageSelectionItem> tempTimerTreeMap) {

@@ -14,6 +14,7 @@ import de.softinva.multitimer.AppBroadcastReceiver;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
+import de.softinva.multitimer.activities.takephoto.TakePhotoActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.fragments.dialogeditcooldown.EditCoolDownDialog;
@@ -153,6 +154,7 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
                 SelectImageActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getDetailedTimer().getGroupId(), model.detailedTimer.getId());
                 break;
             case CAMERA:
+                TakePhotoActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getDetailedTimer().getGroupId(), model.detailedTimer.getId());
                 ((AddEditDetailedTimerViewObject) viewObject).setSelectImageActivityIsOpen(false);
                 break;
             case DEFAULT:

@@ -1,20 +1,32 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "de.softinva.multitimer"
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables{
+        vectorDrawables {
             useSupportLibrary = true
         }
+        //added??
+        // Creates a property for the FileProvider and DocumentProvider authority.
+        def filesAuthorityValue = applicationId + ".files"
+        def documentsAuthorityValue = applicationId + ".document"
+        // Creates a placeholder property to use in the manifest.
+        manifestPlaceholders =
+                [filesAuthority    : filesAuthorityValue,
+                 documentsAuthority: documentsAuthorityValue]
+        // Adds a new field for the authority to the BuildConfig class.
+        buildConfigField "String", "FILES_AUTHORITY", "\"${filesAuthorityValue}\""
+        buildConfigField "String", "DOCUMENTS_AUTHORITY", "\"${documentsAuthorityValue}\""
+
     }
     dataBinding {
-        //hinzugefügt??
+        //added??
         enabled = true
     }
     buildTypes {

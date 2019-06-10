@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.softinva.multitimer">
 
+
     <application
         android:name=".AppApplication"
         android:allowBackup="true"
@@ -84,6 +85,8 @@
 
         <activity android:name=".activities.selectimage.SelectImageActivity"></activity>
 
+        <activity android:name=".activities.takephoto.TakePhotoActivity"></activity>
+
         <service
             android:name=".services.countdown.CountDownService"
             android:exported="false" />
@@ -95,6 +98,27 @@
         <service
             android:name=".services.CopyBitmapService"
             android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${filesAuthority}"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+        <provider
+            android:name="de.softinva.multitimer.AppDocumentsProvider"
+            android:authorities="${documentsAuthority}"
+            android:enabled="@bool/atLeastAPI19"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
 
     </application>
 

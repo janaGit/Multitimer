@@ -16,6 +16,7 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.MainActivity;
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
+import de.softinva.multitimer.activities.takephoto.TakePhotoActivity;
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
@@ -121,6 +122,7 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
                 SelectImageActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getTimerGroup().getId());
                 break;
             case CAMERA:
+                TakePhotoActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getTimerGroup().getId());
                 ((AddEditTimerGroupViewObject) viewObject).setSelectImageActivityIsOpen(false);
                 break;
             case DEFAULT:

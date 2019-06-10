@@ -118,7 +118,7 @@ public class AppDocumentsProvider extends DocumentsProvider {
         final MatrixCursor.RowBuilder row = result.newRow();
 
         row.add(Root.COLUMN_ROOT_ID, ROOT);
-        row.add(Root.COLUMN_SUMMARY, getContext().getString(R.string.appdocumentsprovider_summary));
+        //  row.add(Root.COLUMN_SUMMARY, getContext().getString(R.string.appdocumentsprovider_summary) + getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
 
         // FLAG_SUPPORTS_CREATE means at least one directory under the root supports creating
         // documents.  FLAG_SUPPORTS_RECENTS means your application's most recently used

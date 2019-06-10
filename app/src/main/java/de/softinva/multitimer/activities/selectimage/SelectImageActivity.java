@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,18 +15,22 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import java.io.File;
+
 import de.softinva.multitimer.services.CopyBitmapService;
+import de.softinva.multitimer.utility.AppLogger;
+import de.softinva.multitimer.utility.UtilityMethods;
 
 
 public class SelectImageActivity extends AppCompatActivity {
     public static final String TIMER_GROUP_ID = "SelectImageActivity.TimerGroupId";
     public static final String TIMER_ID = "SelectImageActivity.TimerId";
-    public static final String RESULT_IMAGE_NAME = "SelectImageActivity.ImageName";
 
-    public static final String ACTION_SELECT_IMAGE_FOR_DETAILED_TIMER = "SelectImageActivity.TimerId.ActionSelectIamgeForDetailedTimer";
-    public static final String ACTION_SELECT_IMAGE_FOR_TIMER_GROUP = "SelectImageActivity.TimerId.ActionSelectImageForTimerGroup";
+    public static final String ACTION_SELECT_IMAGE_FOR_DETAILED_TIMER = "SelectImageActivity.ActionSelectIamgeForDetailedTimer";
+    public static final String ACTION_SELECT_IMAGE_FOR_TIMER_GROUP = "SelectImageActivity.ActionSelectImageForTimerGroup";
     private SelectImageViewModel model;
-    static final int REQUEST_IMAGE_OPEN = 1;
+    private AppLogger logger = new AppLogger(this);
+    static final int REQUEST_SELECT_IMAGE = 1;
 
     public static void startNewActivityForResult(Activity activity, Integer requestCode, String timerGroupId, String timerId) {
         Intent intent = new Intent(activity, SelectImageActivity.class);
@@ -66,19 +71,23 @@ public class SelectImageActivity extends AppCompatActivity {
             intent.addCategory(Intent.CATEGORY_OPENABLE);
         }
         intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_IMAGE_OPEN);
+
+        startActivityForResult(intent, REQUEST_SELECT_IMAGE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_OPEN && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK) {
             Uri fullPhotoUri = data.getData();
+            String imageFileName;
+            if (getIntent().getAction().equals(ACTION_SELECT_IMAGE_FOR_DETAILED_TIMER)) {
+                imageFileName = UtilityMethods.createNameForImage(model.getTimerGroupId().getValue(), model.getTimerId().getValue());
+            } else {
+                imageFileName = UtilityMethods.createNameForImage(model.getTimerGroupId().getValue());
+            }
 
-            String imageName = createNameForImage();
-
-
-            CopyBitmapService.startImageBitMapService(fullPhotoUri, imageName, this);
+            CopyBitmapService.startImageBitMapService(fullPhotoUri, imageFileName, this);
         }
 
         finish();
@@ -121,10 +130,6 @@ public class SelectImageActivity extends AppCompatActivity {
                 throw new Error("timerId is null !");
             }
         }
-    }
-
-    private String createNameForImage() {
-        return model.getTimerGroupId().getValue() + "_" + model.getTimerId().getValue();
     }
 
 }

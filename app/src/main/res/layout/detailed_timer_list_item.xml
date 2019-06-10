@@ -6,6 +6,7 @@
     <data>
 
         <import type="de.softinva.multitimer.model.DetailedTimer" />
+
         <import type="de.softinva.multitimer.utility.ImageSize" />
 
         <variable
@@ -33,13 +34,13 @@
             android:layout_weight="1"
             android:alpha="@{((DetailedTimer) viewObject.obj.timer).isEnabled ? 1f : 0.25f}"
             android:contentDescription="Image"
+            app:imageName="@{((DetailedTimer) viewObject.obj.timer).imageName}"
+            app:imageSize='@{ImageSize.thumbnail}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/content"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:imageName="@{((DetailedTimer) viewObject.obj.timer).imageName}"
-            app:imageSize='@{ImageSize.thumbnail}'/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/content"
