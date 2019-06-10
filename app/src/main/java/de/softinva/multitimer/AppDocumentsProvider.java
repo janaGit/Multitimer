@@ -1,4 +1,11 @@
+package de.softinva.multitimer;
 /*
+ * Modifications done so that the code works in this application and deleted dummy files and functions.
+ * Commented out : CreateDocument() and its flag as functionality should not be provided.
+ *
+ * Code from: https://github.com/googlesamples/android-StorageProvider/blob/master/Application/src/main/java/com/example/android/storageprovider/MyCloudProvider.java (10 June 2019)
+ *
+ * --------------
  * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,17 +21,13 @@
  * limitations under the License.
  */
 
-
-package com.example.android.storageprovider;
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.CancellationSignal;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract.Document;
@@ -32,14 +35,11 @@ import android.provider.DocumentsContract.Root;
 import android.provider.DocumentsProvider;
 import android.webkit.MimeTypeMap;
 
-import com.example.android.common.logger.Log;
+import androidx.annotation.RequiresApi;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -47,11 +47,15 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import de.softinva.multitimer.utility.AppLogger;
+
 /**
  * Manages documents and exposes them to the Android system for sharing.
  */
-public class MyCloudProvider extends DocumentsProvider {
-    private static final String TAG = "MyCloudProvider";
+@RequiresApi(api = Build.VERSION_CODES.KITKAT)
+public class AppDocumentsProvider extends DocumentsProvider {
+    private static final String TAG = "AppDocumentsProvider";
+    private AppLogger logger = new AppLogger(this);
 
     // Use these as the default columns to return information about a root if no specific
     // columns are requested in a query.
@@ -91,11 +95,9 @@ public class MyCloudProvider extends DocumentsProvider {
 
     @Override
     public boolean onCreate() {
-        Log.v(TAG, "onCreate");
+        logger.info(TAG, "onCreate");
 
-        mBaseDir = getContext().getFilesDir();
-
-        writeDummyFilesToStorage();
+        mBaseDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         return true;
     }
@@ -103,18 +105,12 @@ public class MyCloudProvider extends DocumentsProvider {
     // BEGIN_INCLUDE(query_roots)
     @Override
     public Cursor queryRoots(String[] projection) throws FileNotFoundException {
-        Log.v(TAG, "queryRoots");
+        logger.info(TAG, "queryRoots");
 
         // Create a cursor with either the requested fields, or the default projection.  This
         // cursor is returned to the Android system picker UI and used to display all roots from
         // this provider.
         final MatrixCursor result = new MatrixCursor(resolveRootProjection(projection));
-
-        // If user is not logged in, return an empty root cursor.  This removes our provider from
-        // the list entirely.
-        if (!isUserLoggedIn()) {
-            return result;
-        }
 
         // It's possible to have multiple roots (e.g. for multiple accounts in the same app) -
         // just add multiple cursor rows.
@@ -122,15 +118,15 @@ public class MyCloudProvider extends DocumentsProvider {
         final MatrixCursor.RowBuilder row = result.newRow();
 
         row.add(Root.COLUMN_ROOT_ID, ROOT);
-        row.add(Root.COLUMN_SUMMARY, getContext().getString(R.string.root_summary));
+        row.add(Root.COLUMN_SUMMARY, getContext().getString(R.string.appdocumentsprovider_summary));
 
         // FLAG_SUPPORTS_CREATE means at least one directory under the root supports creating
         // documents.  FLAG_SUPPORTS_RECENTS means your application's most recently used
         // documents will show up in the "Recents" category.  FLAG_SUPPORTS_SEARCH allows users
         // to search all documents the application shares.
-        row.add(Root.COLUMN_FLAGS, Root.FLAG_SUPPORTS_CREATE |
+        row.add(Root.COLUMN_FLAGS, //Root.FLAG_SUPPORTS_CREATE |
                 Root.FLAG_SUPPORTS_RECENTS |
-                Root.FLAG_SUPPORTS_SEARCH);
+                        Root.FLAG_SUPPORTS_SEARCH);
 
         // COLUMN_TITLE is the root title (e.g. what will be displayed to identify your provider).
         row.add(Root.COLUMN_TITLE, getContext().getString(R.string.app_name));
@@ -143,7 +139,7 @@ public class MyCloudProvider extends DocumentsProvider {
         // that contain the desired type somewhere in their file hierarchy.
         row.add(Root.COLUMN_MIME_TYPES, getChildMimeTypes(mBaseDir));
         row.add(Root.COLUMN_AVAILABLE_BYTES, mBaseDir.getFreeSpace());
-        row.add(Root.COLUMN_ICON, R.drawable.ic_launcher);
+        row.add(Root.COLUMN_ICON, R.drawable.logo_fertig);
 
         return result;
     }
@@ -153,7 +149,7 @@ public class MyCloudProvider extends DocumentsProvider {
     @Override
     public Cursor queryRecentDocuments(String rootId, String[] projection)
             throws FileNotFoundException {
-        Log.v(TAG, "queryRecentDocuments");
+        logger.info(TAG, "queryRecentDocuments");
 
         // This example implementation walks a local file structure to find the most recently
         // modified files.  Other implementations might include making a network call to query a
@@ -205,7 +201,7 @@ public class MyCloudProvider extends DocumentsProvider {
     @Override
     public Cursor querySearchDocuments(String rootId, String query, String[] projection)
             throws FileNotFoundException {
-        Log.v(TAG, "querySearchDocuments");
+        logger.info(TAG, "querySearchDocuments");
 
         // Create a cursor with the requested projection, or the default projection.
         final MatrixCursor result = new MatrixCursor(resolveDocumentProjection(projection));
@@ -246,7 +242,7 @@ public class MyCloudProvider extends DocumentsProvider {
     public AssetFileDescriptor openDocumentThumbnail(String documentId, Point sizeHint,
                                                      CancellationSignal signal)
             throws FileNotFoundException {
-        Log.v(TAG, "openDocumentThumbnail");
+        logger.info(TAG, "openDocumentThumbnail");
 
         final File file = getFileForDocId(documentId);
         final ParcelFileDescriptor pfd =
@@ -259,7 +255,7 @@ public class MyCloudProvider extends DocumentsProvider {
     @Override
     public Cursor queryDocument(String documentId, String[] projection)
             throws FileNotFoundException {
-        Log.v(TAG, "queryDocument");
+        logger.info(TAG, "queryDocument");
 
         // Create a cursor with the requested projection, or the default projection.
         final MatrixCursor result = new MatrixCursor(resolveDocumentProjection(projection));
@@ -272,7 +268,7 @@ public class MyCloudProvider extends DocumentsProvider {
     @Override
     public Cursor queryChildDocuments(String parentDocumentId, String[] projection,
                                       String sortOrder) throws FileNotFoundException {
-        Log.v(TAG, "queryChildDocuments, parentDocumentId: " +
+        logger.info(TAG, "queryChildDocuments, parentDocumentId: " +
                 parentDocumentId +
                 " sortOrder: " +
                 sortOrder);
@@ -292,7 +288,7 @@ public class MyCloudProvider extends DocumentsProvider {
     public ParcelFileDescriptor openDocument(final String documentId, final String mode,
                                              CancellationSignal signal)
             throws FileNotFoundException {
-        Log.v(TAG, "openDocument, mode: " + mode);
+        logger.info(TAG, "openDocument, mode: " + mode);
         // It's OK to do network operations in this method to download the document, as long as you
         // periodically check the CancellationSignal.  If you have an extremely large file to
         // transfer from the network, a better solution may be pipes or sockets
@@ -312,7 +308,7 @@ public class MyCloudProvider extends DocumentsProvider {
                             public void onClose(IOException e) {
 
                                 // Update the file with the cloud server.  The client is done writing.
-                                Log.i(TAG, "A file with id " + documentId + " has been closed!  Time to " +
+                                logger.info(TAG, "A file with id " + documentId + " has been closed!  Time to " +
                                         "update the server.");
                             }
 
@@ -328,11 +324,12 @@ public class MyCloudProvider extends DocumentsProvider {
     // END_INCLUDE(open_document)
 
 
-    // BEGIN_INCLUDE(create_document)
+   /*
+   // BEGIN_INCLUDE(create_document)
     @Override
     public String createDocument(String documentId, String mimeType, String displayName)
             throws FileNotFoundException {
-        Log.v(TAG, "createDocument");
+        logger.info(TAG, "createDocument");
 
         File parent = getFileForDocId(documentId);
         File file = new File(parent.getPath(), displayName);
@@ -347,14 +344,15 @@ public class MyCloudProvider extends DocumentsProvider {
         return getDocIdForFile(file);
     }
     // END_INCLUDE(create_document)
+   */
 
     // BEGIN_INCLUDE(delete_document)
     @Override
     public void deleteDocument(String documentId) throws FileNotFoundException {
-        Log.v(TAG, "deleteDocument");
+        logger.info(TAG, "deleteDocument");
         File file = getFileForDocId(documentId);
         if (file.delete()) {
-            Log.i(TAG, "Deleted file with id " + documentId);
+            logger.info(TAG, "Deleted file with id " + documentId);
         } else {
             throw new FileNotFoundException("Failed to delete document with id " + documentId);
         }
@@ -487,13 +485,13 @@ public class MyCloudProvider extends DocumentsProvider {
             //            flags |= Document.FLAG_DIR_PREFERS_GRID;
 
             // Add FLAG_DIR_SUPPORTS_CREATE if the file is a writable directory.
-            if (file.isDirectory() && file.canWrite()) {
-                flags |= Document.FLAG_DIR_SUPPORTS_CREATE;
-            }
+            //  if (file.isDirectory() && file.canWrite()) {
+            //    flags |= Document.FLAG_DIR_SUPPORTS_CREATE;
+            //}
         } else if (file.canWrite()) {
             // If the file is writable set FLAG_SUPPORTS_WRITE and
             // FLAG_SUPPORTS_DELETE
-            flags |= Document.FLAG_SUPPORTS_WRITE;
+            //  flags |= Document.FLAG_SUPPORTS_WRITE;
             flags |= Document.FLAG_SUPPORTS_DELETE;
         }
 
@@ -514,7 +512,7 @@ public class MyCloudProvider extends DocumentsProvider {
         row.add(Document.COLUMN_FLAGS, flags);
 
         // Add a custom icon
-        row.add(Document.COLUMN_ICON, R.drawable.ic_launcher);
+        row.add(Document.COLUMN_ICON, R.drawable.logo_fertig);
     }
 
     /**
@@ -541,81 +539,5 @@ public class MyCloudProvider extends DocumentsProvider {
             return target;
         }
     }
-
-
-    /**
-     * Preload sample files packaged in the apk into the internal storage directory.  This is a
-     * dummy function specific to this demo.  The MyCloud mock cloud service doesn't actually
-     * have a backend, so it simulates by reading content from the device's internal storage.
-     */
-    private void writeDummyFilesToStorage() {
-        if (mBaseDir.list().length > 0) {
-            return;
-        }
-
-        int[] imageResIds = getResourceIdArray(R.array.image_res_ids);
-        for (int resId : imageResIds) {
-            writeFileToInternalStorage(resId, ".jpeg");
-        }
-
-        int[] textResIds = getResourceIdArray(R.array.text_res_ids);
-        for (int resId : textResIds) {
-            writeFileToInternalStorage(resId, ".txt");
-        }
-
-        int[] docxResIds = getResourceIdArray(R.array.docx_res_ids);
-        for (int resId : docxResIds) {
-            writeFileToInternalStorage(resId, ".docx");
-        }
-    }
-
-    /**
-     * Write a file to internal storage.  Used to set up our dummy "cloud server".
-     *
-     * @param resId     the resource ID of the file to write to internal storage
-     * @param extension the file extension (ex. .png, .mp3)
-     */
-    private void writeFileToInternalStorage(int resId, String extension) {
-        InputStream ins = getContext().getResources().openRawResource(resId);
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        int size;
-        byte[] buffer = new byte[1024];
-        try {
-            while ((size = ins.read(buffer, 0, 1024)) >= 0) {
-                outputStream.write(buffer, 0, size);
-            }
-            ins.close();
-            buffer = outputStream.toByteArray();
-            String filename = getContext().getResources().getResourceEntryName(resId) + extension;
-            FileOutputStream fos = getContext().openFileOutput(filename, Context.MODE_PRIVATE);
-            fos.write(buffer);
-            fos.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private int[] getResourceIdArray(int arrayResId) {
-        TypedArray ar = getContext().getResources().obtainTypedArray(arrayResId);
-        int len = ar.length();
-        int[] resIds = new int[len];
-        for (int i = 0; i < len; i++) {
-            resIds[i] = ar.getResourceId(i, 0);
-        }
-        ar.recycle();
-        return resIds;
-    }
-
-    /**
-     * Dummy function to determine whether the user is logged in.
-     */
-    private boolean isUserLoggedIn() {
-        final SharedPreferences sharedPreferences =
-                getContext().getSharedPreferences(getContext().getString(R.string.app_name),
-                        Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(getContext().getString(R.string.key_logged_in), false);
-    }
-
 
 }

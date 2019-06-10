@@ -23,4 +23,5 @@
     <string name="select_image_gallery">Eigene Bilder</string>
     <string name="select_image_camera">Kamera</string>
     <string name="select_image_default">Standard Bild</string>
+    <string name="appdocumentsprovider_summary">Provider enthält Bilder, welche mit der Kamera in der App Multitimer gemacht wurden.</string>
 </resources>

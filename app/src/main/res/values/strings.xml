@@ -23,4 +23,5 @@
     <string name="select_image_gallery">Image Gallery</string>
     <string name="select_image_camera">Take photo</string>
     <string name="select_image_default">Default Image</string>
+    <string name="appdocumentsprovider_summary">Provider contains images taken with the camera in the app: MultiTimer</string>
 </resources>
