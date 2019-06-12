@@ -57,6 +57,14 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
 
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (binding != null) {
+            binding.unbind();
+        }
+
+    }
 
     protected void bindModel() {
         if (viewObject != null) {

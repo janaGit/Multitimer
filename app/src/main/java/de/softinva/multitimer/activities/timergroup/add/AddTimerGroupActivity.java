@@ -7,9 +7,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
-import de.softinva.multitimer.AppBroadcastReceiver;
+import de.softinva.multitimer.AppBroadcastReceiverImageNameUpdated;
 import de.softinva.multitimer.R;
-import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.activities.takephoto.TakePhotoActivity;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
@@ -21,8 +20,8 @@ import de.softinva.multitimer.model.TimerGroup;
 
 import static de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
 
-public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> implements AppBroadcastReceiver.UpdateImageName, ImageSelectionDialog.OnClickImageSelectionItem {
-    AppBroadcastReceiver broadcastReceiver;
+public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> implements AppBroadcastReceiverImageNameUpdated.UpdateImageName, ImageSelectionDialog.OnClickImageSelectionItem {
+    AppBroadcastReceiverImageNameUpdated broadcastReceiver;
 
     public static void startNewActivity(Context context) {
         Intent intent = new Intent(context, AddTimerGroupActivity.class);
@@ -34,13 +33,13 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> i
         TimerGroup timerGroup = model.createNewTimerGroup();
         timerGroup.setTitle(getString(R.string.new_timer_group));
         timerGroup.setDescription(getString(R.string.description));
-        broadcastReceiver = AppBroadcastReceiver.registerReceiverForImageNameUpdates(this);
+        broadcastReceiver = AppBroadcastReceiverImageNameUpdated.registerReceiverForImageNameUpdates(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppBroadcastReceiver.unregisterReceiver(this, broadcastReceiver);
+        AppBroadcastReceiverImageNameUpdated.unregisterReceiver(this, broadcastReceiver);
     }
 
     @Override

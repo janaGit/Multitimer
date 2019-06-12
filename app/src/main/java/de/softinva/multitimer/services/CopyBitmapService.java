@@ -14,7 +14,7 @@ import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import de.softinva.multitimer.AppBroadcastReceiver;
+import de.softinva.multitimer.AppBroadcastReceiverImageNameUpdated;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.ImageSize;
@@ -47,7 +47,7 @@ public class CopyBitmapService extends IntentService {
             copyImage();
             createThumbnail();
             createImageNormalSize();
-            AppBroadcastReceiver.sendImageName(imageName, this);
+            AppBroadcastReceiverImageNameUpdated.sendImageName(imageName, this);
         } catch (IOException e) {
             logger.error("IO Exception " + e.getMessage(), e);
         }

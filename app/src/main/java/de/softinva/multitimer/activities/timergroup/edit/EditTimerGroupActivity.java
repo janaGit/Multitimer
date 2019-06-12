@@ -11,10 +11,9 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 
-import de.softinva.multitimer.AppBroadcastReceiver;
+import de.softinva.multitimer.AppBroadcastReceiverImageNameUpdated;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.MainActivity;
-import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.activities.takephoto.TakePhotoActivity;
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
@@ -27,8 +26,8 @@ import de.softinva.multitimer.repository.TimerRepository;
 
 import static de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
 
-public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimerGroupViewModel> implements AppBroadcastReceiver.UpdateImageName, ImageSelectionDialog.OnClickImageSelectionItem {
-    AppBroadcastReceiver broadcastReceiver;
+public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimerGroupViewModel> implements AppBroadcastReceiverImageNameUpdated.UpdateImageName, ImageSelectionDialog.OnClickImageSelectionItem {
+    AppBroadcastReceiverImageNameUpdated broadcastReceiver;
 
     public static void startNewActivityEdit(String groupId, Context context) {
         Intent intent = new Intent(context, EditTimerGroupActivity.class);
@@ -39,7 +38,7 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AppBroadcastReceiver.unregisterReceiver(this, broadcastReceiver);
+        AppBroadcastReceiverImageNameUpdated.unregisterReceiver(this, broadcastReceiver);
     }
 
     @Override
@@ -73,7 +72,7 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
                 setTimerGroup(timerGroup);
             }
         });
-        broadcastReceiver = AppBroadcastReceiver.registerReceiverForImageNameUpdates(this);
+        broadcastReceiver = AppBroadcastReceiverImageNameUpdated.registerReceiverForImageNameUpdates(this);
     }
 
     protected void setTimerGroup(TimerGroup timerGroup) {

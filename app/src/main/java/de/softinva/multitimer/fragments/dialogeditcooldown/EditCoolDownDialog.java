@@ -46,7 +46,6 @@ public class EditCoolDownDialog extends AppDialogFragmentDataBinding<EditCoolDow
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding.unbind();
         editDuration.setCallbackToNull();
     }
 

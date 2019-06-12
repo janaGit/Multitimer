@@ -7,11 +7,11 @@ import android.content.IntentFilter;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-public class AppBroadcastReceiver extends BroadcastReceiver {
-    public static final String ACTION_UPDATE_IMAGE_NAME = "ACTION_UPDATE_IMAGE_NAME";
+public class AppBroadcastReceiverImageNameUpdated extends BroadcastReceiver {
+    public static final String ACTION_UPDATE_IMAGE_NAME = "ACTION_TIMER_FINISHED";
     Context receiverContext;
 
-    AppBroadcastReceiver(Context receiverContext) {
+    AppBroadcastReceiverImageNameUpdated(Context receiverContext) {
         this.receiverContext = receiverContext;
 
     }
@@ -24,20 +24,20 @@ public class AppBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    public static AppBroadcastReceiver registerReceiverForImageNameUpdates(Context context) {
+    public static AppBroadcastReceiverImageNameUpdated registerReceiverForImageNameUpdates(Context context) {
 
         if (!(context instanceof UpdateImageName)) {
             throw new RuntimeException(context.toString() + " must implement EditDurationFieldsFocusChangeListener");
         }
 
-        AppBroadcastReceiver broadcastReceiver = new AppBroadcastReceiver(context);
-        IntentFilter filter = new IntentFilter(AppBroadcastReceiver.ACTION_UPDATE_IMAGE_NAME);
+        AppBroadcastReceiverImageNameUpdated broadcastReceiver = new AppBroadcastReceiverImageNameUpdated(context);
+        IntentFilter filter = new IntentFilter(AppBroadcastReceiverImageNameUpdated.ACTION_UPDATE_IMAGE_NAME);
 
         LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, filter);
         return broadcastReceiver;
     }
 
-    public static void unregisterReceiver(Context context, AppBroadcastReceiver receiver) {
+    public static void unregisterReceiver(Context context, AppBroadcastReceiverImageNameUpdated receiver) {
         LocalBroadcastManager.getInstance(context).unregisterReceiver(receiver);
     }
 

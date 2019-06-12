@@ -42,7 +42,6 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding.unbind();
         editDuration.setCallbackToNull();
     }
 

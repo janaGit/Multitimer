@@ -7,7 +7,6 @@ import android.net.Uri;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +14,6 @@ import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 
-import java.io.File;
 
 import de.softinva.multitimer.services.CopyBitmapService;
 import de.softinva.multitimer.utility.AppLogger;

@@ -46,7 +46,6 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding.unbind();
         editDuration.setCallbackToNull();
     }
 

@@ -1,12 +1,10 @@
 package de.softinva.multitimer.activities.timergroup;
 
-import android.app.Activity;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
-import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
 import de.softinva.multitimer.model.TimerGroup;
