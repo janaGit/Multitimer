@@ -23,4 +23,8 @@
     <string name="select_image_gallery">Eigene Bilder</string>
     <string name="select_image_camera">Kamera</string>
     <string name="select_image_default">Standard Bild</string>
+    <string name="alarm_dialog_message">Timer ist abgelaufen!</string>
+    <string name="notification_channel_timer_finished_title">Benachrichtigungen: Timer abgelaufen</string>
+    <string name="notification_channel_timer_finished_description">Benachrichtigung wird gesendet, wenn ein Timer abgelaufen ist.</string>
+    <string name="button_delete">LÖSCHEN</string>
 </resources>

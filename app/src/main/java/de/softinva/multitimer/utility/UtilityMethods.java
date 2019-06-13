@@ -2,15 +2,20 @@ package de.softinva.multitimer.utility;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import de.softinva.multitimer.R;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.TempTimer;
@@ -108,5 +113,18 @@ public class UtilityMethods {
 
     public static String createNameForImage(String timerGroupId) {
         return "__" + timerGroupId;
+    }
+
+    public static Bitmap getBitmap(Context context, String imageName, ImageSize imageSize) {
+        Bitmap bitmap = null;
+        try {
+            FileInputStream fis = context.openFileInput(UtilityMethods.returnImageFileName(imageName, imageSize));
+            bitmap = BitmapFactory.decodeStream(fis);
+            fis.close();
+        } catch (IOException e) {
+            bitmap = BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.logo_fertig);
+        }
+        return bitmap;
     }
 }

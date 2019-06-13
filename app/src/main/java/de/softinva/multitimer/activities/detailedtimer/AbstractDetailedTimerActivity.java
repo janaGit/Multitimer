@@ -33,7 +33,7 @@ public abstract class AbstractDetailedTimerActivity<T> extends AppActivity<T> {
 
     protected void setTitle() {
         runningTimer$.observe(this, rtimer -> {
-            if(rtimer != null){
+            if (rtimer != null) {
                 setTitle(rtimer.getTimer().getTitle());
             }
         });
@@ -50,7 +50,7 @@ public abstract class AbstractDetailedTimerActivity<T> extends AppActivity<T> {
             if (groupId != null) {
                 detailedTimerModel.getTimerGroupId().setValue(groupId);
             } else {
-                throw new Error("groupId is null !");
+                throw new Error("groupId is null!");
             }
         }
     }

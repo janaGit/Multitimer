@@ -23,4 +23,8 @@
     <string name="select_image_gallery">Image Gallery</string>
     <string name="select_image_camera">Take photo</string>
     <string name="select_image_default">Default Image</string>
+    <string name="alarm_dialog_message">Timer finished!</string>
+    <string name="notification_channel_timer_finished_title">Notifications: Timer finished</string>
+    <string name="notification_channel_timer_finished_description">Notifies when a timer finished.</string>
+    <string name="button_delete">DELETE</string>
 </resources>

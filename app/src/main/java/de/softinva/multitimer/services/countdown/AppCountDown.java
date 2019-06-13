@@ -3,6 +3,7 @@ package de.softinva.multitimer.services.countdown;
 
 import android.os.CountDownTimer;
 
+import de.softinva.multitimer.notifications.TimerFinishedNotification;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;
@@ -30,6 +31,7 @@ public class AppCountDown {
                 service.onStopTimer(runningTimer.getTimer());
                 service.onFinishTimer(runningTimer.getTimer());
                 logger.info(runningTimer.getTimer().getTitle() + " timer stopped running!");
+                new TimerFinishedNotification(service).notifyTimerFinished(runningTimer.getTimer(), runningTimer.getFinishTimeCountDownInSec().intValue());
             }
         };
     }

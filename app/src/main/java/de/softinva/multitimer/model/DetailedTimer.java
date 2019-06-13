@@ -142,7 +142,7 @@ public class DetailedTimer extends Timer implements Parcelable {
         super(in);
         description = in.readString();
         groupId = in.readString();
-        title = in.readString();
+        imageName = in.readString();
         isEnabled = in.readByte() != 0;
         coolDownInSec = in.readInt();
         positionInGroup = in.readInt();
@@ -165,8 +165,7 @@ public class DetailedTimer extends Timer implements Parcelable {
         super.writeToParcel(dest, flags);
         dest.writeString(description);
         dest.writeString(groupId);
-        dest.writeString(title);
-
+        dest.writeString(imageName);
         dest.writeByte((byte) (isEnabled ? 1 : 0));
         dest.writeInt(coolDownInSec);
         dest.writeInt(positionInGroup);

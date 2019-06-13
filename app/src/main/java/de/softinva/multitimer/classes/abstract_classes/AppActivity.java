@@ -61,12 +61,17 @@ public abstract class AppActivity<T> extends AppCompatActivity implements IAppMo
     protected abstract void setViewObject();
 
     protected void setContextForViewObject() {
-        viewObject.setContext(this);
+        if (viewObject != null) {
+            viewObject.setContext(this);
+        }
+
     }
 
     protected void setHomeUpButton() {
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     protected void bindModel() {
