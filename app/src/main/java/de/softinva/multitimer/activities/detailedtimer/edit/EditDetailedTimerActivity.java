@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +21,7 @@ import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActi
 import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject;
 import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.activities.takephoto.TakePhotoActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.fragments.dialogeditcooldown.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.dialogeditduration.EditDurationDialog;
@@ -88,8 +90,8 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     }
 
     @Override
-    protected void setViewObject() {
-        viewObject = new AddEditDetailedTimerViewObject(true, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog);
+    protected AppViewObject returnViewObject() {
+        return new AddEditDetailedTimerViewObject(true, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog);
     }
 
     @Override
@@ -98,14 +100,14 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     }
 
     @Override
-    protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+    protected EditDetailedTimerViewModel returnModel() {
+        return new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(EditDetailedTimerViewModel.class);
     }
 
     @Override
-    protected void setBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_addedit_detailed_timer);
+    protected ViewDataBinding returnBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_addedit_detailed_timer);
     }
 
     @Override

@@ -20,11 +20,11 @@ public abstract class AppActivity<T> extends AppCompatActivity implements IAppMo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setModel();
+        model = returnModel();
         setClassSpecificObjects();
-        setViewObject();
+        viewObject = returnViewObject();
         setContextForViewObject();
-        setBinding();
+        binding = returnBinding();
         bindModel();
 
         setActionBar();
@@ -58,7 +58,7 @@ public abstract class AppActivity<T> extends AppCompatActivity implements IAppMo
         return this;
     }
 
-    protected abstract void setViewObject();
+    protected abstract AppViewObject returnViewObject();
 
     protected void setContextForViewObject() {
         if (viewObject != null) {
@@ -82,11 +82,11 @@ public abstract class AppActivity<T> extends AppCompatActivity implements IAppMo
 
     }
 
-    protected abstract void setModel();
+    protected abstract T returnModel();
 
     protected abstract void setActionBar();
 
-    protected abstract void setBinding();
+    protected abstract ViewDataBinding returnBinding();
 
     protected abstract void setTitle();
 

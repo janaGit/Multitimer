@@ -8,12 +8,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.activities.main.timergroup.TimerGroupViewModel;
 import de.softinva.multitimer.activities.timergroup.edit.EditTimerGroupActivity;
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityTimerGroupInfoBinding;
 
 public class TimerGroupInfoActivity extends AbstractTimerGroupActivity<TimerGroupInfoViewModel> {
@@ -31,13 +34,13 @@ public class TimerGroupInfoActivity extends AbstractTimerGroupActivity<TimerGrou
     }
 
     @Override
-    protected void setViewObject() {
-        viewObject = new TimerGroupInfoViewObject(timerGroup$);
+    protected AppViewObject returnViewObject() {
+        return new TimerGroupInfoViewObject(timerGroup$);
     }
 
     @Override
-    protected void setBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_timer_group_info);
+    protected ViewDataBinding returnBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_timer_group_info);
     }
 
     @Override
@@ -46,8 +49,8 @@ public class TimerGroupInfoActivity extends AbstractTimerGroupActivity<TimerGrou
     }
 
     @Override
-    protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+    protected TimerGroupInfoViewModel returnModel() {
+        return new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(TimerGroupInfoViewModel.class);
     }
 

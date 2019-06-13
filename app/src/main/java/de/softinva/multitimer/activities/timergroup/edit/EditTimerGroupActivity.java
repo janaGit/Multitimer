@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,6 +19,7 @@ import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.activities.takephoto.TakePhotoActivity;
 import de.softinva.multitimer.activities.timergroup.AbstractTimerGroupActivity;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.fragments.dialogimageselection.ACTION_TYPE;
 import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
@@ -42,14 +44,14 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
     }
 
     @Override
-    protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+    protected EditTimerGroupViewModel returnModel() {
+        return new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(EditTimerGroupViewModel.class);
     }
 
     @Override
-    protected void setBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_addedit_timer_group);
+    protected ViewDataBinding returnBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_addedit_timer_group);
     }
 
     @Override
@@ -80,8 +82,8 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
     }
 
     @Override
-    protected void setViewObject() {
-        viewObject = new AddEditTimerGroupViewObject(true, model.getTimerGroup());
+    protected AppViewObject returnViewObject() {
+        return new AddEditTimerGroupViewObject(true, model.getTimerGroup());
     }
 
     @Override

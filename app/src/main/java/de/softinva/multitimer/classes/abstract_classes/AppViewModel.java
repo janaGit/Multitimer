@@ -9,9 +9,6 @@ import androidx.lifecycle.SavedStateHandle;
 public abstract class AppViewModel extends AndroidViewModel {
     protected SavedStateHandle state;
 
-    protected AppViewObject viewObject;
-    protected Context context;
-
     public AppViewModel(Application application, SavedStateHandle savedStateHandle) {
         super(application);
         state = savedStateHandle;

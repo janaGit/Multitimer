@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -16,6 +17,7 @@ import de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewO
 import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.activities.takephoto.TakePhotoActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditDetailedTimerBinding;
 import de.softinva.multitimer.fragments.dialogeditcooldown.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.dialogeditduration.EditDurationDialog;
@@ -81,8 +83,8 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     }
 
     @Override
-    protected void setViewObject() {
-        viewObject = new AddEditDetailedTimerViewObject(false, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog);
+    protected AppViewObject returnViewObject() {
+        return new AddEditDetailedTimerViewObject(false, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog);
     }
 
     @Override
@@ -91,14 +93,14 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     }
 
     @Override
-    protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+    protected AddDetailedTimerViewModel returnModel() {
+        return new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(AddDetailedTimerViewModel.class);
     }
 
     @Override
-    protected void setBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_addedit_detailed_timer);
+    protected ViewDataBinding returnBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_addedit_detailed_timer);
     }
 
     @Override

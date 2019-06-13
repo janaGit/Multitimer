@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.timergroup.add.AddTimerGroupActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppTabsActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityMainBinding;
 import de.softinva.multitimer.fragments.dialogaddtemptimer.AddTempTimerDialog;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
@@ -47,8 +49,8 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     }
 
     @Override
-    protected void setViewObject() {
-        viewObject = new MainActivityViewObject(this);
+    protected AppViewObject returnViewObject() {
+        return new MainActivityViewObject(this);
     }
 
     @Override
@@ -104,8 +106,8 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     }
 
     @Override
-    protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+    protected MainActivityViewModel returnModel() {
+        return new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(MainActivityViewModel.class);
     }
 
@@ -115,8 +117,8 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     }
 
     @Override
-    protected void setBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    protected ViewDataBinding returnBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
 
     @Override

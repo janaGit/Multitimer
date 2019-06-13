@@ -8,12 +8,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.edit.EditDetailedTimerActivity;
 import de.softinva.multitimer.activities.detailedtimer.AbstractDetailedTimerActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityDetailedTimerInfoBinding;
 import de.softinva.multitimer.model.DetailedTimer;
 
@@ -31,13 +33,13 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
     }
 
     @Override
-    protected void setViewObject() {
-        viewObject = new DetailedTimerInfoViewObject(model.getRunningTimer(model.getTimerGroupId().getValue(), model.getTimerId().getValue()));
+    protected AppViewObject returnViewObject() {
+        return new DetailedTimerInfoViewObject(model.getRunningTimer(model.getTimerGroupId().getValue(), model.getTimerId().getValue()));
     }
 
     @Override
-    protected void setBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detailed_timer_info);
+    protected ViewDataBinding returnBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_detailed_timer_info);
     }
 
     @Override
@@ -46,8 +48,8 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
     }
 
     @Override
-    protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+    protected DetailedTimerInfoViewModel returnModel() {
+        return new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(DetailedTimerInfoViewModel.class);
     }
 

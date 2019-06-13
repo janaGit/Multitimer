@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.add.AddDetailedTimerActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppTabsActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityTimerGroupBinding;
 import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.timer.DetailedTimerList;
@@ -48,8 +50,8 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     }
 
     @Override
-    protected void setViewObject() {
-        viewObject = new TimerGroupViewObject(model.getTimerGroup(model.getTimerGroupId$().getValue()));
+    protected AppViewObject returnViewObject() {
+        return new TimerGroupViewObject(model.getTimerGroup(model.getTimerGroupId$().getValue()));
     }
 
     @Override
@@ -119,14 +121,14 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     }
 
     @Override
-    protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+    protected TimerGroupViewModel returnModel() {
+        return new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(TimerGroupViewModel.class);
     }
 
     @Override
-    protected void setBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_timer_group);
+    protected ViewDataBinding returnBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_timer_group);
     }
 
     @Override

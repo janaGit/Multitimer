@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,6 +14,7 @@ import de.softinva.multitimer.activities.selectimage.SelectImageActivity;
 import de.softinva.multitimer.activities.takephoto.TakePhotoActivity;
 import de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject;
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
+import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityAddeditTimerGroupBinding;
 import de.softinva.multitimer.fragments.dialogimageselection.ACTION_TYPE;
 import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
@@ -43,14 +45,14 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> i
     }
 
     @Override
-    protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+    protected AddTimerGroupViewModel returnModel() {
+        return new ViewModelProvider(this, new SavedStateVMFactory(this))
                 .get(AddTimerGroupViewModel.class);
     }
 
     @Override
-    protected void setBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_addedit_timer_group);
+    protected ViewDataBinding returnBinding() {
+        return DataBindingUtil.setContentView(this, R.layout.activity_addedit_timer_group);
     }
 
     @Override
@@ -64,8 +66,8 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> i
     }
 
     @Override
-    protected void setViewObject() {
-        viewObject = new AddEditTimerGroupViewObject(false, model.getTimerGroup());
+    protected AppViewObject returnViewObject() {
+        return new AddEditTimerGroupViewObject(false, model.getTimerGroup());
     }
 
     @Override
