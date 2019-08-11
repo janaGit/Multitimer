@@ -13,11 +13,11 @@ public class DummyNudelGericht {
 
 
     static {
-        TIMER_NUDELN = new DetailedTimer("Nudeln_0","0", "Nudeln", 480,0, true,  "nudeln.png",0,"Nudeln zum kochen bringen und dann auf mittlere Stufe herunter stellen.");
-        TIMER_Tomatensoße = new DetailedTimer("Nudeln_1","0", "Tomatensoße", 480,0, true, "nudeln.png",1,"Tomatensoße auf mittlerer Stufe erwärmen.");
+        TIMER_NUDELN = new DetailedTimer("Nudeln_0","0", "Nudeln", 480,0, true,  "nudeln",0,"Nudeln zum kochen bringen und dann auf mittlere Stufe herunter stellen.");
+        TIMER_Tomatensoße = new DetailedTimer("Nudeln_1","0", "Tomatensoße", 480,0, true, "gemuese",1,"Tomatensoße auf mittlerer Stufe erwärmen.");
         addItemToTimerList(TIMER_NUDELN);
         addItemToTimerList(TIMER_Tomatensoße);
-        TIMER_GROUP = new TimerGroup("0", "Nudel Gericht", false, "Nudeln.jpg","Leckere Nudeln mit Tomatensoße. Schnell gemacht und schmeckt.");
+        TIMER_GROUP = new TimerGroup("0", "Nudel Gericht", false, "nudelsalat","Leckere Nudeln mit Tomatensoße. Schnell gemacht und schmeckt.");
     }
 
     private static void addItemToTimerList(DetailedTimer timer) {

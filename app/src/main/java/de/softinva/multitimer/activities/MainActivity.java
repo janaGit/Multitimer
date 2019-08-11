@@ -24,6 +24,7 @@ import de.softinva.multitimer.fragments.list.running.RunningTimerList;
 import de.softinva.multitimer.fragments.list.temp.TempTimerList;
 import de.softinva.multitimer.fragments.list.timergroup.TimerGroupList;
 import de.softinva.multitimer.model.MAIN_ACTIVITY_TABS;
+import de.softinva.multitimer.utility.OnInstallationManager;
 
 
 public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
@@ -46,6 +47,7 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
         super.onCreate(savedInstanceState);
         addtempTimerDialog = new AddTempTimerDialog();
         manageFloatingAddButton();
+        new OnInstallationManager(this).executeCodeOnFirstRun();
     }
 
     @Override
