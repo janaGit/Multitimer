@@ -27,4 +27,8 @@
     <string name="notification_channel_timer_finished_title">Notifications: Timer finished</string>
     <string name="notification_channel_timer_finished_description">Notifies when a timer finished.</string>
     <string name="button_delete">DELETE</string>
+    <string name="import_timer_groups_title">Import Data</string>
+    <string name="activity_import_timer_groups_select_file_path_button">SELECT ZIP FILE PATH</string>
+    <string name="activity_import_timer_groups_import_button">IMPORT DATA</string>
+    <string name="activity_import_timer_groups_import_text_warning">Only import data from trusted sources.</string>
 </resources>

@@ -27,4 +27,8 @@
     <string name="notification_channel_timer_finished_title">Benachrichtigungen: Timer abgelaufen</string>
     <string name="notification_channel_timer_finished_description">Benachrichtigung wird gesendet, wenn ein Timer abgelaufen ist.</string>
     <string name="button_delete">LÖSCHEN</string>
+    <string name="import_timer_groups_title">Importiere Daten</string>
+    <string name="activity_import_timer_groups_select_file_path_button">SUCHE ZIP DATEI</string>
+    <string name="activity_import_timer_groups_import_button">IMPORTIERE DATEN</string>
+    <string name="activity_import_timer_groups_import_text_warning">Importiere Daten nur von vertrauenswürdigen Quellen.</string>
 </resources>

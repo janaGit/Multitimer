@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="de.softinva.multitimer">
 
 
@@ -86,6 +87,14 @@
         <activity android:name=".activities.selectimage.SelectImageActivity"></activity>
 
         <activity android:name=".activities.takephoto.TakePhotoActivity"></activity>
+
+        <activity android:name=".activities.importtimergroups.ImportTimerGroupActivity">
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/zip" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".services.countdown.CountDownService"

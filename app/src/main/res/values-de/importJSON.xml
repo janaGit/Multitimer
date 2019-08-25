@@ -1,0 +1,14 @@
+<resources>
+    <string name="JSONTimerGroupID">id</string>
+    <string name="JSONTimerGroupTitle">title</string>
+    <string name="JSONTimerGroupIsZipped">isZipped</string>
+    <string name="JSONTimerGroupImageName">imageName</string>
+    <string name="JSONTimerGroupDescription">description</string>
+    <string name="JSONTimerGroupIDTimerArray">timerArray</string>
+    <string name="JSONDetailedTimerTitle">title</string>
+    <string name="JSONDetailedTimerDurationInSec">durationInSec</string>
+    <string name="JSONDetailedTimerImageName">imageName</string>
+    <string name="JSONDetailedTimerDescription">description</string>
+    <string name="JSONDetailedTimerPositionInGroup">positionInGroup</string>
+    <string name="JSONDetailedTimerCoolDownInSec">coolDownInSec</string>
+</resources>
