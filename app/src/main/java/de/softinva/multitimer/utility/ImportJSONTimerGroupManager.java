@@ -41,6 +41,8 @@ public class ImportJSONTimerGroupManager {
 
         JSONArray jsonArray = getArray(R.string.JSONTimerGroupIDTimerArray);
 
+        new TimerRepository(application).deleteAllDetailedTimerFromTimerGroup(timerGroupId);
+
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             String timerId = UtilityMethods.createID();

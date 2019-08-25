@@ -218,6 +218,11 @@ public class TimerRepositoryDatabase implements ITimerRepository {
     }
 
     @Override
+    public void deleteAllDetailedTimerFromTimerGroup(String timerGroupId) {
+        new TimerRepositoryDatabase.deleteAllDetailedTimerFromGroup(detailedTimerDao).execute(timerGroupId);
+    }
+
+    @Override
     public void enableDetailedTimer(String timerGroupId, String detailedTimerId) {
         new TimerRepositoryDatabase.updateTimerStatus(detailedTimerDao, timerGroupId, detailedTimerId).execute(true);
     }
@@ -282,6 +287,20 @@ public class TimerRepositoryDatabase implements ITimerRepository {
         protected Void doInBackground(final DetailedTimerEntity... params) {
             dao.delete(params[0]);
             dao.removePosition(params[0].groupId, params[0].positionInGroup);
+            return null;
+        }
+    }
+
+    private static class deleteAllDetailedTimerFromGroup extends AsyncTask<String, Void, Void> {
+        private DetailedTimerDao dao;
+
+        deleteAllDetailedTimerFromGroup(DetailedTimerDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final String... params) {
+            dao.deleteAllFromTimerGroup(params[0]);
             return null;
         }
     }

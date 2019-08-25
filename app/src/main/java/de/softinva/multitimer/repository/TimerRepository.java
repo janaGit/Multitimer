@@ -97,6 +97,11 @@ public class TimerRepository implements ITimerRepository {
     }
 
     @Override
+    public void deleteAllDetailedTimerFromTimerGroup(String timerGroupId) {
+        repository.deleteAllDetailedTimerFromTimerGroup(timerGroupId);
+    }
+
+    @Override
     public void enableDetailedTimer(String timerGroupId, String detailedTimerId) {
         repository.enableDetailedTimer(timerGroupId, detailedTimerId);
     }

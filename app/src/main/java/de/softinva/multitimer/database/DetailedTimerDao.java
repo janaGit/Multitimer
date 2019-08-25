@@ -36,6 +36,9 @@ public interface DetailedTimerDao extends AppDao<DetailedTimerEntity> {
     @Query("DELETE FROM detailedtimer")
     void deleteAll();
 
+    @Query("DELETE FROM detailedtimer where groupId = :timerGroupId")
+    void deleteAllFromTimerGroup(String timerGroupId);
+
     @Query("UPDATE detailedtimer SET positionInGroup = positionInGroup -1 where groupId = :id  AND positionInGroup > :removedPosition")
     void removePosition(String id, Integer removedPosition);
 
