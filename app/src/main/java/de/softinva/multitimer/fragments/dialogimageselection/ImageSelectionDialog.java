@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
@@ -35,6 +36,7 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
     RecyclerView.Adapter adapter;
 
     public ImageSelectionDialog(OnClickImageSelectionItem activity) {
+        super((AppCompatActivity) activity);
         onClickImageSelectionItemActivity = activity;
     }
 

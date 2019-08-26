@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -17,9 +18,15 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
     protected T model;
     protected AppViewObject viewObject;
     protected ViewDataBinding binding;
+    protected AppCompatActivity activity;
 
-    public AppDialogFragmentDataBinding() {
+    public AppDialogFragmentDataBinding(AppCompatActivity activity) {
         super();
+        this.activity = activity;
+    }
+
+    public void showDialog(String tag) {
+        show(activity.getSupportFragmentManager(), tag);
     }
 
     @Override
@@ -36,6 +43,7 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
+
         model = setModel();
         setClassSpecificObjects();
         viewObject = setViewObject();

@@ -7,6 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.TimerGroup;
@@ -17,18 +20,45 @@ public class ImportJSONTimerGroupManager {
     Context context;
     Application application;
     String timerGroupId;
+    LinkedList<String> errorMessages;
+    LinkedList<String> successMessages;
 
-    public ImportJSONTimerGroupManager(JSONObject json, Application application) throws JSONException {
+    public ImportJSONTimerGroupManager(Application application) {
+        errorMessages = new LinkedList<String>();
+        successMessages = new LinkedList<String>();
+
         this.application = application;
         this.context = application.getApplicationContext();
-        this.json = json;
-
-        timerGroupId = json.getString(context.getResources().getString(R.string.JSONTimerGroupID));
-
-        insertDataIntoDatabase();
     }
 
-    public void insertDataIntoDatabase() throws JSONException {
+    public void insertDataIntoDatabase(JSONObject json, String jsonFileName) {
+        this.json = json;
+
+        getTimerGroupId(jsonFileName);
+        importTimerGroup();
+        importTimer();
+    }
+
+    public LinkedList<String> getErrorMesages() {
+        return errorMessages;
+    }
+
+    public LinkedList<String> getSuccessMessages() {
+        return successMessages;
+    }
+
+    private void getTimerGroupId(String jsonFileName) {
+        try {
+            timerGroupId = json.getString(context.getResources().getString(R.string.JSONTimerGroupID));
+            successMessages.add(context.getResources().getString(R.string.success_message_json_import_timer_group) + " " + jsonFileName);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            errorMessages.add(context.getResources().getString(R.string.error_message_json_import_timer_group) + " " + jsonFileName);
+        }
+    }
+
+    private void importTimerGroup() {
         TimerGroup timerGroup = new TimerGroup(timerGroupId);
 
         timerGroup.setTitle(getString(R.string.JSONTimerGroupTitle, json));
@@ -37,26 +67,33 @@ public class ImportJSONTimerGroupManager {
         timerGroup.setImageName(timerGroupId);
 
         new TimerRepository(application).insertTimerGroup(timerGroup);
+    }
 
-
+    private void importTimer() {
         JSONArray jsonArray = getArray(R.string.JSONTimerGroupIDTimerArray);
 
         new TimerRepository(application).deleteAllDetailedTimerFromTimerGroup(timerGroupId);
 
         for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            String timerId = UtilityMethods.createID();
-            DetailedTimer detailedTimer = new DetailedTimer(timerId);
-            detailedTimer.setTitle(getString(R.string.JSONDetailedTimerTitle, jsonObject));
-            detailedTimer.setDurationInSec(getInt(R.string.JSONDetailedTimerDurationInSec, 0, jsonObject));
-            detailedTimer.setGroupId(timerGroupId);
-            detailedTimer.setImageName(timerGroupId + "_" + timerId);
-            detailedTimer.setDescription(getString(R.string.JSONDetailedTimerDescription, jsonObject));
-            detailedTimer.setPositionInGroup(getInt(R.string.JSONDetailedTimerPositionInGroup, jsonArray.length() + i, jsonObject));
-            detailedTimer.setCoolDownInSec(getInt(R.string.JSONDetailedTimerCoolDownInSec, 0, jsonObject));
-            detailedTimer.setIsEnabled(getBoolean(R.string.JSONDetailedTimerDescription, false, jsonObject));
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String timerId = UtilityMethods.createID();
+                DetailedTimer detailedTimer = new DetailedTimer(timerId);
+                detailedTimer.setTitle(getString(R.string.JSONDetailedTimerTitle, jsonObject));
+                detailedTimer.setDurationInSec(getInt(R.string.JSONDetailedTimerDurationInSec, 0, jsonObject));
+                detailedTimer.setGroupId(timerGroupId);
+                detailedTimer.setImageName(timerGroupId + "_" + timerId);
+                detailedTimer.setDescription(getString(R.string.JSONDetailedTimerDescription, jsonObject));
+                detailedTimer.setPositionInGroup(getInt(R.string.JSONDetailedTimerPositionInGroup, jsonArray.length() + i, jsonObject));
+                detailedTimer.setCoolDownInSec(getInt(R.string.JSONDetailedTimerCoolDownInSec, 0, jsonObject));
+                detailedTimer.setIsEnabled(getBoolean(R.string.JSONDetailedTimerDescription, false, jsonObject));
 
-            new TimerRepository(application).insertDetailedTimer(detailedTimer);
+                new TimerRepository(application).insertDetailedTimer(detailedTimer);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                errorMessages.add(context.getResources().getString(R.string.error_message_json_import_timer) + " " + i);
+            }
+
         }
     }
 

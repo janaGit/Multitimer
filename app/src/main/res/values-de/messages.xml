@@ -1,0 +1,9 @@
+<resources>
+    <string name="error_message_json_import_zip_file">Zip Datei kann nicht gelesen werden.</string>
+    <string name="error_message_json_import_json_file">JSON Datei hat Fehler. Datei name:</string>
+    <string name="error_message_json_import_json_file_read_error">JSON Datei konnte nicht gelesen werden, da es Fehler bei der Formatierung gibt.  Datei Name:</string>
+    <string name="error_message_json_import_file">Datei wird nicht importiert, da sie nicht die Dateiendung .json hat. Datei Name:</string>
+    <string name="error_message_json_import_timer">Timer konnte nicht importtier werden. Position:</string>
+    <string name="error_message_json_import_timer_group">Timer Gruppe konnte nicht importtier werden. Timer Gruppen ID konnte wurde nicht gefunden. Datei Name:</string>
+    <string name="success_message_json_import_timer_group">Timer Gruppe wurde importiert. Datei Name: </string>
+</resources>

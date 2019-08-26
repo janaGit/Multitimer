@@ -1,6 +1,7 @@
 package de.softinva.multitimer.activities.importtimergroups;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -12,27 +13,22 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.SavedStateVMFactory;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
+import java.util.LinkedList;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityImportTimerGroupsBinding;
+import de.softinva.multitimer.fragments.dialogimportdataresult.ImportDataResultDialog;
 import de.softinva.multitimer.utility.AppLogger;
-import de.softinva.multitimer.utility.ImportJSONTimerGroupManager;
+import de.softinva.multitimer.utility.ImportDataManager;
 
 public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewModel> {
     private static final int SELECT_FILE_PATH_REQUEST_CODE = 42;
     private AppLogger logger = new AppLogger(this);
+    LinkedList<String> errorMessages;
+    LinkedList<String> successMessages;
 
     @Override
     protected AppViewObject returnViewObject() {
@@ -63,6 +59,9 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
 
     @Override
     protected void setClassSpecificObjects() {
+        errorMessages = new LinkedList<String>();
+        successMessages = new LinkedList<String>();
+
         setZipFilePathAndFile();
 
     }
@@ -98,60 +97,22 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
     }
 
     public void importData() {
+        ImportTimerGroupActivity activity = this;
+        Application application = this.getApplication();
         Observer<Uri> observer = new Observer<Uri>() {
             @Override
             public void onChanged(@Nullable Uri uri) {
-                try {
-                    InputStream inputStream = getContentResolver().openInputStream(uri);
+                ImportDataManager zipFileManager = new ImportDataManager(uri, application);
 
-                    ZipInputStream zipFileInputStream = new ZipInputStream(inputStream);
+                zipFileManager.processZipFile();
 
-                    iterateOverEntries(zipFileInputStream);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    model.getZipFilePath().removeObserver(this);
-                }
+                ImportDataResultDialog dialog = new ImportDataResultDialog(activity, zipFileManager.getErrorMesages(), zipFileManager.getSuccessMessages());
+                dialog.showDialog("importDataResult");
+
                 model.getZipFilePath().removeObserver(this);
             }
         };
         model.getZipFilePath().observe(this, observer);
-    }
-
-    private void iterateOverEntries(ZipInputStream zipInputStream) throws IOException, JSONException {
-        ZipEntry zipEntry;
-        while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-            System.out.println(zipEntry.getName());
-            //use entry input stream:
-            if (zipEntry.isDirectory()) {
-
-            } else {
-                String name = zipEntry.getName();
-                if (name.contains(".json")) {
-                    String jsonString = readInputStream(zipInputStream);
-                    JSONObject jsonObject = new JSONObject(jsonString);
-                    ImportJSONTimerGroupManager jsonManager = new ImportJSONTimerGroupManager(jsonObject, this.getApplication());
-                    jsonManager.insertDataIntoDatabase();
-                }
-            }
-
-        }
-        zipInputStream.close();
-
-    }
-
-    private String readInputStream(final InputStream inputStream) throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
-        int size = inputStream.available();
-        byte[] buffer = new byte[size];
-        int read = 0;
-        while ((read = inputStream.read(buffer, 0, size)) >= 0) {
-            stringBuilder.append(new String(buffer, 0, read));
-        }
-
-        String string = stringBuilder.toString();
-        string = string.replace("\n", "");
-
-        return string;
     }
 
     @Override

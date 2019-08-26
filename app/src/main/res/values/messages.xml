@@ -1,0 +1,10 @@
+<resources>
+    <string name="error_message_json_import_zip_file">Zip file could not be processed!</string>
+    <string name="error_message_json_import_json_file">JSON file could not be processed. File name:</string>
+    <string name="error_message_json_import_json_file_read_error">JSON file could not be processed. JSON Format wrong.  File name:</string>
+    <string name="error_message_json_import_file">File will not be processed!. Not .json. File name:</string>
+    <string name="error_message_json_import_timer">Timer could not be imported. Position: </string>
+    <string name="error_message_json_import_timer_group">Timer group could not be imported. Timer group id has not been found. File name: </string>
+    <string name="success_message_json_import_timer_group">Timer group has been imported. File name: </string>
+
+</resources>

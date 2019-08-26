@@ -55,6 +55,14 @@ public class UtilityMethods {
         return UtilityMethods.transformSecIntoString(countDownInSec.longValue());
     }
 
+    public static String getStringFromList(List<String> list) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String entry : list) {
+            stringBuilder.append(entry).append("\n\n");
+        }
+        return stringBuilder.toString();
+    }
+
     public static String transformSecIntoString(Long countDownInSec) {
         if (countDownInSec == null) {
             return "";

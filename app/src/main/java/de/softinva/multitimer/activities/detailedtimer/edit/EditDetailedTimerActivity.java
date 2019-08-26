@@ -119,8 +119,8 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
 
             }
         });
-        editDurationDialog = new EditDurationDialog();
-        editCoolDownDialog = new EditCoolDownDialog();
+        editDurationDialog = new EditDurationDialog(this);
+        editCoolDownDialog = new EditCoolDownDialog(this);
         broadcastReceiver = AppBroadcastReceiverImageNameUpdated.registerReceiverForImageNameUpdates(this);
 
     }

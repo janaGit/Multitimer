@@ -31,4 +31,7 @@
     <string name="activity_import_timer_groups_select_file_path_button">SELECT ZIP FILE PATH</string>
     <string name="activity_import_timer_groups_import_button">IMPORT DATA</string>
     <string name="activity_import_timer_groups_import_text_warning">Only import data from trusted sources.</string>
+    <string name="dialog_import_data_result_title">Info</string>
+    <string name="dialog_import_data_result_button_negative">FINISH IMPORT</string>
+    <string name="dialog_import_data_result_button_positive">IMPORT MORE DATA</string>
 </resources>

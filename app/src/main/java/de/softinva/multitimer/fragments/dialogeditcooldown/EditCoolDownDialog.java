@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.MutableLiveData;
@@ -20,6 +21,10 @@ public class EditCoolDownDialog extends AppDialogFragmentDataBinding<EditCoolDow
     EditDuration editDuration;
     public MutableLiveData<Integer> coolDownInSec = new MutableLiveData<>();
     private UpdateCollDownInSecListener callbackCoolDownInSec;
+
+    public EditCoolDownDialog(AppCompatActivity activity) {
+        super(activity);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

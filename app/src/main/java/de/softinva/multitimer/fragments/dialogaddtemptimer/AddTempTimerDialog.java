@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.SavedStateVMFactory;
@@ -20,6 +21,10 @@ import de.softinva.multitimer.utility.EditDuration;
 
 public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTimerDialogViewModel> {
     EditDuration editDuration;
+
+    public AddTempTimerDialog(AppCompatActivity activity) {
+        super(activity);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

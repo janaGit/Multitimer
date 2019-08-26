@@ -31,4 +31,7 @@
     <string name="activity_import_timer_groups_select_file_path_button">SUCHE ZIP DATEI</string>
     <string name="activity_import_timer_groups_import_button">IMPORTIERE DATEN</string>
     <string name="activity_import_timer_groups_import_text_warning">Importiere Daten nur von vertrauenswürdigen Quellen.</string>
+    <string name="dialog_import_data_result_title">Info</string>
+    <string name="dialog_import_data_result_button_positive">MEHR DATEN IMPORTIIERN</string>
+    <string name="dialog_import_data_result_button_negative">IMPORT BEENDEN</string>
 </resources>
