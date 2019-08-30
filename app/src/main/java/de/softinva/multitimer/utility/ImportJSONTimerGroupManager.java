@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class ImportJSONTimerGroupManager {
     String timerGroupId;
     LinkedList<String> errorMessages;
     LinkedList<String> successMessages;
+    HashMap<String, String> imageNameToBitmapName = new HashMap<>();
 
     public ImportJSONTimerGroupManager(Application application) {
         errorMessages = new LinkedList<String>();
@@ -47,6 +49,10 @@ public class ImportJSONTimerGroupManager {
         return successMessages;
     }
 
+    public HashMap<String, String> getImageNameToBitmapName() {
+        return imageNameToBitmapName;
+    }
+
     private void getTimerGroupId(String jsonFileName) {
         try {
             timerGroupId = json.getString(context.getResources().getString(R.string.JSONTimerGroupID));
@@ -64,7 +70,13 @@ public class ImportJSONTimerGroupManager {
         timerGroup.setTitle(getString(R.string.JSONTimerGroupTitle, json));
         timerGroup.setDescription(getString(R.string.JSONTimerGroupDescription, json));
         timerGroup.setZipped(getBoolean(R.string.JSONTimerGroupIsZipped, false, json));
-        timerGroup.setImageName(timerGroupId);
+
+        String bitmapName = getString(R.string.JSONTimerGroupImageName, json);
+        if (bitmapName.length() > 0) {
+            String imageName = UtilityMethods.createNameForImage(timerGroupId);
+            imageNameToBitmapName.put(imageName, bitmapName);
+            timerGroup.setImageName(imageName);
+        }
 
         new TimerRepository(application).insertTimerGroup(timerGroup);
     }
@@ -82,11 +94,17 @@ public class ImportJSONTimerGroupManager {
                 detailedTimer.setTitle(getString(R.string.JSONDetailedTimerTitle, jsonObject));
                 detailedTimer.setDurationInSec(getInt(R.string.JSONDetailedTimerDurationInSec, 0, jsonObject));
                 detailedTimer.setGroupId(timerGroupId);
-                detailedTimer.setImageName(timerGroupId + "_" + timerId);
                 detailedTimer.setDescription(getString(R.string.JSONDetailedTimerDescription, jsonObject));
                 detailedTimer.setPositionInGroup(getInt(R.string.JSONDetailedTimerPositionInGroup, jsonArray.length() + i, jsonObject));
                 detailedTimer.setCoolDownInSec(getInt(R.string.JSONDetailedTimerCoolDownInSec, 0, jsonObject));
                 detailedTimer.setIsEnabled(getBoolean(R.string.JSONDetailedTimerDescription, false, jsonObject));
+
+                String bitmapName = getString(R.string.JSONDetailedTimerImageName, jsonObject);
+                if (bitmapName.length() > 0) {
+                    String imageName = UtilityMethods.createNameForImage(timerGroupId, timerId);
+                    imageNameToBitmapName.put(imageName, bitmapName);
+                    detailedTimer.setImageName(imageName);
+                }
 
                 new TimerRepository(application).insertDetailedTimer(detailedTimer);
             } catch (JSONException e) {

@@ -5,5 +5,9 @@
     <string name="error_message_json_import_file">Datei wird nicht importiert, da sie nicht die Dateiendung .json hat. Datei Name:</string>
     <string name="error_message_json_import_timer">Timer konnte nicht importtier werden. Position:</string>
     <string name="error_message_json_import_timer_group">Timer Gruppe konnte nicht importtier werden. Timer Gruppen ID konnte wurde nicht gefunden. Datei Name:</string>
+    <string name="error_message_json_import_image">Datei in dem Ordner images/ hat nicht die Endung .jpg oder .png. Dateiformat wird nicht unterstützt. Datei Name:</string>
+    <string name="error_message_json_import_specified_image_not_found">In der JSON Datei zugewiesenes Bild befindet sich nicht im Ordner /images. Bild: </string>
     <string name="success_message_json_import_timer_group">Timer Gruppe wurde importiert. Datei Name: </string>
+    <string name="success_message_json_import_image">Bild erfolgreich kopiert. Datei Name: </string>
+
 </resources>

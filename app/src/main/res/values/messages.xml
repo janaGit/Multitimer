@@ -5,6 +5,9 @@
     <string name="error_message_json_import_file">File will not be processed!. Not .json. File name:</string>
     <string name="error_message_json_import_timer">Timer could not be imported. Position: </string>
     <string name="error_message_json_import_timer_group">Timer group could not be imported. Timer group id has not been found. File name: </string>
+    <string name="error_message_json_import_image">File in folder images has not the extension .jpg or .png. File format is not supported. File name:</string>
+    <string name="error_message_json_import_specified_image_not_found">Specified image in JSON definition not found in folder. Image name:</string>
     <string name="success_message_json_import_timer_group">Timer group has been imported. File name: </string>
+    <string name="success_message_json_import_image">Image successfully copied. File name: </string>
 
 </resources>

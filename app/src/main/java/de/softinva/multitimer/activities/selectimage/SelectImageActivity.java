@@ -85,7 +85,7 @@ public class SelectImageActivity extends AppCompatActivity {
                 imageFileName = UtilityMethods.createNameForImage(model.getTimerGroupId().getValue());
             }
 
-            CopyBitmapService.startImageBitMapService(fullPhotoUri, imageFileName, this);
+            CopyBitmapService.startImageBitmapService(fullPhotoUri, imageFileName, this);
         }
 
         finish();

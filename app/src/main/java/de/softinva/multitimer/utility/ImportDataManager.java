@@ -2,6 +2,7 @@ package de.softinva.multitimer.utility;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import org.json.JSONException;
@@ -9,25 +10,28 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import de.softinva.multitimer.R;
+import de.softinva.multitimer.services.CopyBitmapService;
 
 public class ImportDataManager {
     JSONObject json;
     Context context;
     Application application;
     Uri uri;
-    LinkedList<String> errorMessages;
-    LinkedList<String> successMessages;
+    LinkedList<String> errorMessages = new LinkedList<String>();
+    LinkedList<String> successMessages = new LinkedList<String>();
     ImportJSONTimerGroupManager jsonManager;
+    AppLogger logger = new AppLogger(this);
+    HashMap<String, Bitmap> bitmapMap = new HashMap<>();
+    HashMap<String, String> imageNameToBitmapName = new HashMap<>();
 
     public ImportDataManager(Uri uri, Application application) {
-        errorMessages = new LinkedList<String>();
-        successMessages = new LinkedList<String>();
-
         this.uri = uri;
         this.application = application;
         this.context = application.getApplicationContext();
@@ -56,29 +60,68 @@ public class ImportDataManager {
             e.printStackTrace();
             errorMessages.add(application.getResources().getString(R.string.error_message_json_import_zip_file));
         }
+
+        createImageCopiesForTimerGroupsAndTimers();
+    }
+
+    private void createImageCopiesForTimerGroupsAndTimers() {
+        for (Map.Entry<String, String> entry : imageNameToBitmapName.entrySet()) {
+            if (bitmapMap.get(entry.getValue()) != null) {
+                CopyBitmapService.startImageBitmapService(bitmapMap.get(entry.getValue()), entry.getKey(), this.context);
+            } else {
+                errorMessages.add(context.getResources().getString(R.string.error_message_json_import_specified_image_not_found) + " " + entry.getValue());
+            }
+
+        }
     }
 
     private void iterateOverEntries(ZipInputStream zipInputStream) throws IOException {
         ZipEntry zipEntry;
 
         while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-            System.out.println(zipEntry.getName());
-            //use entry input stream:
-            if (zipEntry.isDirectory()) {
 
-            } else {
-                String name = zipEntry.getName();
-                if (name.contains(".json")) {
-                    processJSONFile(zipInputStream, name);
+            if (!zipEntry.isDirectory()) {
+
+                logger.info(zipEntry.getName());
+                String path = zipEntry.getName();
+
+                if (path.contains("images/")) {
+
+                    if (path.contains(".jpg") || path.contains(".png")) {
+
+                        Bitmap bm = BitmapUtilities.getBitmapFromInputStream(zipInputStream);
+
+                        bitmapMap.put(UtilityMethods.getFileNameWithExtensionFromPath(path), bm);
+
+                        copyImageIntoMultitimerApplication(bm, UtilityMethods.getFileNameWithExtensionFromPath(path));
+
+                    } else {
+                        errorMessages.add(application.getResources().getString(R.string.error_message_json_import_image) + " " + path);
+                    }
+
                 } else {
-                    errorMessages.add(application.getResources().getString(R.string.error_message_json_import_file) + " " + name);
+
+                    if (path.contains(".json")) {
+
+                        processJSONFile(zipInputStream, path);
+
+                    } else {
+                        errorMessages.add(application.getResources().getString(R.string.error_message_json_import_file) + " " + path);
+                    }
+
                 }
             }
+
 
         }
         errorMessages.addAll(jsonManager.errorMessages);
         successMessages.addAll(jsonManager.successMessages);
+        imageNameToBitmapName = jsonManager.getImageNameToBitmapName();
+    }
 
+    private void copyImageIntoMultitimerApplication(Bitmap bm, String imageName) {
+        UtilityMethods.copyJPGToExternalFolder(bm, UtilityMethods.getFileNameWithExtensionFromPath(imageName), context);
+        successMessages.add(application.getResources().getString(R.string.success_message_json_import_image) + " " + imageName);
     }
 
     private void processJSONFile(ZipInputStream zipInputStream, String jsonFileName) {

@@ -4,11 +4,21 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.SyncFailedException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +53,43 @@ public class UtilityMethods {
         return treeMap;
     }
 
+    public static String getFileNameWithoutExtensionFromPath(String path) {
+        return getFileNameWithExtensionFromPath(path).split("[.]")[0];
+    }
+
+    public static String getFileNameWithExtensionFromPath(String path) {
+        String[] pathSegments = path.split("/");
+        String lastPathSegment;
+        if (pathSegments.length > 0) {
+            lastPathSegment = pathSegments[pathSegments.length - 1];
+        } else {
+            lastPathSegment = pathSegments[0];
+        }
+
+        return lastPathSegment;
+    }
 
     public static String createID() {
         return UUID.randomUUID().toString();
+    }
+
+    public static Uri copyJPGToExternalFolder(Bitmap bm, String imageName, Context context) {
+        //from: https://stackoverflow.com/questions/19566840/get-uri-from-drawable-image?rq=1
+        String extStorageDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        File file = new File(extStorageDirectory, imageName + ".jpg");
+        FileOutputStream outStream = null;
+        try {
+            outStream = new FileOutputStream(file);
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Uri uri = Uri.fromFile(file);
+        return uri;
     }
 
     public static String transformSecIntoString(Integer countDownInSec) {
@@ -126,7 +170,7 @@ public class UtilityMethods {
     public static Bitmap getBitmap(Context context, String imageName, ImageSize imageSize) {
         Bitmap bitmap = null;
         try {
-            FileInputStream fis = context.openFileInput(UtilityMethods.returnImageFileName(imageName, imageSize));
+            FileInputStream fis = context.openFileInput(returnImageFileName(imageName, imageSize));
             bitmap = BitmapFactory.decodeStream(fis);
             fis.close();
         } catch (IOException e) {

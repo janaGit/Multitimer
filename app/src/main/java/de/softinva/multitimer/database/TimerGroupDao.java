@@ -12,7 +12,7 @@ import java.util.List;
 
 @Dao
 public interface TimerGroupDao extends AppDao<TimerGroupEntity> {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TimerGroupEntity timerGroup);
 
     @Update
