@@ -10,10 +10,17 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 public class AppBroadcastReceiverImageNameUpdated extends BroadcastReceiver {
     public static final String ACTION_UPDATE_IMAGE_NAME = "ACTION_TIMER_FINISHED";
     Context receiverContext;
+    UpdateImageName _interface;
 
-    AppBroadcastReceiverImageNameUpdated(Context receiverContext) {
+    AppBroadcastReceiverImageNameUpdated(UpdateImageName _interface, Context receiverContext) {
+        this._interface = _interface;
         this.receiverContext = receiverContext;
 
+    }
+
+    AppBroadcastReceiverImageNameUpdated(Object receiverContext) {
+        this.receiverContext = (Context) receiverContext;
+        this._interface = (UpdateImageName) receiverContext;
     }
 
     public static void sendImageName(String imageName, Context context) {
@@ -27,10 +34,23 @@ public class AppBroadcastReceiverImageNameUpdated extends BroadcastReceiver {
     public static AppBroadcastReceiverImageNameUpdated registerReceiverForImageNameUpdates(Context context) {
 
         if (!(context instanceof UpdateImageName)) {
-            throw new RuntimeException(context.toString() + " must implement EditDurationFieldsFocusChangeListener");
+            throw new RuntimeException(context.toString() + " must implement AppBroadcastReceiverImageNameUpdated");
         }
 
         AppBroadcastReceiverImageNameUpdated broadcastReceiver = new AppBroadcastReceiverImageNameUpdated(context);
+        IntentFilter filter = new IntentFilter(AppBroadcastReceiverImageNameUpdated.ACTION_UPDATE_IMAGE_NAME);
+
+        LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, filter);
+        return broadcastReceiver;
+    }
+
+    public static AppBroadcastReceiverImageNameUpdated registerReceiverForImageNameUpdates(UpdateImageName _interface, Context context) {
+
+        if (!(_interface instanceof UpdateImageName)) {
+            throw new RuntimeException(context.toString() + " must implement AppBroadcastReceiverImageNameUpdated");
+        }
+
+        AppBroadcastReceiverImageNameUpdated broadcastReceiver = new AppBroadcastReceiverImageNameUpdated(_interface, context);
         IntentFilter filter = new IntentFilter(AppBroadcastReceiverImageNameUpdated.ACTION_UPDATE_IMAGE_NAME);
 
         LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, filter);
@@ -59,6 +79,6 @@ public class AppBroadcastReceiverImageNameUpdated extends BroadcastReceiver {
     }
 
     private void onUpdateImageName(String imageName) {
-        ((UpdateImageName) receiverContext).updateImageName(imageName);
+        _interface.updateImageName(imageName);
     }
 }
