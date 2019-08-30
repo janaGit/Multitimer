@@ -53,7 +53,7 @@ public class ImportDataManager {
 
             ZipInputStream zipFileInputStream = new ZipInputStream(inputStream);
 
-            iterateOverEntries(zipFileInputStream);
+            iterateOverEntriesAndCopyAndDeleteImages(zipFileInputStream);
 
             zipFileInputStream.close();
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class ImportDataManager {
         }
     }
 
-    private void iterateOverEntries(ZipInputStream zipInputStream) throws IOException {
+    private void iterateOverEntriesAndCopyAndDeleteImages(ZipInputStream zipInputStream) throws IOException {
         ZipEntry zipEntry;
 
         while ((zipEntry = zipInputStream.getNextEntry()) != null) {
@@ -103,7 +103,9 @@ public class ImportDataManager {
 
                     if (path.contains(".json")) {
 
-                        processJSONFile(zipInputStream, path);
+                        String timerGroupId = processJSONFile(zipInputStream, path);
+
+                        UtilityMethods.deleteImagesInInternalFolderStartingWithName(timerGroupId, context);
 
                     } else {
                         errorMessages.add(application.getResources().getString(R.string.error_message_json_import_file) + " " + path);
@@ -124,18 +126,19 @@ public class ImportDataManager {
         successMessages.add(application.getResources().getString(R.string.success_message_json_import_image) + " " + imageName);
     }
 
-    private void processJSONFile(ZipInputStream zipInputStream, String jsonFileName) {
+    private String processJSONFile(ZipInputStream zipInputStream, String jsonFileName) {
         try {
             String jsonString = readInputStream(zipInputStream, jsonFileName);
             JSONObject jsonObject = new JSONObject(jsonString);
 
-            jsonManager.insertDataIntoDatabase(jsonObject, jsonFileName);
+            return jsonManager.insertDataIntoDatabase(jsonObject, jsonFileName);
         } catch (JSONException e) {
             errorMessages.add(application.getResources().getString(R.string.error_message_json_import_json_file) + " " + jsonFileName);
             e.printStackTrace();
         } catch (IOException e) {
             errorMessages.add(application.getResources().getString(R.string.error_message_json_import_json_file_read_error) + " " + jsonFileName);
         }
+        return "";
     }
 
     private String readInputStream(final InputStream inputStream, String jsonFileName) throws IOException {

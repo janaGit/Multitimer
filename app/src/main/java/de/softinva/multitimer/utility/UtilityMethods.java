@@ -13,12 +13,14 @@ import androidx.lifecycle.MutableLiveData;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.SyncFailedException;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -179,4 +181,28 @@ public class UtilityMethods {
         }
         return bitmap;
     }
+
+    public static void deleteImageInAllSizesInInternalFolder(Context context, String imageName) {
+        context.deleteFile(imageName);
+        
+        String nameWithoutExtension = UtilityMethods.getFileNameWithoutExtensionFromPath(imageName);
+        for (ImageSize size : ImageSize.values()) {
+            String imageNameWithExtension = UtilityMethods.returnImageFileName(nameWithoutExtension, size);
+            context.deleteFile(imageNameWithExtension);
+        }
+    }
+
+    public static void deleteImagesInInternalFolderStartingWithName(String imageName, Context context) {
+        File directory = context.getFilesDir();
+        File[] files = directory.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                return file.getName().startsWith(imageName);
+            }
+        });
+        for (File file : files) {
+            UtilityMethods.deleteImageInAllSizesInInternalFolder(context, file.getName());
+        }
+    }
+
 }

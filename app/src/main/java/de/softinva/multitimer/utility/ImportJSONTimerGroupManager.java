@@ -33,12 +33,13 @@ public class ImportJSONTimerGroupManager {
         this.context = application.getApplicationContext();
     }
 
-    public void insertDataIntoDatabase(JSONObject json, String jsonFileName) {
+    public String insertDataIntoDatabase(JSONObject json, String jsonFileName) {
         this.json = json;
 
         getTimerGroupId(jsonFileName);
         importTimerGroup();
         importTimer();
+        return timerGroupId;
     }
 
     public LinkedList<String> getErrorMesages() {
