@@ -31,6 +31,7 @@ import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.model.Timer;
 import de.softinva.multitimer.repository.TimerRepository;
+import de.softinva.multitimer.utility.UtilityMethods;
 
 import static android.text.InputType.TYPE_NULL;
 import static de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
@@ -150,6 +151,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
                 TimerRepository repository = new TimerRepository(this.getApplication());
                 repository.deleteDetailedTimer(model.detailedTimer);
                 TimerGroupActivity.startNewActivity(model.detailedTimer.getGroupId(), this, true);
+                UtilityMethods.deleteImageInAllSizesInInternalFolder(model.detailedTimer.getImageName(), this.getApplicationContext());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

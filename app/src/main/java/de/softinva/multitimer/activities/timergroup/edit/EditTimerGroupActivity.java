@@ -25,6 +25,7 @@ import de.softinva.multitimer.fragments.dialogimageselection.ACTION_TYPE;
 import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
+import de.softinva.multitimer.utility.UtilityMethods;
 
 import static de.softinva.multitimer.activities.timergroup.AddEditTimerGroupViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
 
@@ -97,6 +98,8 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
             case R.id.action_delete_timer_group:
                 new TimerRepository(this.getApplication()).deleteTimerGroup(model.timerGroup);
                 MainActivity.startNewActivity(this, true);
+                UtilityMethods.deleteImagesInInternalFolderStartingWithName(model.timerGroup.getImageName(), this.getContext());
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

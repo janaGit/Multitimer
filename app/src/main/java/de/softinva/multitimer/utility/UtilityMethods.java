@@ -182,9 +182,9 @@ public class UtilityMethods {
         return bitmap;
     }
 
-    public static void deleteImageInAllSizesInInternalFolder(Context context, String imageName) {
+    public static void deleteImageInAllSizesInInternalFolder(String imageName, Context context) {
         context.deleteFile(imageName);
-        
+
         String nameWithoutExtension = UtilityMethods.getFileNameWithoutExtensionFromPath(imageName);
         for (ImageSize size : ImageSize.values()) {
             String imageNameWithExtension = UtilityMethods.returnImageFileName(nameWithoutExtension, size);
@@ -201,7 +201,7 @@ public class UtilityMethods {
             }
         });
         for (File file : files) {
-            UtilityMethods.deleteImageInAllSizesInInternalFolder(context, file.getName());
+            UtilityMethods.deleteImageInAllSizesInInternalFolder(file.getName(), context);
         }
     }
 

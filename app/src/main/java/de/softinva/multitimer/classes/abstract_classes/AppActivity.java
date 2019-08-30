@@ -45,7 +45,7 @@ public abstract class AppActivity<T> extends AppCompatActivity implements IAppMo
 
     @Override
     public Context getContext() {
-        return getContext();
+        return getApplicationContext();
     }
 
     @Override
