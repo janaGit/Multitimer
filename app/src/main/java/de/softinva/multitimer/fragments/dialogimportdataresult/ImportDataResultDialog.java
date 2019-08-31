@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.SavedStateVMFactory;
-import androidx.lifecycle.ViewModelProvider;
 
 import java.util.LinkedList;
 
@@ -58,9 +56,8 @@ public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportD
     }
 
     @Override
-    protected ImportDataResultDialogViewModel setModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(ImportDataResultDialogViewModel.class);
+    protected Class<ImportDataResultDialogViewModel> returnModelClass() {
+        return ImportDataResultDialogViewModel.class;
     }
 
     @Override

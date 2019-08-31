@@ -10,8 +10,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.SavedStateVMFactory;
-import androidx.lifecycle.ViewModelProvider;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -36,10 +34,10 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
     }
 
     @Override
-    protected ImportTimerGroupViewModel returnModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(ImportTimerGroupViewModel.class);
+    protected Class<ImportTimerGroupViewModel> returnModelClass() {
+        return ImportTimerGroupViewModel.class;
     }
+
 
     @Override
     protected void setActionBar() {

@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 
 import de.softinva.multitimer.BuildConfig;
-import de.softinva.multitimer.activities.selectimage.SelectImageViewModel;
 import de.softinva.multitimer.services.CopyBitmapService;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;

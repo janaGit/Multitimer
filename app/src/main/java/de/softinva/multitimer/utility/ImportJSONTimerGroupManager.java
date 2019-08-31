@@ -79,13 +79,13 @@ public class ImportJSONTimerGroupManager {
             timerGroup.setImageName(imageName);
         }
 
-        new TimerRepository(application).insertTimerGroup(timerGroup);
+        TimerRepository.getInstance(application).insertTimerGroup(timerGroup);
     }
 
     private void importTimer() {
         JSONArray jsonArray = getArray(R.string.JSONTimerGroupIDTimerArray);
 
-        new TimerRepository(application).deleteAllDetailedTimerFromTimerGroup(timerGroupId);
+        TimerRepository.getInstance(application).deleteAllDetailedTimerFromTimerGroup(timerGroupId);
 
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
@@ -107,7 +107,7 @@ public class ImportJSONTimerGroupManager {
                     detailedTimer.setImageName(imageName);
                 }
 
-                new TimerRepository(application).insertDetailedTimer(detailedTimer);
+                TimerRepository.getInstance(application).insertDetailedTimer(detailedTimer);
             } catch (JSONException e) {
                 e.printStackTrace();
                 errorMessages.add(context.getResources().getString(R.string.error_message_json_import_timer) + " " + i);
