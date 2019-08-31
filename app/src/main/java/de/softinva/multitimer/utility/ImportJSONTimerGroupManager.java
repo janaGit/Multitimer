@@ -98,7 +98,7 @@ public class ImportJSONTimerGroupManager {
                 detailedTimer.setDescription(getString(R.string.JSONDetailedTimerDescription, jsonObject));
                 detailedTimer.setPositionInGroup(getInt(R.string.JSONDetailedTimerPositionInGroup, jsonArray.length() + i, jsonObject));
                 detailedTimer.setCoolDownInSec(getInt(R.string.JSONDetailedTimerCoolDownInSec, 0, jsonObject));
-                detailedTimer.setIsEnabled(getBoolean(R.string.JSONDetailedTimerDescription, false, jsonObject));
+                detailedTimer.setIsEnabled(getBoolean(R.string.JSONDetailedTimerDescription, true, jsonObject));
 
                 String bitmapName = getString(R.string.JSONDetailedTimerImageName, jsonObject);
                 if (bitmapName.length() > 0) {
