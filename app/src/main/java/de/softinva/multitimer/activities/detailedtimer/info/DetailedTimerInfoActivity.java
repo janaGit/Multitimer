@@ -32,7 +32,7 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
 
     @Override
     protected AppViewObject returnViewObject() {
-        return new DetailedTimerInfoViewObject(model.getRunningTimer(model.getTimerGroupId().getValue(), model.getTimerId().getValue()));
+        return new DetailedTimerInfoViewObject(model.getRunningTimer(model.getTimerGroupId().getValue(), model.getTimerId().getValue()), this);
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import java.util.Map;
 import java.util.TreeMap;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import de.softinva.multitimer.R;
@@ -47,7 +48,7 @@ public class DetailedTimerList extends AppList {
         TreeMap<Integer, DetailedTimerViewObject> timerGroupMap = new TreeMap<>();
         for (Map.Entry<Integer, RunningTimer> entry : detailedTimerTreeMap.entrySet()) {
             RunningTimer runningTimer = entry.getValue();
-            DetailedTimerViewObject detailedTimerViewObject = new DetailedTimerViewObject(runningTimer);
+            DetailedTimerViewObject detailedTimerViewObject = new DetailedTimerViewObject(runningTimer, (AppCompatActivity) getActivity());
             timerGroupMap.put(entry.getKey(), detailedTimerViewObject);
         }
         return timerGroupMap;

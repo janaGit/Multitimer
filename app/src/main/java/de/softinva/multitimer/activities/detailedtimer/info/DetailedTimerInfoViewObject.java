@@ -1,5 +1,8 @@
 package de.softinva.multitimer.activities.detailedtimer.info;
 
+import android.app.Activity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
@@ -9,8 +12,8 @@ import de.softinva.multitimer.model.RunningTimer;
 import de.softinva.multitimer.utility.UtilityMethods;
 
 public class DetailedTimerInfoViewObject extends AppViewObject<LiveData<RunningTimer>> {
-    public DetailedTimerInfoViewObject(LiveData<RunningTimer> obj) {
-        super(obj);
+    public DetailedTimerInfoViewObject(LiveData<RunningTimer> obj, AppCompatActivity activity) {
+        super(obj, activity);
     }
 
     public LiveData<String> generateTimeView() {

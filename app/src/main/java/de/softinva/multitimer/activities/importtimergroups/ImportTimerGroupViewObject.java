@@ -11,7 +11,7 @@ public class ImportTimerGroupViewObject extends AppViewObject<ImportTimerGroupVi
     ImportTimerGroupActivity activity;
 
     public ImportTimerGroupViewObject(ImportTimerGroupViewModel model, ImportTimerGroupActivity activity) {
-        super(model);
+        super(model, activity);
         this.activity = activity;
     }
 

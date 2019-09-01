@@ -33,7 +33,7 @@ public class TimerGroupInfoActivity extends AbstractTimerGroupActivity<TimerGrou
 
     @Override
     protected AppViewObject returnViewObject() {
-        return new TimerGroupInfoViewObject(timerGroup$);
+        return new TimerGroupInfoViewObject(timerGroup$, this);
     }
 
     @Override

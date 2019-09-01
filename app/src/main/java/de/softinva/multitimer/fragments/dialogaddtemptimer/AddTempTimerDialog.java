@@ -56,7 +56,7 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
 
     @Override
     protected AppViewObject setViewObject() {
-        return new AddTempTimerViewObject(model.tempTimer);
+        return new AddTempTimerViewObject(model.tempTimer, getActivity());
     }
 
     @Override

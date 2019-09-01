@@ -5,38 +5,39 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import de.softinva.multitimer.classes.abstract_classes.AppCompatViewObject;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialog;
 import de.softinva.multitimer.model.TimerGroup;
 import de.softinva.multitimer.repository.TimerRepository;
 
-public class AddEditTimerGroupViewObject extends AppViewObject<TimerGroup> {
+public class AddEditTimerGroupViewObject extends AppCompatViewObject<TimerGroup> {
     protected boolean isEditTimerGroup;
     public final static Integer REQUESTCODE_SELECT_IMAGE_ACTIVITY = 10;
     private Boolean isSelectImageActivityOpen = false;
 
-    public AddEditTimerGroupViewObject(boolean isEditTimerGroup, TimerGroup obj) {
-        super(obj);
+    public AddEditTimerGroupViewObject(boolean isEditTimerGroup, TimerGroup obj, AppCompatActivity activity) {
+        super(obj, activity);
         this.isEditTimerGroup = isEditTimerGroup;
     }
 
     public void onClickSaveButton(View view) {
         if (isEditTimerGroup) {
-            TimerRepository.getInstance(((AppCompatActivity) getContext()).getApplication()).updateTimerGroup(obj);
+            TimerRepository.getInstance(getActivity().getApplication()).updateTimerGroup(obj);
         } else {
-            TimerRepository.getInstance(((AppCompatActivity) getContext()).getApplication()).insertTimerGroup(obj);
+            TimerRepository.getInstance(getActivity().getApplication()).insertTimerGroup(obj);
         }
-        ((AppCompatActivity) getContext()).onBackPressed();
+        getActivity().onBackPressed();
     }
 
     public void onClickAbortButton(View view) {
-        ((AppCompatActivity) getContext()).onBackPressed();
+        getActivity().onBackPressed();
     }
 
     public void onClickImage(View view) {
         if (!isSelectImageActivityOpen) {
             isSelectImageActivityOpen = true;
-            new ImageSelectionDialog((ImageSelectionDialog.OnClickImageSelectionItem) getContext()).show(((FragmentActivity) getContext()).getSupportFragmentManager(), "selectImageDialog");
+            new ImageSelectionDialog((ImageSelectionDialog.OnClickImageSelectionItem) getActivity()).show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "selectImageDialog");
         }
     }
 

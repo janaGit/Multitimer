@@ -49,7 +49,6 @@ public abstract class AppFragmentDataBinding<T> extends AppFragment implements I
             model = setModel();
             setClassSpecificObjects();
             viewObject = setViewObject();
-            setContextForViewObject();
             binding = setBinding();
             bindModel();
         }
@@ -59,13 +58,6 @@ public abstract class AppFragmentDataBinding<T> extends AppFragment implements I
     }
 
     protected abstract AppViewObject setViewObject();
-
-    protected void setContextForViewObject() {
-        if (viewObject != null) {
-            viewObject.setContext(this);
-        }
-
-    }
 
 
     protected void bindModel() {

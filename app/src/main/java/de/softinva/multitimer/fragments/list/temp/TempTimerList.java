@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
+
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.fragments.list.AppList;
 import de.softinva.multitimer.fragments.list.timer.DetailedTimerViewObject;
@@ -42,9 +44,9 @@ public class TempTimerList extends AppList {
 
     public TreeMap<Integer, TempTimerViewObject> createViewObject(TreeMap<Integer, RunningTimer> tempTimerTreeMap) {
         TreeMap<Integer, TempTimerViewObject> tempTimerViewObjectMap = new TreeMap<>();
-        for (Map.Entry<Integer,RunningTimer>entry : tempTimerTreeMap.entrySet()) {
-            RunningTimer runningTimer =  entry.getValue();
-            TempTimerViewObject tempTimerViewObject = new TempTimerViewObject(runningTimer);
+        for (Map.Entry<Integer, RunningTimer> entry : tempTimerTreeMap.entrySet()) {
+            RunningTimer runningTimer = entry.getValue();
+            TempTimerViewObject tempTimerViewObject = new TempTimerViewObject(runningTimer, (AppCompatActivity) getActivity());
             tempTimerViewObjectMap.put(entry.getKey(), tempTimerViewObject);
         }
         return tempTimerViewObjectMap;

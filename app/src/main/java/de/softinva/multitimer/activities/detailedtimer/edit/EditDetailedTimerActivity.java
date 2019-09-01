@@ -93,7 +93,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
 
     @Override
     protected AppViewObject returnViewObject() {
-        return new AddEditDetailedTimerViewObject(true, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog);
+        return new AddEditDetailedTimerViewObject(true, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog, this);
     }
 
     @Override

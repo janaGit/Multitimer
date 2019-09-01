@@ -27,7 +27,6 @@ public abstract class AppActivity<T extends ViewModel> extends AppCompatActivity
                 .get(returnModelClass());
         setClassSpecificObjects();
         viewObject = returnViewObject();
-        setContextForViewObject();
         binding = returnBinding();
         bindModel();
 
@@ -64,12 +63,6 @@ public abstract class AppActivity<T extends ViewModel> extends AppCompatActivity
 
     protected abstract AppViewObject returnViewObject();
 
-    protected void setContextForViewObject() {
-        if (viewObject != null) {
-            viewObject.setContext(this);
-        }
-
-    }
 
     protected void setHomeUpButton() {
         ActionBar ab = getSupportActionBar();

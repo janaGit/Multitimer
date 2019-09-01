@@ -64,7 +64,7 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> i
 
     @Override
     protected AppViewObject returnViewObject() {
-        return new AddEditTimerGroupViewObject(false, model.getTimerGroup());
+        return new AddEditTimerGroupViewObject(false, model.getTimerGroup(), this);
     }
 
     @Override

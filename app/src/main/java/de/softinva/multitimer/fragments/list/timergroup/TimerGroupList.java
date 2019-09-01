@@ -2,6 +2,7 @@ package de.softinva.multitimer.fragments.list.timergroup;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import de.softinva.multitimer.fragments.list.AppList;
@@ -44,7 +45,7 @@ public class TimerGroupList extends AppList {
         TreeMap<Integer, TimerGroupListViewObject> timerGroupMap = new TreeMap<>();
         for (Map.Entry<Integer, TimerGroup> entry : timerGroups.entrySet()) {
             TimerGroup timerGroup = entry.getValue();
-            TimerGroupListViewObject timerGroupViewObject = new TimerGroupListViewObject(timerGroup);
+            TimerGroupListViewObject timerGroupViewObject = new TimerGroupListViewObject(timerGroup, (AppCompatActivity) getActivity());
             timerGroupMap.put(entry.getKey(), timerGroupViewObject);
         }
         return timerGroupMap;

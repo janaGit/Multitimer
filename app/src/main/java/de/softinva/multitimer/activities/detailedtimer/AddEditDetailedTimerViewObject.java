@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import de.softinva.multitimer.classes.abstract_classes.AppCompatViewObject;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.fragments.dialogeditcooldown.EditCoolDownDialog;
 import de.softinva.multitimer.fragments.dialogeditduration.EditDurationDialog;
@@ -14,33 +15,35 @@ import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.repository.TimerRepository;
 import de.softinva.multitimer.utility.Action;
 
-public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer> {
+public class AddEditDetailedTimerViewObject extends AppCompatViewObject<DetailedTimer> {
     protected boolean isEditDetailedTimer;
     protected EditDurationDialog editDurationDialog;
     protected EditCoolDownDialog editCoolDownDialog;
     public final static Integer REQUESTCODE_SELECT_IMAGE_ACTIVITY = 10;
     private Boolean isSelectImageActivityOpen = false;
+    private AppCompatActivity activity;
 
-    public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj, EditDurationDialog editDurationDialog, EditCoolDownDialog editCoolDownDialog) {
-        super(obj);
+    public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj, EditDurationDialog editDurationDialog, EditCoolDownDialog editCoolDownDialog, AppCompatActivity activity) {
+        super(obj, activity);
+        this.activity = activity;
         this.isEditDetailedTimer = isEditDetailedTimer;
         this.editDurationDialog = editDurationDialog;
         this.editCoolDownDialog = editCoolDownDialog;
     }
 
     public void onClickSaveButton(View view) {
-        Application application = ((AppCompatActivity) getContext()).getApplication();
+        Application application = getActivity().getApplication();
         if (isEditDetailedTimer) {
             if (obj.getIsEnabled()) {
-                Action.cancelCoolDownIfRunning(((AppCompatActivity) getContext()).getApplication(), obj.getGroupId(), obj.getId());
+                Action.cancelCoolDownIfRunning(getActivity().getApplication(), obj.getGroupId(), obj.getId());
             }
             TimerRepository.getInstance(application).updateDetailedTimer(obj);
-            ((AppCompatActivity) getContext()).onBackPressed();
+            getActivity().onBackPressed();
         } else {
-            TimerRepository.getInstance(application).getDetailedTimersForTimerGroup(obj.getGroupId()).observe(((AppCompatActivity) getContext()), treeMap -> {
+            TimerRepository.getInstance(application).getDetailedTimersForTimerGroup(obj.getGroupId()).observe(getActivity(), treeMap -> {
                 obj.setPositionInGroup(treeMap.size());
                 TimerRepository.getInstance(application).insertDetailedTimer(obj);
-                ((AppCompatActivity) getContext()).onBackPressed();
+                getActivity().onBackPressed();
             });
 
         }
@@ -48,20 +51,20 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
 
     public void onClickDuration(View view) {
         if (!editDurationDialog.isAdded()) {
-            editDurationDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "editDuration");
+            editDurationDialog.show(activity.getSupportFragmentManager(), "editDuration");
         }
 
     }
 
     public void onClickCoolDown(View view) {
         if (!editCoolDownDialog.isAdded()) {
-            editCoolDownDialog.show(((FragmentActivity) context).getSupportFragmentManager(), "editCoolDown");
+            editCoolDownDialog.show(activity.getSupportFragmentManager(), "editCoolDown");
         }
 
     }
 
     public void onClickAbortButton(View view) {
-        ((AppCompatActivity) getContext()).onBackPressed();
+        getActivity().onBackPressed();
     }
 
     public void onClickStatusButton(View view) {
@@ -71,7 +74,7 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
     public void onClickImage(View view) {
         if (!isSelectImageActivityOpen) {
             isSelectImageActivityOpen = true;
-            new ImageSelectionDialog((ImageSelectionDialog.OnClickImageSelectionItem) getContext()).show(((FragmentActivity) getContext()).getSupportFragmentManager(), "selectImageDialog");
+            new ImageSelectionDialog((ImageSelectionDialog.OnClickImageSelectionItem) getActivity()).show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "selectImageDialog");
         }
 
     }

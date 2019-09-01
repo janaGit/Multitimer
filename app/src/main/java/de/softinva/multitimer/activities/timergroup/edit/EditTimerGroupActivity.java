@@ -81,7 +81,7 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
 
     @Override
     protected AppViewObject returnViewObject() {
-        return new AddEditTimerGroupViewObject(true, model.getTimerGroup());
+        return new AddEditTimerGroupViewObject(true, model.getTimerGroup(),this);
     }
 
     @Override

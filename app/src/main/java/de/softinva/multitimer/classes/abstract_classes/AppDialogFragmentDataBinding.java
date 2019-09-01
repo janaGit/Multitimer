@@ -51,7 +51,6 @@ public abstract class AppDialogFragmentDataBinding<T extends ViewModel> extends 
                 .get(returnModelClass());
         setClassSpecificObjects();
         viewObject = setViewObject();
-        setContextForViewObject();
         binding = setBinding();
         bindModel();
 
@@ -64,12 +63,6 @@ public abstract class AppDialogFragmentDataBinding<T extends ViewModel> extends 
 
     protected abstract AppViewObject setViewObject();
 
-    protected void setContextForViewObject() {
-        if (viewObject != null) {
-            viewObject.setContext(this);
-        }
-
-    }
 
     @Override
     public void onDestroyView() {

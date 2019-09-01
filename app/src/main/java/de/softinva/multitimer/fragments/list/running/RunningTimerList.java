@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import java.util.Map;
 import java.util.TreeMap;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,9 +54,9 @@ public class RunningTimerList extends AppList {
 
     public TreeMap<Long, RunningTimerViewObject> createViewObject(TreeMap<Long, RunningTimer> tempTimerTreeMap) {
         TreeMap<Long, RunningTimerViewObject> runningTimerViewObjectMap = new TreeMap<>();
-        for (Map.Entry<Long, RunningTimer>entry : tempTimerTreeMap.entrySet()) {
-            RunningTimer runningTimer =  entry.getValue();
-            RunningTimerViewObject tempTimerViewObject = new RunningTimerViewObject(runningTimer);
+        for (Map.Entry<Long, RunningTimer> entry : tempTimerTreeMap.entrySet()) {
+            RunningTimer runningTimer = entry.getValue();
+            RunningTimerViewObject tempTimerViewObject = new RunningTimerViewObject(runningTimer, (AppCompatActivity) getActivity());
             runningTimerViewObjectMap.put(entry.getKey(), tempTimerViewObject);
         }
         return runningTimerViewObjectMap;

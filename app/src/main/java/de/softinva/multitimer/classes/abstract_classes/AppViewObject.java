@@ -2,12 +2,17 @@ package de.softinva.multitimer.classes.abstract_classes;
 
 
 
+import android.app.Activity;
+
+
+
 public abstract class AppViewObject<T> {
     protected T obj;
-    protected Object context;
+    protected Activity activity;
 
-    public AppViewObject(T obj) {
+    public AppViewObject(T obj, Activity activity) {
         this.obj = obj;
+        this.activity = activity;
     }
 
     public T getObj() {
@@ -18,11 +23,8 @@ public abstract class AppViewObject<T> {
         this.obj = obj;
     }
 
-    public Object getContext() {
-        return context;
+    public Activity getActivity() {
+        return activity;
     }
 
-    public void setContext(Object context) {
-        this.context = context;
-    }
 }
