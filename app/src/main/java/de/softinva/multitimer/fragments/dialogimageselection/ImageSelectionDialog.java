@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -78,9 +78,8 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
     }
 
     @Override
-    protected ImageSelectionDialogViewModel setModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(ImageSelectionDialogViewModel.class);
+    protected Class<ImageSelectionDialogViewModel> returnModelClass() {
+        return ImageSelectionDialogViewModel.class;
     }
 
     @Override

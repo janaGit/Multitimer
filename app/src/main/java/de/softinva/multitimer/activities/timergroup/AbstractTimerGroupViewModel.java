@@ -23,7 +23,7 @@ public abstract class AbstractTimerGroupViewModel extends AppViewModel {
 
     public LiveData<TimerGroup> getTimerGroup(String groupId) {
         if (timerGroup$ == null) {
-            timerGroup$ = new TimerRepository(getApplication()).getTimerGroup(groupId);
+            timerGroup$ = TimerRepository.getInstance(getApplication()).getTimerGroup(groupId);
         }
         return timerGroup$;
     }
@@ -31,7 +31,7 @@ public abstract class AbstractTimerGroupViewModel extends AppViewModel {
     public LiveData<Boolean> doDisabledTimersExists() {
         if (doDisabledTimersExists == null) {
             doDisabledTimersExists = Transformations.switchMap(timerGroupId$, timerGroupId ->
-                    Transformations.map(new TimerRepository(getApplication()).getAllDisabledTimersForTimerGroup(timerGroupId), disabledTimers
+                    Transformations.map(TimerRepository.getInstance(getApplication()).getAllDisabledTimersForTimerGroup(timerGroupId), disabledTimers
                             -> new Boolean(disabledTimers.size() > 0)));
         }
         return doDisabledTimersExists;

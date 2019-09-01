@@ -8,12 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.SavedStateViewModelFactory;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.BR;
 import de.softinva.multitimer.classes.interfaces.IAppModelBinding;
 import de.softinva.multitimer.utility.AppLogger;
 
-public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment implements IAppModelBinding<T> {
+public abstract class AppDialogFragmentDataBinding<T extends ViewModel> extends DialogFragment implements IAppModelBinding<T> {
     protected AppLogger logger = new AppLogger(this);
     protected T model;
     protected AppViewObject viewObject;
@@ -44,7 +47,8 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
-        model = setModel();
+        model = new ViewModelProvider(this, new SavedStateViewModelFactory(this))
+                .get(returnModelClass());
         setClassSpecificObjects();
         viewObject = setViewObject();
         setContextForViewObject();
@@ -55,6 +59,8 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
         builder.setView(binding.getRoot());
         return builder.create();
     }
+
+    protected abstract Class<T> returnModelClass();
 
     protected abstract AppViewObject setViewObject();
 
@@ -86,8 +92,6 @@ public abstract class AppDialogFragmentDataBinding<T> extends DialogFragment imp
     public LifecycleOwner getLifecycleOwner() {
         return this;
     }
-
-    protected abstract T setModel();
 
     protected abstract ViewDataBinding setBinding();
 

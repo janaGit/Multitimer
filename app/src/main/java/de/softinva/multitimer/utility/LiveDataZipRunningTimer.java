@@ -18,8 +18,8 @@ public class LiveDataZipRunningTimer extends MediatorLiveData<TreeMap<Integer, R
 
     public LiveDataZipRunningTimer(TreeMap<Integer, RunningTimer> map, Application application) {
         timerMap = map;
-        LiveData<TreeMap<String, RunningTimer>> runningTimerMap = new TimerRepository(application).getRunningTimerByIDMap();
-        LiveData<TreeMap<String, RunningTimer>> coolDownTimerTimerByIDMap = new TimerRepository(application).getCoolDownTimerTimerByIDMap();
+        LiveData<TreeMap<String, RunningTimer>> runningTimerMap = TimerRepository.getInstance(application).getRunningTimerByIDMap();
+        LiveData<TreeMap<String, RunningTimer>> coolDownTimerTimerByIDMap = TimerRepository.getInstance(application).getCoolDownTimerTimerByIDMap();
         addSource(runningTimerMap, newRunningTimerMap -> {
             for (Map.Entry<String, RunningTimer> runningTimer : newRunningTimerMap.entrySet()) {
                 updateCountDownLiveDataInRunningTimer(runningTimer.getValue(), timerMap);

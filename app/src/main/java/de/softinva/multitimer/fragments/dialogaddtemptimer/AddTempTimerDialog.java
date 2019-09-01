@@ -9,8 +9,7 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.SavedStateVMFactory;
-import androidx.lifecycle.ViewModelProvider;
+
 
 import de.softinva.multitimer.services.countdown.CountDownService;
 import de.softinva.multitimer.R;
@@ -61,9 +60,8 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
     }
 
     @Override
-    protected AddTempTimerDialogViewModel setModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(AddTempTimerDialogViewModel.class);
+    protected Class<AddTempTimerDialogViewModel> returnModelClass() {
+        return AddTempTimerDialogViewModel.class;
     }
 
     @Override

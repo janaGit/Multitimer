@@ -2,6 +2,7 @@ package de.softinva.multitimer.repository;
 
 
 import android.app.Application;
+import android.content.Context;
 
 import java.util.TreeMap;
 
@@ -16,9 +17,28 @@ import de.softinva.multitimer.model.TimerGroup;
 
 public class TimerRepository implements ITimerRepository {
     protected ITimerRepository repository;
+    private static TimerRepository instance;
 
-    public TimerRepository(Application application) {
+    public static TimerRepository getInstance(Application application) {
+        if (instance == null) {
+            instance = new TimerRepository(application);
+        }
+        return instance;
+    }
+
+    public static TimerRepository getInstance(Context context) {
+        if (instance == null) {
+            instance = new TimerRepository(context);
+        }
+        return instance;
+    }
+
+    private TimerRepository(Application application) {
         repository = new TimerRepositoryDatabase(application);
+    }
+
+    private TimerRepository(Context context) {
+        repository = new TimerRepositoryDatabase(context);
     }
 
     @Override

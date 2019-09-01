@@ -9,8 +9,6 @@ import android.view.MenuItem;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.SavedStateVMFactory;
-import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.activities.detailedtimer.edit.EditDetailedTimerActivity;
@@ -48,9 +46,8 @@ public class DetailedTimerInfoActivity extends AbstractDetailedTimerActivity<Det
     }
 
     @Override
-    protected DetailedTimerInfoViewModel returnModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(DetailedTimerInfoViewModel.class);
+    protected Class<DetailedTimerInfoViewModel> returnModelClass() {
+        return DetailedTimerInfoViewModel.class;
     }
 
     @Override

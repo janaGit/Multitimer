@@ -5,10 +5,12 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.utility.AppLogger;
 
-public abstract class AppTabsActivity<T> extends AppActivity<T> {
+public abstract class AppTabsActivity<T extends ViewModel> extends AppActivity<T> {
     public static final String  ACTIVE_TAB= "de.softinva.multitimer.activeTab";
     protected AppLogger logger = new AppLogger(this);
 

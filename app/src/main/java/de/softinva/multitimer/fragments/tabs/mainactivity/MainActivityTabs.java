@@ -1,6 +1,6 @@
 package de.softinva.multitimer.fragments.tabs.mainactivity;
 
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -39,7 +39,7 @@ public class MainActivityTabs extends AppFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this, new SavedStateVMFactory(this)).get(MainActivityTabsViewModel.class);
+        mViewModel = ViewModelProviders.of(this, new SavedStateViewModelFactory(this)).get(MainActivityTabsViewModel.class);
     }
 
     @Override

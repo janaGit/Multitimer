@@ -20,7 +20,7 @@ public class TimerGroupListViewModel extends FragmentViewModel {
 
     public LiveData<TreeMap<Integer, TimerGroup>> getTimerGroupList() {
         if (timerList == null) {
-            timerList = new TimerRepository(getApplication()).getTimerGroups();
+            timerList = TimerRepository.getInstance(getApplication()).getTimerGroups();
         }
         return timerList;
     }

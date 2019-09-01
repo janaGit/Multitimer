@@ -1,6 +1,7 @@
 package de.softinva.multitimer.repository;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
@@ -42,8 +43,18 @@ public class TimerRepositoryDatabase implements ITimerRepository {
     private TimerGroupDao timerGroupDao;
     private DetailedTimerDao detailedTimerDao;
 
-    TimerRepositoryDatabase(Application application) {
-        AppDatabase db = DummyAppDatabase.getDatabase(application);
+
+    public TimerRepositoryDatabase(Application application) {
+        AppDatabase db = DummyAppDatabase.getDatabase(application.getApplicationContext());
+        initializeObjects(db);
+    }
+
+    public TimerRepositoryDatabase(Context context) {
+        AppDatabase db = DummyAppDatabase.getDatabase(context.getApplicationContext());
+        initializeObjects(db);
+    }
+
+    private void initializeObjects(AppDatabase db) {
         timerGroupDao = db.timerGroupDao();
         detailedTimerDao = db.detailedTimerDao();
         detailedTimersForTimerGroups = new TreeMap<>();

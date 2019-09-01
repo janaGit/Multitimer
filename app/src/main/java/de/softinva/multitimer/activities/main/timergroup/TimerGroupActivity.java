@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
@@ -121,9 +121,8 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
     }
 
     @Override
-    protected TimerGroupViewModel returnModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(TimerGroupViewModel.class);
+    protected Class<TimerGroupViewModel> returnModelClass() {
+        return TimerGroupViewModel.class;
     }
 
     @Override
@@ -146,7 +145,7 @@ public class TimerGroupActivity extends AppTabsActivity<TimerGroupViewModel> {
                 return true;
             case R.id.action_enable_all_timer:
                 Action.cancelCoolDownOfAllRunningTimerInGroup(getApplication(), model.getTimerGroupId$().getValue());
-                new TimerRepository(getApplication()).enableAllDetailedTimer(model.getTimerGroupId$().getValue());
+                TimerRepository.getInstance(getApplication()).enableAllDetailedTimer(model.getTimerGroupId$().getValue());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -102,9 +102,8 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     }
 
     @Override
-    protected EditDetailedTimerViewModel returnModel() {
-        return new ViewModelProvider(this, new SavedStateViewModelFactory(this))
-                .get(EditDetailedTimerViewModel.class);
+    protected Class<EditDetailedTimerViewModel> returnModelClass() {
+        return EditDetailedTimerViewModel.class;
     }
 
     @Override
@@ -149,7 +148,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete_detailed_timer:
-                TimerRepository repository = new TimerRepository(this.getApplication());
+                TimerRepository repository = TimerRepository.getInstance(this.getApplication());
                 repository.deleteDetailedTimer(model.detailedTimer);
                 TimerGroupActivity.startNewActivity(model.detailedTimer.getGroupId(), this, true);
                 UtilityMethods.deleteImageInAllSizesInInternalFolder(model.detailedTimer.getImageName(), this.getApplicationContext());

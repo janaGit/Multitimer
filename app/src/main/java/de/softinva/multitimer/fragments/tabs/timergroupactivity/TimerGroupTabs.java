@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -40,7 +40,7 @@ public class TimerGroupTabs extends AppFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this, new SavedStateVMFactory(this)).get(TimerGroupTabsViewModel.class);
+        mViewModel = ViewModelProviders.of(this, new SavedStateViewModelFactory(this)).get(TimerGroupTabsViewModel.class);
     }
 
     @Override

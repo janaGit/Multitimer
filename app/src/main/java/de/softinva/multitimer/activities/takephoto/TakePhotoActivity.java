@@ -9,13 +9,14 @@ import android.provider.MediaStore;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.File;
 import java.io.IOException;
 
 import de.softinva.multitimer.BuildConfig;
+import de.softinva.multitimer.activities.selectimage.SelectImageViewModel;
 import de.softinva.multitimer.services.CopyBitmapService;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;
@@ -57,7 +58,7 @@ public class TakePhotoActivity extends AppCompatActivity {
     }
 
     protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+        model = new ViewModelProvider(this, new SavedStateViewModelFactory(this))
                 .get(SelectImageViewModel.class);
     }
 

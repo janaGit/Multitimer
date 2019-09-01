@@ -8,8 +8,6 @@ import android.view.MenuItem;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.SavedStateVMFactory;
-import androidx.lifecycle.ViewModelProvider;
 
 
 import de.softinva.multitimer.AppBroadcastReceiverImageNameUpdated;
@@ -45,9 +43,8 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
     }
 
     @Override
-    protected EditTimerGroupViewModel returnModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(EditTimerGroupViewModel.class);
+    protected Class<EditTimerGroupViewModel> returnModelClass() {
+        return EditTimerGroupViewModel.class;
     }
 
     @Override
@@ -96,7 +93,7 @@ public class EditTimerGroupActivity extends AbstractTimerGroupActivity<EditTimer
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete_timer_group:
-                new TimerRepository(this.getApplication()).deleteTimerGroup(model.timerGroup);
+                TimerRepository.getInstance(this.getApplication()).deleteTimerGroup(model.timerGroup);
                 MainActivity.startNewActivity(this, true);
                 UtilityMethods.deleteImagesInInternalFolderStartingWithName(model.timerGroup.getImageName(), this.getContext());
 

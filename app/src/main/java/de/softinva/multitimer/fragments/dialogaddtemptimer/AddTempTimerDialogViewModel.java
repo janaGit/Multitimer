@@ -17,7 +17,7 @@ public class AddTempTimerDialogViewModel extends AppViewModel {
 
     public AddTempTimerDialogViewModel(Application application, SavedStateHandle savedStateHandle) {
         super(application, savedStateHandle);
-        TreeMap<Long, RunningTimer> map = new TimerRepository(getApplication()).getRunningTimerByFinishTimeMap().getValue();
+        TreeMap<Long, RunningTimer> map = TimerRepository.getInstance(getApplication()).getRunningTimerByFinishTimeMap().getValue();
         tempTimer = new TempTimer();
         tempTimer.setTitle(application.getString(R.string.temp_timer) + " " + (map.size() + 1));
     }

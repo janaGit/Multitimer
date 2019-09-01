@@ -34,12 +34,12 @@ public class AddEditDetailedTimerViewObject extends AppViewObject<DetailedTimer>
             if (obj.getIsEnabled()) {
                 Action.cancelCoolDownIfRunning(((AppCompatActivity) getContext()).getApplication(), obj.getGroupId(), obj.getId());
             }
-            new TimerRepository(application).updateDetailedTimer(obj);
+            TimerRepository.getInstance(application).updateDetailedTimer(obj);
             ((AppCompatActivity) getContext()).onBackPressed();
         } else {
-            new TimerRepository(application).getDetailedTimersForTimerGroup(obj.getGroupId()).observe(((AppCompatActivity) getContext()), treeMap -> {
+            TimerRepository.getInstance(application).getDetailedTimersForTimerGroup(obj.getGroupId()).observe(((AppCompatActivity) getContext()), treeMap -> {
                 obj.setPositionInGroup(treeMap.size());
-                new TimerRepository(application).insertDetailedTimer(obj);
+                TimerRepository.getInstance(application).insertDetailedTimer(obj);
                 ((AppCompatActivity) getContext()).onBackPressed();
             });
 

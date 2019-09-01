@@ -34,7 +34,7 @@ public class TempTimerListViewModel extends FragmentViewModel {
 
     private void createTimerList() {
         timerList = Transformations.switchMap(
-                new TimerRepository(getApplication()).getTempTimer(), timerMap -> {
+                TimerRepository.getInstance(getApplication()).getTempTimer(), timerMap -> {
                     TreeMap<Integer, RunningTimer> treeMap = UtilityMethods.createRunningTimerListForTempTimer(timerMap);
                     return new LiveDataZipRunningTimer(treeMap, getApplication());
                 });

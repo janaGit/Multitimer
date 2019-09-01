@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.AppBroadcastReceiverImageNameUpdated;
@@ -93,9 +93,8 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     }
 
     @Override
-    protected AddDetailedTimerViewModel returnModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(AddDetailedTimerViewModel.class);
+    protected Class<AddDetailedTimerViewModel> returnModelClass() {
+        return AddDetailedTimerViewModel.class;
     }
 
     @Override

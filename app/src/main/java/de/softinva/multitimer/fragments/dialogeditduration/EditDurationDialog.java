@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
@@ -70,9 +70,8 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
     }
 
     @Override
-    protected EditDurationDialogViewModel setModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(EditDurationDialogViewModel.class);
+    protected Class<EditDurationDialogViewModel> returnModelClass() {
+        return EditDurationDialogViewModel.class;
     }
 
     @Override

@@ -22,9 +22,9 @@ public class AddEditTimerGroupViewObject extends AppViewObject<TimerGroup> {
 
     public void onClickSaveButton(View view) {
         if (isEditTimerGroup) {
-            new TimerRepository(((AppCompatActivity) getContext()).getApplication()).updateTimerGroup(obj);
+            TimerRepository.getInstance(((AppCompatActivity) getContext()).getApplication()).updateTimerGroup(obj);
         } else {
-            new TimerRepository(((AppCompatActivity) getContext()).getApplication()).insertTimerGroup(obj);
+            TimerRepository.getInstance(((AppCompatActivity) getContext()).getApplication()).insertTimerGroup(obj);
         }
         ((AppCompatActivity) getContext()).onBackPressed();
     }

@@ -156,7 +156,7 @@ public class CountDownService extends Service {
         if (timer instanceof DetailedTimer) {
             DetailedTimer detailedTimer = (DetailedTimer) timer;
             if (detailedTimer.getCoolDownInSec() > 0) {
-                LiveData<DetailedTimer> liveData = new TimerRepository(this.getApplication()).getDetailedTimer(detailedTimer.getGroupId(), detailedTimer.getId());
+                LiveData<DetailedTimer> liveData = TimerRepository.getInstance(this.getApplication()).getDetailedTimer(detailedTimer.getGroupId(), detailedTimer.getId());
                 CountDownService service = this;
                 Observer<DetailedTimer> observer = new Observer<DetailedTimer>() {
                     @Override

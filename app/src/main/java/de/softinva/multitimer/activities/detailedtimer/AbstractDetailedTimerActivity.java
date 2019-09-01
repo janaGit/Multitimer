@@ -3,12 +3,13 @@ package de.softinva.multitimer.activities.detailedtimer;
 import android.os.Bundle;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.model.RunningTimer;
 
-public abstract class AbstractDetailedTimerActivity<T> extends AppActivity<T> {
+public abstract class AbstractDetailedTimerActivity<T extends ViewModel> extends AppActivity<T> {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
     public static final String TIMER_ID = "de.softinva.multitimer.timerId";
     protected LiveData<RunningTimer> runningTimer$;

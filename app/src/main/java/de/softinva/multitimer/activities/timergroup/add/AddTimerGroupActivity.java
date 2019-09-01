@@ -5,8 +5,6 @@ import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.SavedStateVMFactory;
-import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.AppBroadcastReceiverImageNameUpdated;
 import de.softinva.multitimer.R;
@@ -45,9 +43,8 @@ public class AddTimerGroupActivity extends AppActivity<AddTimerGroupViewModel> i
     }
 
     @Override
-    protected AddTimerGroupViewModel returnModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(AddTimerGroupViewModel.class);
+    protected Class<AddTimerGroupViewModel> returnModelClass() {
+        return AddTimerGroupViewModel.class;
     }
 
     @Override

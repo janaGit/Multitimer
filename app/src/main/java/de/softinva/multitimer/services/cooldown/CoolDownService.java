@@ -143,7 +143,7 @@ public class CoolDownService extends Service {
     }
 
     public void onFinishTimer(DetailedTimer detailedTimer) {
-        new TimerRepository(getApplication()).enableDetailedTimer(detailedTimer.getGroupId(), detailedTimer.getId());
+        TimerRepository.getInstance(getApplication()).enableDetailedTimer(detailedTimer.getGroupId(), detailedTimer.getId());
     }
 
     public static String returnTimerMapId(String timerGroupId, String timerId) {

@@ -31,7 +31,7 @@ public class DetailedTimerListViewModel extends FragmentViewModel {
     }
 
     private void createTimerList(String timerGroupId) {
-        timerList = Transformations.switchMap(new TimerRepository(getApplication()).getDetailedTimersForTimerGroup(timerGroupId), detailedTimerMap -> {
+        timerList = Transformations.switchMap(TimerRepository.getInstance(getApplication()).getDetailedTimersForTimerGroup(timerGroupId), detailedTimerMap -> {
             TreeMap<Integer, RunningTimer> treeMap = UtilityMethods.createRunningTimerListForDetailedTimer(detailedTimerMap);
             return new LiveDataZipRunningTimer(treeMap, getApplication());
 

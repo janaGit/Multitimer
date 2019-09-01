@@ -7,12 +7,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.SavedStateViewModelFactory;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.BR;
 import de.softinva.multitimer.classes.interfaces.IAppModelBinding;
 
 
-public abstract class AppActivity<T> extends AppCompatActivity implements IAppModelBinding<T> {
+public abstract class AppActivity<T extends ViewModel> extends AppCompatActivity implements IAppModelBinding<T> {
     protected T model;
     protected AppViewObject viewObject;
     protected ViewDataBinding binding;
@@ -20,7 +23,8 @@ public abstract class AppActivity<T> extends AppCompatActivity implements IAppMo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = returnModel();
+        model = new ViewModelProvider(this, new SavedStateViewModelFactory(this))
+                .get(returnModelClass());
         setClassSpecificObjects();
         viewObject = returnViewObject();
         setContextForViewObject();
@@ -82,7 +86,7 @@ public abstract class AppActivity<T> extends AppCompatActivity implements IAppMo
 
     }
 
-    protected abstract T returnModel();
+    protected abstract Class<T> returnModelClass();
 
     protected abstract void setActionBar();
 

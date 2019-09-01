@@ -63,7 +63,7 @@ public class TimerFinishedNotification {
     }
 
     private void executeCodeForDetailedTimer(Timer timer) {
-        LiveData<TimerGroup> groupId$ = new TimerRepository(service.getApplication()).getTimerGroup(((DetailedTimer) timer).getGroupId());
+        LiveData<TimerGroup> groupId$ = TimerRepository.getInstance(service.getApplication()).getTimerGroup(((DetailedTimer) timer).getGroupId());
         Observer<TimerGroup> observer = new Observer<TimerGroup>() {
             @Override
             public void onChanged(@Nullable TimerGroup timerGroup) {

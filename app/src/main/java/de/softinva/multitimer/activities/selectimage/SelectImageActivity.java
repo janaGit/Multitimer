@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 
@@ -54,7 +54,7 @@ public class SelectImageActivity extends AppCompatActivity {
     }
 
     protected void setModel() {
-        model = new ViewModelProvider(this, new SavedStateVMFactory(this))
+        model = new ViewModelProvider(this, new SavedStateViewModelFactory(this))
                 .get(SelectImageViewModel.class);
     }
 

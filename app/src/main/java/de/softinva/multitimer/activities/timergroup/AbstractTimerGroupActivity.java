@@ -3,11 +3,12 @@ package de.softinva.multitimer.activities.timergroup;
 import android.os.Bundle;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.model.TimerGroup;
 
-public abstract class AbstractTimerGroupActivity<T> extends AppActivity<T> {
+public abstract class AbstractTimerGroupActivity<T extends ViewModel> extends AppActivity<T> {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
     protected LiveData<TimerGroup> timerGroup$;
 

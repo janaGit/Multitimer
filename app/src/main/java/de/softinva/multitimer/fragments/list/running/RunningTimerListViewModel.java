@@ -27,7 +27,7 @@ public class RunningTimerListViewModel extends FragmentViewModel {
 
     public LiveData<TreeMap<Long, RunningTimer>> getTimerList() {
         if (timerList == null) {
-            timerList = new TimerRepository(getApplication()).getRunningTimerByFinishTimeMap();
+            timerList = TimerRepository.getInstance(getApplication()).getRunningTimerByFinishTimeMap();
         }
         return timerList;
     }
@@ -40,7 +40,7 @@ public class RunningTimerListViewModel extends FragmentViewModel {
     }
 
     private void loadTimerListForGroup(String groupId) {
-        LiveData<TreeMap<Long, RunningTimer>> map = new TimerRepository(getApplication()).getRunningTimerByFinishTimeMap();
+        LiveData<TreeMap<Long, RunningTimer>> map = TimerRepository.getInstance(getApplication()).getRunningTimerByFinishTimeMap();
         timerListForGroup = Transformations.map(map, runningTimerMap ->
                 getTimerListForGroup(groupId, runningTimerMap)
         );

@@ -11,7 +11,7 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.SavedStateVMFactory;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
@@ -108,9 +108,8 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     }
 
     @Override
-    protected MainActivityViewModel returnModel() {
-        return new ViewModelProvider(this, new SavedStateVMFactory(this))
-                .get(MainActivityViewModel.class);
+    protected Class<MainActivityViewModel> returnModelClass() {
+        return MainActivityViewModel.class;
     }
 
     @Override

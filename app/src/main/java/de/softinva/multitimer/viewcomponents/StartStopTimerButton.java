@@ -35,7 +35,7 @@ public class StartStopTimerButton extends AppCompatImageButton {
                 if (isEnabled) {
                     CountDownService.startNewTimer(timer, view.getContext());
                     if (timer instanceof DetailedTimer) {
-                        new TimerRepository((Application) context.getApplicationContext()).disableDetailedTimer(((DetailedTimer) timer).getGroupId(), timer.getId());
+                        TimerRepository.getInstance((Application) context.getApplicationContext()).disableDetailedTimer(((DetailedTimer) timer).getGroupId(), timer.getId());
 
                     }
                 }
