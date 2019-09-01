@@ -2,6 +2,7 @@ package de.softinva.multitimer.activities.importtimergroups;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -27,6 +28,11 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
     private AppLogger logger = new AppLogger(this);
     LinkedList<String> errorMessages;
     LinkedList<String> successMessages;
+
+    public static void startNewActivity(Context context) {
+        Intent intent = new Intent(context, ImportTimerGroupActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected AppViewObject returnViewObject() {
@@ -69,7 +75,7 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
         File zipFile = viewModel.getZipFile().getValue();
         Uri zipFilePath = viewModel.getZipFilePath().getValue();
 
-        if (zipFilePath == null || zipFile == null) {
+        if ((zipFilePath == null || zipFile == null) && getIntent().getData() != null) {
             try {
                 zipFilePath = getIntent().getData();
                 viewModel.getZipFilePath().setValue(zipFilePath);

@@ -34,4 +34,6 @@
     <string name="dialog_import_data_result_title">Info</string>
     <string name="dialog_import_data_result_button_negative">FINISH IMPORT</string>
     <string name="dialog_import_data_result_button_positive">IMPORT MORE DATA</string>
+    <string name="menu_item_app_menu">App</string>
+    <string name="menu_item_import">Import</string>
 </resources>
