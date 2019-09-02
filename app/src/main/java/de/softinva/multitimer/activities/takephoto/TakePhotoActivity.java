@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 
 import de.softinva.multitimer.BuildConfig;
-import de.softinva.multitimer.activities.selectimage.SelectImageViewModel;
 import de.softinva.multitimer.services.CopyBitmapService;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.UtilityMethods;
@@ -28,7 +27,7 @@ public class TakePhotoActivity extends AppCompatActivity {
     public static final String ACTION_TAKE_PHOTO_FOR_DETAILED_TIMER = "TakePhotoActivity.ActionSelectIamgeForDetailedTimer";
     public static final String ACTION_TAKE_PHOTO_FOR_TIMER_GROUP = "TakePhotoActivity.ActionSelectImageForTimerGroup";
     private AppLogger logger = new AppLogger(this);
-    private SelectImageViewModel model;
+    private TakePhotoViewModel model;
     private String imageFileName;
     private Uri photoURI;
     private File file;
@@ -59,7 +58,7 @@ public class TakePhotoActivity extends AppCompatActivity {
 
     protected void setModel() {
         model = new ViewModelProvider(this, new SavedStateViewModelFactory(this))
-                .get(SelectImageViewModel.class);
+                .get(TakePhotoViewModel.class);
     }
 
 
