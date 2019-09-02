@@ -25,11 +25,7 @@ public abstract class AppDialogFragmentDataBinding<T extends ViewModel> extends 
 
     public AppDialogFragmentDataBinding() {
         super();
-    }
-
-    public AppDialogFragmentDataBinding(AppCompatActivity activity) {
-        super();
-        this.activity = activity;
+        activity = (AppCompatActivity) getActivity();
     }
 
     public void showDialog(String tag) {

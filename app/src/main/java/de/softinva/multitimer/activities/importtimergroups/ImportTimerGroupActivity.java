@@ -19,6 +19,7 @@ import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.abstract_classes.AppActivity;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 import de.softinva.multitimer.databinding.ActivityImportTimerGroupsBinding;
+import de.softinva.multitimer.fragments.dialogimportdataresult.ImportDataMessages;
 import de.softinva.multitimer.fragments.dialogimportdataresult.ImportDataResultDialog;
 import de.softinva.multitimer.utility.AppLogger;
 import de.softinva.multitimer.utility.ImportDataManager;
@@ -26,8 +27,8 @@ import de.softinva.multitimer.utility.ImportDataManager;
 public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewModel> {
     private static final int SELECT_FILE_PATH_REQUEST_CODE = 42;
     private AppLogger logger = new AppLogger(this);
-    LinkedList<String> errorMessages;
-    LinkedList<String> successMessages;
+    LinkedList<String> errorMessages = new LinkedList<>();
+    LinkedList<String> successMessages = new LinkedList<>();
 
     public static void startNewActivity(Context context) {
         Intent intent = new Intent(context, ImportTimerGroupActivity.class);
@@ -63,9 +64,6 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
 
     @Override
     protected void setClassSpecificObjects() {
-        errorMessages = new LinkedList<String>();
-        successMessages = new LinkedList<String>();
-
         setZipFilePathAndFile();
 
     }
@@ -101,7 +99,7 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
     }
 
     public void importData() {
-        ImportTimerGroupActivity activity = this;
+
         Application application = this.getApplication();
         Observer<Uri> observer = new Observer<Uri>() {
             @Override
@@ -110,7 +108,12 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
 
                 zipFileManager.processZipFile();
 
-                ImportDataResultDialog dialog = new ImportDataResultDialog(activity, zipFileManager.getErrorMesages(), zipFileManager.getSuccessMessages());
+                model.getMessages().setValue(new ImportDataMessages(zipFileManager.getErrorMesages(),zipFileManager.getSuccessMessages()));
+
+                ImportDataResultDialog dialog = new ImportDataResultDialog();
+
+                dialog.setMessages(model.getMessages());
+
                 dialog.showDialog("importDataResult");
 
                 model.getZipFilePath().removeObserver(this);

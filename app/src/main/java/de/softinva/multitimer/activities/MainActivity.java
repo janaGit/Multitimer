@@ -45,7 +45,7 @@ public class MainActivity extends AppTabsActivity<MainActivityViewModel> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addtempTimerDialog = new AddTempTimerDialog(this);
+        addtempTimerDialog = new AddTempTimerDialog();
         manageFloatingAddButton();
         new OnInstallationManager(this).executeCodeOnFirstRun();
     }

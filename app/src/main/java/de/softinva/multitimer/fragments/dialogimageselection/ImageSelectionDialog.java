@@ -37,12 +37,7 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
 
     public ImageSelectionDialog() {
         super();
-
-    }
-
-    public ImageSelectionDialog(OnClickImageSelectionItem activity) {
-        super((AppCompatActivity) activity);
-        onClickImageSelectionItemActivity = activity;
+        onClickImageSelectionItemActivity = (OnClickImageSelectionItem) getActivity();
     }
 
     @Override

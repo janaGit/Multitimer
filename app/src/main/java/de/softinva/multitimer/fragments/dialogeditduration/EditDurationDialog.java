@@ -24,10 +24,6 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
         super();
     }
 
-    public EditDurationDialog(AppCompatActivity activity) {
-        super(activity);
-    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.LinkedList;
 
@@ -17,19 +18,19 @@ import de.softinva.multitimer.classes.abstract_classes.AppDialogFragmentDataBind
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 
 public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportDataResultDialogViewModel> {
-    ImportDataMessages messages;
+    MutableLiveData<ImportDataMessages> messages$;
 
     public ImportDataResultDialog() {
 
     }
 
-    public ImportDataResultDialog(AppCompatActivity activity, LinkedList<String> errorMessages, LinkedList<String> successMessages) {
-        super(activity);
-        messages = new ImportDataMessages();
-        messages.setErrorMessages(errorMessages);
-        messages.setSuccessMessages(successMessages);
+    public MutableLiveData<ImportDataMessages> getMessages() {
+        return messages$;
     }
 
+    public void setMessages(MutableLiveData<ImportDataMessages> messages) {
+        this.messages$ = messages;
+    }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
@@ -56,7 +57,7 @@ public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportD
 
     @Override
     protected AppViewObject setViewObject() {
-        return new ImportDataResultViewObject(messages, this.activity, this);
+        return new ImportDataResultViewObject(messages$, this.activity, this);
     }
 
     @Override

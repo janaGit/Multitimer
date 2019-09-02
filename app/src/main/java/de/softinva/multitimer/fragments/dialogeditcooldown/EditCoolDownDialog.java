@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateViewModelFactory;
-import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.abstract_classes.AppDialogFragmentDataBinding;
@@ -24,10 +22,6 @@ public class EditCoolDownDialog extends AppDialogFragmentDataBinding<EditCoolDow
 
     public EditCoolDownDialog() {
         super();
-    }
-
-    public EditCoolDownDialog(AppCompatActivity activity) {
-        super(activity);
     }
 
     @Override

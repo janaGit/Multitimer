@@ -37,7 +37,7 @@ public class AddEditTimerGroupViewObject extends AppCompatViewObject<TimerGroup>
     public void onClickImage(View view) {
         if (!isSelectImageActivityOpen) {
             isSelectImageActivityOpen = true;
-            new ImageSelectionDialog((ImageSelectionDialog.OnClickImageSelectionItem) getActivity()).show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "selectImageDialog");
+            new ImageSelectionDialog().show((getActivity()).getSupportFragmentManager(), "selectImageDialog");
         }
     }
 

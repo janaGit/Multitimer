@@ -74,7 +74,7 @@ public class AddEditDetailedTimerViewObject extends AppCompatViewObject<Detailed
     public void onClickImage(View view) {
         if (!isSelectImageActivityOpen) {
             isSelectImageActivityOpen = true;
-            new ImageSelectionDialog((ImageSelectionDialog.OnClickImageSelectionItem) getActivity()).show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "selectImageDialog");
+            new ImageSelectionDialog().show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "selectImageDialog");
         }
 
     }

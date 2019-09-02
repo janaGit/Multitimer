@@ -110,8 +110,8 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     @Override
     protected void setClassSpecificObjects() {
         createNewDetailedTimer();
-        editDurationDialog = new EditDurationDialog(this);
-        editCoolDownDialog = new EditCoolDownDialog(this);
+        editDurationDialog = new EditDurationDialog();
+        editCoolDownDialog = new EditCoolDownDialog();
         editDurationDialog.setDurationInSec(model.detailedTimer.getDurationInSec());
         editCoolDownDialog.setCoolDownInSec(model.detailedTimer.getCoolDownInSec());
         broadcastReceiver = AppBroadcastReceiverImageNameUpdated.registerReceiverForImageNameUpdates(this);

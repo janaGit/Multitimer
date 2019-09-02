@@ -8,6 +8,11 @@ public class ImportDataMessages {
     private LinkedList<String> errorMessages;
     private LinkedList<String> successMessages;
 
+    public ImportDataMessages(LinkedList<String> errorMessages, LinkedList<String> successMessages) {
+        this.errorMessages = errorMessages;
+        this.successMessages = successMessages;
+    }
+
     public void setErrorMessages(LinkedList<String> errorMessages) {
         this.errorMessages = errorMessages;
     }

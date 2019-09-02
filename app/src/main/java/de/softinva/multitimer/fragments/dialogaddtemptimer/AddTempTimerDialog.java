@@ -25,10 +25,6 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
         super();
     }
 
-    public AddTempTimerDialog(AppCompatActivity activity) {
-        super(activity);
-    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
