@@ -8,19 +8,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateViewModelFactory;
-import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.abstract_classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
-import de.softinva.multitimer.databinding.EditDurationDialogBinding;
+
 import de.softinva.multitimer.utility.EditDuration;
 
 public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> implements EditDuration.EditDurationActionsListener, EditDuration.UpdateDurationInSecListener {
     EditDuration editDuration;
     public MutableLiveData<Integer> durationInSec = new MutableLiveData<>();
     private UpdateDurationInSecListener callbackDurationInSec;
+
+    public EditDurationDialog() {
+        super();
+    }
 
     public EditDurationDialog(AppCompatActivity activity) {
         super(activity);

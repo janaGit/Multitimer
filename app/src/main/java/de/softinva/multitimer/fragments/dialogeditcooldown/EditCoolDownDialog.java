@@ -22,6 +22,10 @@ public class EditCoolDownDialog extends AppDialogFragmentDataBinding<EditCoolDow
     public MutableLiveData<Integer> coolDownInSec = new MutableLiveData<>();
     private UpdateCollDownInSecListener callbackCoolDownInSec;
 
+    public EditCoolDownDialog() {
+        super();
+    }
+
     public EditCoolDownDialog(AppCompatActivity activity) {
         super(activity);
     }
@@ -30,7 +34,8 @@ public class EditCoolDownDialog extends AppDialogFragmentDataBinding<EditCoolDow
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         editDuration = new EditDuration(this, true);
-        coolDownInSec.observe(this, durationInSec -> this.editDuration.durationInSec.setValue(durationInSec));
+        coolDownInSec.observe(this, durationInSec ->
+                this.editDuration.durationInSec.setValue(durationInSec));
         setCallBackListener();
         return dialog;
     }

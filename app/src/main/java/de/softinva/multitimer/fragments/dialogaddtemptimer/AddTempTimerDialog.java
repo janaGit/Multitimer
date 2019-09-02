@@ -21,6 +21,10 @@ import de.softinva.multitimer.utility.EditDuration;
 public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTimerDialogViewModel> {
     EditDuration editDuration;
 
+    public AddTempTimerDialog() {
+        super();
+    }
+
     public AddTempTimerDialog(AppCompatActivity activity) {
         super(activity);
     }

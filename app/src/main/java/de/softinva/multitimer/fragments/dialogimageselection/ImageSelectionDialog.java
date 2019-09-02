@@ -35,6 +35,11 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
     OnClickImageSelectionItem onClickImageSelectionItemActivity;
     RecyclerView.Adapter adapter;
 
+    public ImageSelectionDialog() {
+        super();
+
+    }
+
     public ImageSelectionDialog(OnClickImageSelectionItem activity) {
         super((AppCompatActivity) activity);
         onClickImageSelectionItemActivity = activity;

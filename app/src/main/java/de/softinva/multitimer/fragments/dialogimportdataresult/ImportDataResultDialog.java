@@ -19,6 +19,10 @@ import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportDataResultDialogViewModel> {
     ImportDataMessages messages;
 
+    public ImportDataResultDialog() {
+
+    }
+
     public ImportDataResultDialog(AppCompatActivity activity, LinkedList<String> errorMessages, LinkedList<String> successMessages) {
         super(activity);
         messages = new ImportDataMessages();

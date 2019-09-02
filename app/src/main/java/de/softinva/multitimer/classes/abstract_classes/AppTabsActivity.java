@@ -5,24 +5,28 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.utility.AppLogger;
 
 public abstract class AppTabsActivity<T extends ViewModel> extends AppActivity<T> {
-    public static final String  ACTIVE_TAB= "de.softinva.multitimer.activeTab";
+    public static final String ACTIVE_TAB = "de.softinva.multitimer.activeTab";
     protected AppLogger logger = new AppLogger(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setViewIfOrientationLandscape();
     }
+
     @Override
     protected void setClassSpecificObjects() {
         setActiveTab();
-        setViewIfOrientationLandscape();
     }
+
     protected void setViewIfOrientationLandscape() {
         Fragment fragment;
         Context context = getApplicationContext();
@@ -38,6 +42,7 @@ public abstract class AppTabsActivity<T extends ViewModel> extends AppActivity<T
     }
 
     protected abstract Fragment selectFragment();
+
     protected abstract void setActiveTab();
 }
 

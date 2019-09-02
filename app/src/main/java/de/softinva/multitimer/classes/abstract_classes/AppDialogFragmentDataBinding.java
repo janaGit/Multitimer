@@ -23,6 +23,10 @@ public abstract class AppDialogFragmentDataBinding<T extends ViewModel> extends 
     protected ViewDataBinding binding;
     protected AppCompatActivity activity;
 
+    public AppDialogFragmentDataBinding() {
+        super();
+    }
+
     public AppDialogFragmentDataBinding(AppCompatActivity activity) {
         super();
         this.activity = activity;
