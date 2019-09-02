@@ -42,7 +42,12 @@ public class EditDurationFields extends LinearLayout {
     }
 
     public int getNumber(int indexField) {
-        return Integer.parseInt(appNumberFields[indexField].getTextField().getText().toString());
+        int number = 0;
+        String input = appNumberFields[indexField].getTextField().getText().toString();
+        if (input.length() > 0) {
+            number = Integer.parseInt(input);
+        }
+        return number;
     }
 
     public void setFocus(int indexField) {
