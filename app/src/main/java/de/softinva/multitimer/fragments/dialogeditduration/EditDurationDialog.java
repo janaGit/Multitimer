@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 
 import de.softinva.multitimer.R;
@@ -14,11 +15,35 @@ import de.softinva.multitimer.classes.abstract_classes.AppDialogFragmentDataBind
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 
 import de.softinva.multitimer.utility.EditDuration;
+import de.softinva.multitimer.utility.UtilityMethods;
 
 public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDurationDialogViewModel> implements EditDuration.EditDurationActionsListener, EditDuration.UpdateDurationInSecListener {
     EditDuration editDuration;
-    public MutableLiveData<Integer> durationInSec = new MutableLiveData<>();
+    public static final String EDIT_DURATION_DIALOG = "editDurationDialog";
     private UpdateDurationInSecListener callbackDurationInSec;
+    private static EditDurationDialog instance;
+    public MutableLiveData<Integer> durationInSec = new MutableLiveData<>();
+
+    public static EditDurationDialog showDialog(FragmentActivity activity) {
+        EditDurationDialog dialog = EditDurationDialog.getInstance(activity);
+        if (!dialog.isAdded()) {
+            dialog.show(activity.getSupportFragmentManager(), EDIT_DURATION_DIALOG);
+            activity.getSupportFragmentManager().executePendingTransactions();
+        }
+        return dialog;
+    }
+
+    public static EditDurationDialog getInstance(FragmentActivity activity) {
+        EditDurationDialog dialog = (EditDurationDialog) activity.getSupportFragmentManager().findFragmentByTag(EDIT_DURATION_DIALOG);
+        if (dialog == null) {
+            if (instance == null) {
+                instance = new EditDurationDialog();
+            }
+            dialog = instance;
+        }
+
+        return dialog;
+    }
 
     public EditDurationDialog() {
         super();
@@ -28,7 +53,13 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         editDuration = new EditDuration(this, true);
-        durationInSec.observe(this, durationInSec -> this.editDuration.durationInSec.setValue(durationInSec));
+        durationInSec.observe(this, sec -> {
+            this.model.getDurationInSec$().setValue(sec);
+        });
+
+        model.getDurationInSec$().observe(this, sec -> {
+            this.editDuration.durationInSec.setValue(sec);
+        });
         setCallBackListener();
         return dialog;
     }
@@ -50,6 +81,8 @@ public class EditDurationDialog extends AppDialogFragmentDataBinding<EditDuratio
     public void onDestroyView() {
         super.onDestroyView();
         editDuration.setCallbackToNull();
+        callbackDurationInSec = null;
+        model.getDurationInSec$().setValue(editDuration.getDurationInSec());
     }
 
 

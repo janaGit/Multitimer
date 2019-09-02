@@ -30,8 +30,6 @@ import static de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTim
 
 public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener, EditCoolDownDialog.UpdateCollDownInSecListener, AppBroadcastReceiverImageNameUpdated.UpdateImageName, ImageSelectionDialog.OnClickImageSelectionItem {
     public static final String GROUP_ID = "de.softinva.multitimer.groupId";
-    EditDurationDialog editDurationDialog;
-    EditCoolDownDialog editCoolDownDialog;
     AppBroadcastReceiverImageNameUpdated broadcastReceiver;
 
     public static void startNewActivity(String groupId, Context context) {
@@ -84,7 +82,7 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
 
     @Override
     protected AppViewObject returnViewObject() {
-        return new AddEditDetailedTimerViewObject(false, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog, this);
+        return new AddEditDetailedTimerViewObject(false, model.getDetailedTimer(), this);
     }
 
     @Override
@@ -110,10 +108,6 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     @Override
     protected void setClassSpecificObjects() {
         createNewDetailedTimer();
-        editDurationDialog = new EditDurationDialog();
-        editCoolDownDialog = new EditCoolDownDialog();
-        editDurationDialog.setDurationInSec(model.detailedTimer.getDurationInSec());
-        editCoolDownDialog.setCoolDownInSec(model.detailedTimer.getCoolDownInSec());
         broadcastReceiver = AppBroadcastReceiverImageNameUpdated.registerReceiverForImageNameUpdates(this);
     }
 
@@ -126,13 +120,13 @@ public class AddDetailedTimerActivity extends AppActivity<AddDetailedTimerViewMo
     @Override
     public void updateDurationInSec(int durationInSec) {
         model.detailedTimer.setDurationInSec(durationInSec);
-        editDurationDialog.setDurationInSec(durationInSec);
+        EditDurationDialog.getInstance(this).setDurationInSec(durationInSec);
     }
 
     @Override
     public void updateCoolDownInSec(int coolDownInSec) {
         model.detailedTimer.setCoolDownInSec(coolDownInSec);
-        editCoolDownDialog.setCoolDownInSec(coolDownInSec);
+        EditCoolDownDialog.getInstance(this).setCoolDownInSec(coolDownInSec);
     }
 
     @Override

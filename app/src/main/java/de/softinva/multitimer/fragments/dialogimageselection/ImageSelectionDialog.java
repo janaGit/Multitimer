@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,10 +35,43 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
     TreeMap<Integer, ImageSelectionItem> items = new TreeMap<>();
     OnClickImageSelectionItem onClickImageSelectionItemActivity;
     RecyclerView.Adapter adapter;
+    public static final String IMAGE_SELECTION_DIALOG = "editDurationDialog";
+
+    private static ImageSelectionDialog instance;
+
+    public static ImageSelectionDialog showDialog(FragmentActivity activity) {
+        ImageSelectionDialog dialog = ImageSelectionDialog.getInstance(activity);
+        if (!dialog.isAdded()) {
+            dialog.show(activity.getSupportFragmentManager(), IMAGE_SELECTION_DIALOG);
+            activity.getSupportFragmentManager().executePendingTransactions();
+        }
+        return dialog;
+    }
+
+    public static ImageSelectionDialog getInstance(FragmentActivity activity) {
+        ImageSelectionDialog dialog = (ImageSelectionDialog) activity.getSupportFragmentManager().findFragmentByTag(IMAGE_SELECTION_DIALOG);
+        if (dialog == null) {
+            if (instance == null) {
+                instance = new ImageSelectionDialog();
+            }
+            dialog = instance;
+        }
+        dialog.setActivity(activity);
+        return dialog;
+    }
 
     public ImageSelectionDialog() {
         super();
-        onClickImageSelectionItemActivity = (OnClickImageSelectionItem) getActivity();
+    }
+
+    public void setActivity(FragmentActivity activity) {
+        if (activity instanceof OnClickImageSelectionItem) {
+            onClickImageSelectionItemActivity = (OnClickImageSelectionItem) activity;
+        } else {
+            throw new RuntimeException(getContext().toString()
+                    + " must implement OnClickImageSelectionItem");
+        }
+
     }
 
     @Override
@@ -100,7 +134,7 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
     public TreeMap<Object, ImageSelectionViewObject> createViewObject(TreeMap<Integer, ImageSelectionItem> tempTimerTreeMap) {
         TreeMap<Object, ImageSelectionViewObject> runningTimerViewObjectMap = new TreeMap<>();
         for (Map.Entry<Integer, ImageSelectionItem> entry : tempTimerTreeMap.entrySet()) {
-            runningTimerViewObjectMap.put(entry.getKey(), new ImageSelectionViewObject(entry.getValue(), onClickImageSelectionItemActivity, this));
+            runningTimerViewObjectMap.put(entry.getKey(), new ImageSelectionViewObject(entry.getValue(), (OnClickImageSelectionItem) getActivity(), this));
         }
         return runningTimerViewObjectMap;
     }

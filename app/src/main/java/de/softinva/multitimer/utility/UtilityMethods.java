@@ -1,5 +1,6 @@
 package de.softinva.multitimer.utility;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +9,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.ByteArrayOutputStream;
@@ -57,6 +60,10 @@ public class UtilityMethods {
 
     public static String getFileNameWithoutExtensionFromPath(String path) {
         return getFileNameWithExtensionFromPath(path).split("[.]")[0];
+    }
+
+    public static DialogFragment getDialog(String tag, FragmentActivity activity) {
+        return (DialogFragment) activity.getSupportFragmentManager().findFragmentByTag(tag);
     }
 
     public static String getFileNameWithExtensionFromPath(String path) {

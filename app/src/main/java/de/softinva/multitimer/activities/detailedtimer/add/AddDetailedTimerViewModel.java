@@ -5,6 +5,8 @@ import android.app.Application;
 import androidx.lifecycle.SavedStateHandle;
 
 import de.softinva.multitimer.classes.abstract_classes.AppViewModel;
+import de.softinva.multitimer.fragments.dialogeditcooldown.EditCoolDownDialog;
+import de.softinva.multitimer.fragments.dialogeditduration.EditDurationDialog;
 import de.softinva.multitimer.model.DetailedTimer;
 
 public class AddDetailedTimerViewModel extends AppViewModel {
@@ -29,4 +31,5 @@ public class AddDetailedTimerViewModel extends AppViewModel {
         }
         return detailedTimer;
     }
+
 }

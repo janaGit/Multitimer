@@ -14,21 +14,18 @@ import de.softinva.multitimer.fragments.dialogimageselection.ImageSelectionDialo
 import de.softinva.multitimer.model.DetailedTimer;
 import de.softinva.multitimer.repository.TimerRepository;
 import de.softinva.multitimer.utility.Action;
+import de.softinva.multitimer.utility.UtilityMethods;
 
 public class AddEditDetailedTimerViewObject extends AppCompatViewObject<DetailedTimer> {
     protected boolean isEditDetailedTimer;
-    protected EditDurationDialog editDurationDialog;
-    protected EditCoolDownDialog editCoolDownDialog;
     public final static Integer REQUESTCODE_SELECT_IMAGE_ACTIVITY = 10;
     private Boolean isSelectImageActivityOpen = false;
     private AppCompatActivity activity;
 
-    public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj, EditDurationDialog editDurationDialog, EditCoolDownDialog editCoolDownDialog, AppCompatActivity activity) {
+    public AddEditDetailedTimerViewObject(boolean isEditDetailedTimer, DetailedTimer obj, AppCompatActivity activity) {
         super(obj, activity);
         this.activity = activity;
         this.isEditDetailedTimer = isEditDetailedTimer;
-        this.editDurationDialog = editDurationDialog;
-        this.editCoolDownDialog = editCoolDownDialog;
     }
 
     public void onClickSaveButton(View view) {
@@ -50,16 +47,11 @@ public class AddEditDetailedTimerViewObject extends AppCompatViewObject<Detailed
     }
 
     public void onClickDuration(View view) {
-        if (!editDurationDialog.isAdded()) {
-            editDurationDialog.show(activity.getSupportFragmentManager(), "editDuration");
-        }
-
+        EditDurationDialog.showDialog(getActivity());
     }
 
     public void onClickCoolDown(View view) {
-        if (!editCoolDownDialog.isAdded()) {
-            editCoolDownDialog.show(activity.getSupportFragmentManager(), "editCoolDown");
-        }
+        EditCoolDownDialog.showDialog(getActivity());
 
     }
 
@@ -74,7 +66,7 @@ public class AddEditDetailedTimerViewObject extends AppCompatViewObject<Detailed
     public void onClickImage(View view) {
         if (!isSelectImageActivityOpen) {
             isSelectImageActivityOpen = true;
-            new ImageSelectionDialog().show(((FragmentActivity) getActivity()).getSupportFragmentManager(), "selectImageDialog");
+            ImageSelectionDialog.showDialog(activity);
         }
 
     }

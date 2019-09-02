@@ -38,8 +38,6 @@ import static android.text.InputType.TYPE_NULL;
 import static de.softinva.multitimer.activities.detailedtimer.AddEditDetailedTimerViewObject.REQUESTCODE_SELECT_IMAGE_ACTIVITY;
 
 public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<EditDetailedTimerViewModel> implements EditDurationDialog.UpdateDurationInSecListener, EditCoolDownDialog.UpdateCollDownInSecListener, AppBroadcastReceiverImageNameUpdated.UpdateImageName, ImageSelectionDialog.OnClickImageSelectionItem {
-    EditDurationDialog editDurationDialog;
-    EditCoolDownDialog editCoolDownDialog;
     AppBroadcastReceiverImageNameUpdated broadcastReceiver;
 
     public static void startNewActivity(String groupId, String timerId, Context context) {
@@ -93,7 +91,7 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
 
     @Override
     protected AppViewObject returnViewObject() {
-        return new AddEditDetailedTimerViewObject(true, model.getDetailedTimer(), editDurationDialog, editCoolDownDialog, this);
+        return new AddEditDetailedTimerViewObject(true, model.getDetailedTimer(), this);
     }
 
     @Override
@@ -117,11 +115,10 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
         runningTimer$.observe(this, runningTimer -> {
             if (model.getDetailedTimer().getId() == null) {
                 setDetailedTimer(runningTimer);
-
             }
         });
-        editDurationDialog = new EditDurationDialog();
-        editCoolDownDialog = new EditCoolDownDialog();
+
+
         broadcastReceiver = AppBroadcastReceiverImageNameUpdated.registerReceiverForImageNameUpdates(this);
 
     }
@@ -132,8 +129,8 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
             throw new Error("Timer should be of instance DetailedTimer but is not!");
         }
         ((DetailedTimer) timerFromRunning).toCopy(model.getDetailedTimer());
-        editDurationDialog.setDurationInSec(model.getDetailedTimer().getDurationInSec());
-        editCoolDownDialog.setCoolDownInSec(model.getDetailedTimer().getCoolDownInSec());
+        EditDurationDialog.getInstance(this).setDurationInSec(model.getDetailedTimer().getDurationInSec());
+        EditCoolDownDialog.getInstance(this).setCoolDownInSec(model.getDetailedTimer().getCoolDownInSec());
         binding.invalidateAll();
     }
 
@@ -149,9 +146,9 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
         switch (item.getItemId()) {
             case R.id.action_delete_detailed_timer:
                 TimerRepository repository = TimerRepository.getInstance(this.getApplication());
-                repository.deleteDetailedTimer(model.detailedTimer);
-                TimerGroupActivity.startNewActivity(model.detailedTimer.getGroupId(), this, true);
-                UtilityMethods.deleteImageInAllSizesInInternalFolder(model.detailedTimer.getImageName(), this.getApplicationContext());
+                repository.deleteDetailedTimer(model.getDetailedTimer());
+                TimerGroupActivity.startNewActivity(model.getDetailedTimer().getGroupId(), this, true);
+                UtilityMethods.deleteImageInAllSizesInInternalFolder(model.getDetailedTimer().getImageName(), this.getApplicationContext());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -162,14 +159,14 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
 
     @Override
     public void updateDurationInSec(int durationInSec) {
-        model.detailedTimer.setDurationInSec(durationInSec);
-        editDurationDialog.setDurationInSec(durationInSec);
+        model.getDetailedTimer().setDurationInSec(durationInSec);
+        EditDurationDialog.getInstance(this).setDurationInSec(durationInSec);
     }
 
     @Override
     public void updateCoolDownInSec(int coolDownInSec) {
-        model.detailedTimer.setCoolDownInSec(coolDownInSec);
-        editCoolDownDialog.setCoolDownInSec(coolDownInSec);
+        model.getDetailedTimer().setCoolDownInSec(coolDownInSec);
+        EditCoolDownDialog.getInstance(this).setCoolDownInSec(coolDownInSec);
     }
 
     @Override
@@ -189,10 +186,10 @@ public class EditDetailedTimerActivity extends AbstractDetailedTimerActivity<Edi
     public void onClickImageSelectionItem(ACTION_TYPE actionType) {
         switch (actionType) {
             case GALLERY:
-                SelectImageActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getDetailedTimer().getGroupId(), model.detailedTimer.getId());
+                SelectImageActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getDetailedTimer().getGroupId(), model.getDetailedTimer().getId());
                 break;
             case CAMERA:
-                TakePhotoActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getDetailedTimer().getGroupId(), model.detailedTimer.getId());
+                TakePhotoActivity.startNewActivityForResult(this, REQUESTCODE_SELECT_IMAGE_ACTIVITY, model.getDetailedTimer().getGroupId(), model.getDetailedTimer().getId());
                 ((AddEditDetailedTimerViewObject) viewObject).setSelectImageActivityIsOpen(false);
                 break;
             case DEFAULT:
