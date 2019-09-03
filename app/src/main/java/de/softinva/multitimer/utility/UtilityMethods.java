@@ -72,6 +72,16 @@ public class UtilityMethods {
         return screenOrientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
+    public static String createDurationAndCollDownString(RunningTimer runningTimer){
+        DetailedTimer detailedTimer = (DetailedTimer) runningTimer.getTimer();
+        String string = UtilityMethods.transformSecIntoString(detailedTimer.getDurationInSec());
+
+        if (detailedTimer.getCoolDownInSec() > 0) {
+            return string + " (" + UtilityMethods.transformSecIntoString(detailedTimer.getCoolDownInSec()) + ")";
+        }
+
+        return string;
+    }
     public static String getFileNameWithExtensionFromPath(String path) {
         String[] pathSegments = path.split("/");
         String lastPathSegment;

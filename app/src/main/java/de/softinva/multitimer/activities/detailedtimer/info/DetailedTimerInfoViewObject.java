@@ -17,17 +17,7 @@ public class DetailedTimerInfoViewObject extends AppViewObject<LiveData<RunningT
     }
 
     public LiveData<String> generateTimeView() {
-        return Transformations.map(obj, runningTimer -> {
-            DetailedTimer detailedTimer = (DetailedTimer) runningTimer.getTimer();
-            String string = UtilityMethods.transformSecIntoString(detailedTimer.getDurationInSec());
-
-            if (detailedTimer.getCoolDownInSec() > 0) {
-                return string + " (" + UtilityMethods.transformSecIntoString(detailedTimer.getCoolDownInSec()) + ")";
-            }
-
-            return string;
-        });
-
+        return Transformations.map(obj, UtilityMethods::createDurationAndCollDownString);
 
     }
 }
