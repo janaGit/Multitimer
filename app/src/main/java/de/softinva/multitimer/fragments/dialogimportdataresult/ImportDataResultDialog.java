@@ -31,6 +31,7 @@ public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportD
     public void setMessages(MutableLiveData<ImportDataMessages> messages) {
         this.messages$ = messages;
     }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
@@ -44,7 +45,7 @@ public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportD
             }
             if (which == AlertDialog.BUTTON_NEGATIVE) {
                 dialog.hide();
-                activity.finish();
+                getActivity().finish();
                 return;
             }
 
@@ -57,7 +58,7 @@ public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportD
 
     @Override
     protected AppViewObject setViewObject() {
-        return new ImportDataResultViewObject(messages$, this.activity, this);
+        return new ImportDataResultViewObject(messages$, (AppCompatActivity) getActivity(), this);
     }
 
     @Override

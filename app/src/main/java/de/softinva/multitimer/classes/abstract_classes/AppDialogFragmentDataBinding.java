@@ -21,15 +21,13 @@ public abstract class AppDialogFragmentDataBinding<T extends ViewModel> extends 
     protected T model;
     protected AppViewObject viewObject;
     protected ViewDataBinding binding;
-    protected AppCompatActivity activity;
 
     public AppDialogFragmentDataBinding() {
         super();
-        activity = (AppCompatActivity) getActivity();
     }
 
     public void showDialog(String tag) {
-        show(activity.getSupportFragmentManager(), tag);
+        show(getActivity().getSupportFragmentManager(), tag);
     }
 
     @Override
