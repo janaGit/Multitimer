@@ -99,7 +99,7 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
     }
 
     public void importData() {
-
+        ImportTimerGroupActivity activity = this;
         Application application = this.getApplication();
         Observer<Uri> observer = new Observer<Uri>() {
             @Override
@@ -108,13 +108,13 @@ public class ImportTimerGroupActivity extends AppActivity<ImportTimerGroupViewMo
 
                 zipFileManager.processZipFile();
 
-                model.getMessages().setValue(new ImportDataMessages(zipFileManager.getErrorMesages(),zipFileManager.getSuccessMessages()));
+                model.getMessages().setValue(new ImportDataMessages(zipFileManager.getErrorMesages(), zipFileManager.getSuccessMessages()));
 
-                ImportDataResultDialog dialog = new ImportDataResultDialog();
+                ImportDataResultDialog dialog = ImportDataResultDialog.getInstance(activity);
 
                 dialog.setMessages(model.getMessages());
 
-                dialog.showDialog("importDataResult");
+                ImportDataResultDialog.showDialog(activity);
 
                 model.getZipFilePath().removeObserver(this);
             }

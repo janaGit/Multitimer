@@ -9,27 +9,48 @@ import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
-
-import java.util.LinkedList;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.classes.abstract_classes.AppDialogFragmentDataBinding;
 import de.softinva.multitimer.classes.abstract_classes.AppViewObject;
 
 public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportDataResultDialogViewModel> {
-    MutableLiveData<ImportDataMessages> messages$;
+    MutableLiveData<ImportDataMessages> messages$ = new MutableLiveData<>();
+    public static final String IMPORT_DATA_RESULT_DIALOG = "importDataResultDialog";
+    private static ImportDataResultDialog instance;
 
-    public ImportDataResultDialog() {
+    public static ImportDataResultDialog showDialog(FragmentActivity activity) {
+        ImportDataResultDialog dialog = ImportDataResultDialog.getInstance(activity);
 
+        if (!dialog.isAdded()) {
+            dialog.show(activity.getSupportFragmentManager(), IMPORT_DATA_RESULT_DIALOG);
+
+            activity.getSupportFragmentManager().executePendingTransactions();
+        }
+
+        return dialog;
     }
 
-    public MutableLiveData<ImportDataMessages> getMessages() {
-        return messages$;
+    public static ImportDataResultDialog getInstance(FragmentActivity activity) {
+        ImportDataResultDialog dialog = (ImportDataResultDialog) activity.getSupportFragmentManager().findFragmentByTag(IMPORT_DATA_RESULT_DIALOG);
+        if (dialog == null) {
+            if (instance == null) {
+                instance = new ImportDataResultDialog();
+            }
+            dialog = instance;
+        }
+
+        return dialog;
+    }
+
+    public ImportDataResultDialog() {
+        super();
     }
 
     public void setMessages(MutableLiveData<ImportDataMessages> messages) {
-        this.messages$ = messages;
+        messages.observe(this, _messages -> messages$.setValue(_messages));
     }
 
     @Override
@@ -53,12 +74,13 @@ public class ImportDataResultDialog extends AppDialogFragmentDataBinding<ImportD
         dialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.dialog_import_data_result_button_positive), buttonListener);
         dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.dialog_import_data_result_button_negative), buttonListener);
 
+        messages$.observe(this, messages -> model.getImportDataMessages().setValue(messages));
         return dialog;
     }
 
     @Override
     protected AppViewObject setViewObject() {
-        return new ImportDataResultViewObject(messages$, (AppCompatActivity) getActivity(), this);
+        return new ImportDataResultViewObject(model.getImportDataMessages(), (AppCompatActivity) getActivity(), this);
     }
 
     @Override

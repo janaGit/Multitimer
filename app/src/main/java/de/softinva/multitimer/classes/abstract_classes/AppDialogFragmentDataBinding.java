@@ -26,10 +26,6 @@ public abstract class AppDialogFragmentDataBinding<T extends ViewModel> extends 
         super();
     }
 
-    public void showDialog(String tag) {
-        show(getActivity().getSupportFragmentManager(), tag);
-    }
-
     @Override
     public T getModel() {
         return model;
