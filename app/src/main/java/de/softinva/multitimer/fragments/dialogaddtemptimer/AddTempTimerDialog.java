@@ -29,8 +29,7 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
         editDuration = new EditDuration(this, false);
-        this.editDuration.durationInSec.setValue(30);
-
+        model.getDurationinSec$().observe(this, durationInSec -> editDuration.durationInSec.setValue(durationInSec));
 
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.start_timer), (_dialog, id) -> {
             model.tempTimer.setDurationInSec(editDuration.getDurationInSec());
@@ -47,6 +46,8 @@ public class AddTempTimerDialog extends AppDialogFragmentDataBinding<AddTempTime
     public void onDestroyView() {
         super.onDestroyView();
         editDuration.setCallbackToNull();
+        model.getDurationinSec$().setValue(editDuration.getDurationInSec());
+
     }
 
 
