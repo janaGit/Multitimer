@@ -31,58 +31,71 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <de.softinva.multitimer.viewcomponents.AppImageView
-            android:id="@+id/imageView"
-            android:layout_width="@dimen/image_size_normal_width"
-            android:layout_height="@dimen/image_size_normal_height"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:imageName="@{((DetailedTimer) viewObject.obj.timer).imageName}"
-            app:imageSize='@{ImageSize.normal}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_bar" />
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/detailedTimerInfo_scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar">
 
-        <TextView
-            android:id="@+id/editDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{viewObject.generateTimeView()}"
-            app:layout_constraintEnd_toEndOf="@id/imageView"
-            app:layout_constraintStart_toStartOf="@id/imageView"
-            app:layout_constraintTop_toBottomOf="@id/imageView" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/detailedTimerDisabled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:tint="@color/colorDisabled"
-            android:visibility='@{((DetailedTimer)viewObject.obj.timer).isEnabled ? View.INVISIBLE: View.VISIBLE}'
-            app:layout_constraintBottom_toBottomOf="@+id/editDuration"
-            app:layout_constraintStart_toEndOf="@id/editDuration"
-            app:layout_constraintTop_toTopOf="@id/editDuration"
-            app:srcCompat="@drawable/ic_timer_off_black_24dp" />
+                <ImageView
+                    android:id="@+id/detailedTimerDisabled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:tint="@color/colorDisabled"
+                    android:visibility='@{((DetailedTimer)viewObject.obj.timer).isEnabled ? View.INVISIBLE: View.VISIBLE}'
+                    app:layout_constraintBottom_toBottomOf="@+id/editDuration"
+                    app:layout_constraintStart_toEndOf="@id/editDuration"
+                    app:layout_constraintTop_toTopOf="@id/editDuration"
+                    app:srcCompat="@drawable/ic_timer_off_black_24dp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="@{((DetailedTimer)viewObject.obj.timer).description}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editDuration" />
+                <TextView
+                    android:id="@+id/editDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{viewObject.generateTimeView()}"
+                    app:layout_constraintEnd_toEndOf="@id/imageView"
+                    app:layout_constraintStart_toStartOf="@id/imageView"
+                    app:layout_constraintTop_toBottomOf="@id/imageView" />
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@{((DetailedTimer)viewObject.obj.timer).description}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editDuration" />
+
+                <de.softinva.multitimer.viewcomponents.AppImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/image_size_normal_width"
+                    android:layout_height="@dimen/image_size_normal_height"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    app:imageName="@{((DetailedTimer) viewObject.obj.timer).imageName}"
+                    app:imageSize='@{ImageSize.normal}'
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
