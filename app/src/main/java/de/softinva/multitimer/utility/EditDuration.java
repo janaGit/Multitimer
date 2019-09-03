@@ -51,8 +51,8 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
             if (appModelBinding instanceof UpdateDurationInSecListener) {
                 callbackDurationInSec = (UpdateDurationInSecListener) appModelBinding;
             } else {
-                    throw new RuntimeException(appModelBinding.toString()
-                            + " must implement UpdateCollDownInSecListener");
+                throw new RuntimeException(appModelBinding.toString()
+                        + " must implement UpdateCollDownInSecListener");
             }
             if (this.appModelBinding instanceof EditDurationActionsListener) {
                 callbackActions = (EditDurationActionsListener) this.appModelBinding;
@@ -66,9 +66,19 @@ public class EditDuration implements EditDurationFields.EditDurationFieldsFocusC
 
     private void setKeyboard() {
         if (isWithActionButtons) {
-            keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard_action_buttons);
+            if (UtilityMethods.isOriantationLandscape(appModelBinding.getContext())) {
+                keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard_action_buttons_landscape);
+            } else {
+                keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard_action_buttons);
+            }
+
         } else {
-            keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard);
+            if (UtilityMethods.isOriantationLandscape(appModelBinding.getContext())) {
+                keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard_landscape);
+            } else {
+                keyboard = new Keyboard(appModelBinding.getContext(), R.xml.keyboard);
+            }
+
         }
         keyboardView = appModelBinding.getBinding().getRoot().findViewById(R.id.keyboard_view);
         keyboardView.setKeyboard(keyboard);

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import de.softinva.multitimer.R;
 import de.softinva.multitimer.utility.AppLogger;
+import de.softinva.multitimer.utility.UtilityMethods;
 
 public abstract class AppTabsActivity<T extends ViewModel> extends AppActivity<T> {
     public static final String ACTIVE_TAB = "de.softinva.multitimer.activeTab";
@@ -30,8 +31,7 @@ public abstract class AppTabsActivity<T extends ViewModel> extends AppActivity<T
     protected void setViewIfOrientationLandscape() {
         Fragment fragment;
         Context context = getApplicationContext();
-        Integer screenOrientation = context.getResources().getConfiguration().orientation;
-        if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (UtilityMethods.isOriantationLandscape(context)) {
             if (findViewById(R.id.fragment_container) != null) {
                 fragment = selectFragment();
                 getSupportFragmentManager().beginTransaction()

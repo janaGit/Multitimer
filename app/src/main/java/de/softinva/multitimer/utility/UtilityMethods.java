@@ -3,6 +3,7 @@ package de.softinva.multitimer.utility;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -64,6 +65,11 @@ public class UtilityMethods {
 
     public static DialogFragment getDialog(String tag, FragmentActivity activity) {
         return (DialogFragment) activity.getSupportFragmentManager().findFragmentByTag(tag);
+    }
+
+    public static boolean isOriantationLandscape(Context context) {
+        Integer screenOrientation = context.getResources().getConfiguration().orientation;
+        return screenOrientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     public static String getFileNameWithExtensionFromPath(String path) {
