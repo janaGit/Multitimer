@@ -40,30 +40,28 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginEnd="@dimen/item_margin"
+            android:layout_marginRight="@dimen/item_margin"
             android:text="@{viewObject.obj.title}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/icon"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/icon"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <ImageView
+        <ImageButton
             android:id="@+id/icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="24dp"
-            android:contentDescription="Image"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
             android:onClick="@{viewObject::onClickButton}"
+            android:paddingLeft="@dimen/item_padding"
+            android:paddingTop="@dimen/item_padding_big"
+            android:paddingRight="@dimen/item_padding"
+            android:paddingBottom="@dimen/item_padding_big"
             android:src="@{viewObject.buttonSrcCompat}"
             android:tint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@id/content"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -76,6 +74,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
