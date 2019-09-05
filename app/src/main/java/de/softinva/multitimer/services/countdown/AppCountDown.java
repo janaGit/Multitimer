@@ -28,10 +28,11 @@ public class AppCountDown {
 
             @Override
             public void onFinish() {
+                new TimerFinishedNotification(service).notifyTimerFinished(runningTimer.getTimer(), runningTimer.getFinishTimeCountDownInSec().intValue());
                 service.onStopTimer(runningTimer.getTimer());
                 service.onFinishTimer(runningTimer.getTimer());
                 logger.info(runningTimer.getTimer().getTitle() + " timer stopped running!");
-                new TimerFinishedNotification(service).notifyTimerFinished(runningTimer.getTimer(), runningTimer.getFinishTimeCountDownInSec().intValue());
+
             }
         };
     }
