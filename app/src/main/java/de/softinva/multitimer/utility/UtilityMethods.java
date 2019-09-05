@@ -72,7 +72,7 @@ public class UtilityMethods {
         return screenOrientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    public static String createDurationAndCollDownString(RunningTimer runningTimer){
+    public static String createDurationAndCollDownString(RunningTimer runningTimer) {
         DetailedTimer detailedTimer = (DetailedTimer) runningTimer.getTimer();
         String string = UtilityMethods.transformSecIntoString(detailedTimer.getDurationInSec());
 
@@ -82,6 +82,7 @@ public class UtilityMethods {
 
         return string;
     }
+
     public static String getFileNameWithExtensionFromPath(String path) {
         String[] pathSegments = path.split("/");
         String lastPathSegment;
@@ -185,7 +186,7 @@ public class UtilityMethods {
     }
 
     public static String createNameForImage(String timerGroupId, String detailedTimerId) {
-        return timerGroupId + "_" + detailedTimerId;
+        return UtilityMethods.createNameForImage(timerGroupId) + "_" + detailedTimerId;
     }
 
     public static String createNameForImage(String timerGroupId) {
@@ -220,7 +221,7 @@ public class UtilityMethods {
         File[] files = directory.listFiles(new FileFilter() {
             @Override
             public boolean accept(File file) {
-                return file.getName().startsWith(imageName);
+                return file.getName().startsWith(imageName + ".") || file.getName().startsWith(imageName + "_");
             }
         });
         for (File file : files) {
