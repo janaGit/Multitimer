@@ -99,7 +99,7 @@ public class ImageSelectionDialog extends AppDialogFragmentDataBinding<ImageSele
                 logger.info("getPackageManager() throws null pointer exception!");
             }
         }
-        items.put(3, new ImageSelectionItem(ACTION_TYPE.DEFAULT, getResources().getString(R.string.select_image_default), R.drawable.logo_fertig));
+        items.put(3, new ImageSelectionItem(ACTION_TYPE.DEFAULT, getResources().getString(R.string.select_image_default), R.mipmap.ic_launcher));
 
         adapter = new AppRecyclerAdapter<>(createViewObject(items), R.layout.dialog_image_selection);
         recyclerView.setAdapter(adapter);

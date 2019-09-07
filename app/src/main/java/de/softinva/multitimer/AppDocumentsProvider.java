@@ -139,7 +139,7 @@ public class AppDocumentsProvider extends DocumentsProvider {
         // that contain the desired type somewhere in their file hierarchy.
         row.add(Root.COLUMN_MIME_TYPES, getChildMimeTypes(mBaseDir));
         row.add(Root.COLUMN_AVAILABLE_BYTES, mBaseDir.getFreeSpace());
-        row.add(Root.COLUMN_ICON, R.drawable.logo_fertig);
+        row.add(Root.COLUMN_ICON, R.mipmap.ic_launcher);
 
         return result;
     }
@@ -512,7 +512,7 @@ public class AppDocumentsProvider extends DocumentsProvider {
         row.add(Document.COLUMN_FLAGS, flags);
 
         // Add a custom icon
-        row.add(Document.COLUMN_ICON, R.drawable.logo_fertig);
+        row.add(Document.COLUMN_ICON, R.mipmap.ic_launcher);
     }
 
     /**

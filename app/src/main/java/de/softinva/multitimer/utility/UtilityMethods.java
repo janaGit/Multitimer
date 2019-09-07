@@ -201,7 +201,7 @@ public class UtilityMethods {
             fis.close();
         } catch (IOException e) {
             bitmap = BitmapFactory.decodeResource(context.getResources(),
-                    R.drawable.logo_fertig);
+                    R.mipmap.ic_launcher);
         }
         return bitmap;
     }

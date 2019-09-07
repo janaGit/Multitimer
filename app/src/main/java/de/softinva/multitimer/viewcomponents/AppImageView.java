@@ -41,7 +41,7 @@ public class AppImageView extends AppCompatImageView implements AppBroadcastRece
             fis.close();
             setImageBitmap(bitmap);
         } catch (IOException e) {
-            setImageResource(R.drawable.logo_fertig);
+            setImageResource(R.mipmap.ic_launcher);
         }
         invalidate();
         requestLayout();

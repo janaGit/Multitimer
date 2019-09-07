@@ -92,7 +92,7 @@ public class TimerFinishedNotification {
                 (NotificationManager) service.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(service, CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo_fertig)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(service.getApplicationContext().getResources().getString(R.string.alarm_dialog_message))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -100,7 +100,7 @@ public class TimerFinishedNotification {
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLargeIcon(bigIcon)
-                .addAction(R.drawable.logo_fertig, context.getString(R.string.button_delete),
+                .addAction(R.mipmap.ic_launcher, context.getString(R.string.button_delete),
                         pendingIntentDeleteNotification);
 
 
