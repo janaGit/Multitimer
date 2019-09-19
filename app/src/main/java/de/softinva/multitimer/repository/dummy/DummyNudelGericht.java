@@ -20,10 +20,10 @@ public class DummyNudelGericht {
         String timerId_Tomatensoße = "Nudeln_1";
 
         TIMER_NUDELN = new DetailedTimer(timerId_Nudeln, "0", "Nudeln", 480, 0, true, UtilityMethods.createNameForImage(timerGroupId, timerId_Nudeln), 0, "Nudeln zum kochen bringen und dann auf mittlere Stufe herunter stellen.");
-        TIMER_Tomatensoße = new DetailedTimer(timerId_Tomatensoße, "0", "Tomatensoße", 480, 0, true, UtilityMethods.createNameForImage(timerGroupId, timerId_Tomatensoße), 1, "Tomatensoße auf mittlerer Stufe erwärmen.");
+        TIMER_Tomatensoße = new DetailedTimer(timerId_Tomatensoße, "0", "Sauce", 420, 0, true, UtilityMethods.createNameForImage(timerGroupId, timerId_Tomatensoße), 1, "Sauce bei geringer Temperatur köcheln.");
         addItemToTimerList(TIMER_NUDELN);
         addItemToTimerList(TIMER_Tomatensoße);
-        TIMER_GROUP = new TimerGroup(timerGroupId, "Nudel Gericht", false, UtilityMethods.createNameForImage(timerGroupId), "Leckere Nudeln mit Tomatensoße. Schnell gemacht und schmeckt.");
+        TIMER_GROUP = new TimerGroup(timerGroupId, "Nudeln mit Bratwurst", false, UtilityMethods.createNameForImage(timerGroupId), "Nudeln mit Bratwurst. Schnell gemacht und schmeckt.");
     }
 
     private static void addItemToTimerList(DetailedTimer timer) {

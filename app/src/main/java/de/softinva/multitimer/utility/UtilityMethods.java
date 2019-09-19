@@ -1,30 +1,25 @@
 package de.softinva.multitimer.utility;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.MutableLiveData;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.SyncFailedException;
-import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +65,39 @@ public class UtilityMethods {
     public static boolean isOriantationLandscape(Context context) {
         Integer screenOrientation = context.getResources().getConfiguration().orientation;
         return screenOrientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    /**
+     * From https://stackoverflow.com/questions/33696488/getting-bitmap-from-vector-drawable
+     *
+     * @param context
+     * @param drawableId
+     * @return
+     */
+    public static Bitmap getBitmapFromVectorDrawable(Context context, int drawableId, int widthInPx, int heigthInPx) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            drawable = (DrawableCompat.wrap(drawable)).mutate();
+        }
+
+        Bitmap bitmap;
+        Canvas canvas;
+
+
+        if (widthInPx == 0 || heigthInPx == 0) {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        } else {
+            bitmap = Bitmap.createBitmap(widthInPx,
+                    heigthInPx, Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, widthInPx, heigthInPx);
+        }
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     public static String createDurationAndCollDownString(RunningTimer runningTimer) {

@@ -8,6 +8,9 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -57,8 +60,9 @@ public class TimerFinishedNotification {
         String imageName = null;
         if (timer instanceof DetailedTimer) {
             imageName = ((DetailedTimer) timer).getImageName();
+            return UtilityMethods.getBitmap(context, imageName, ImageSize.thumbnail);
         }
-        return UtilityMethods.getBitmap(context, imageName, ImageSize.thumbnail);
+        return UtilityMethods.getBitmapFromVectorDrawable(context, R.drawable.ic_launcher_foreground, 500, 500);
 
     }
 
@@ -92,7 +96,7 @@ public class TimerFinishedNotification {
                 (NotificationManager) service.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(service, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_launcher_notification)
                 .setContentTitle(title)
                 .setContentText(service.getApplicationContext().getResources().getString(R.string.alarm_dialog_message))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

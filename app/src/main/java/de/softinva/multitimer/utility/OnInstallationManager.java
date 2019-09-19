@@ -20,10 +20,10 @@ public class OnInstallationManager {
     Context context;
     HashMap<String, Uri> imageNameToUri = new HashMap<>();
 
-    String IMAGE_NUDELSALAT = "nudelsalat";
-    String IMAGE_NUDELN = "nudeln";
-    String IMAGE_GEMUESE = "gemuese";
-    String IMAGE_PIZZA = "pizza";
+    String IMAGE_NOODLES_AND_SAUSAGE = "IMAGE_NOODLES_AND_SAUSAGE";
+    String IMAGE_NOODLES = "NOODLES";
+    String IMAGE_SAUCE = "SAUCE";
+    String IMAGE_PIZZA = "PIZZA";
 
     public OnInstallationManager(Context context) {
         this.context = context;
@@ -44,9 +44,9 @@ public class OnInstallationManager {
     }
 
     private void copyDrawableImagesIntoExternalImageFolder() {
-        copyDrawableImagesIntoExternalImageFolder(R.drawable.nudelsalat, IMAGE_NUDELSALAT);
-        copyDrawableImagesIntoExternalImageFolder(R.drawable.nudeln, IMAGE_NUDELN);
-        copyDrawableImagesIntoExternalImageFolder(R.drawable.gemuese, IMAGE_GEMUESE);
+        copyDrawableImagesIntoExternalImageFolder(R.drawable.nudeln_bratwurst, IMAGE_NOODLES_AND_SAUSAGE);
+        copyDrawableImagesIntoExternalImageFolder(R.drawable.nudeln, IMAGE_NOODLES);
+        copyDrawableImagesIntoExternalImageFolder(R.drawable.sauce, IMAGE_SAUCE);
         copyDrawableImagesIntoExternalImageFolder(R.drawable.pizza, IMAGE_PIZZA);
 
     }
@@ -58,9 +58,9 @@ public class OnInstallationManager {
     }
 
     private void copyImagesForDummyDataIntoInternalFolder() {
-        copyImagesForTimerGroupIntoInternalFolder(DummyNudelGericht.TIMER_GROUP, IMAGE_NUDELSALAT);
-        copyImagesForDetailedTimerDataIntoInternalFolder(DummyNudelGericht.TIMER_NUDELN, IMAGE_NUDELN);
-        copyImagesForDetailedTimerDataIntoInternalFolder(DummyNudelGericht.TIMER_Tomatensoße, IMAGE_GEMUESE);
+        copyImagesForTimerGroupIntoInternalFolder(DummyNudelGericht.TIMER_GROUP, IMAGE_NOODLES_AND_SAUSAGE);
+        copyImagesForDetailedTimerDataIntoInternalFolder(DummyNudelGericht.TIMER_NUDELN, IMAGE_NOODLES);
+        copyImagesForDetailedTimerDataIntoInternalFolder(DummyNudelGericht.TIMER_Tomatensoße, IMAGE_SAUCE);
         copyImagesForTimerGroupIntoInternalFolder(DummyPizza.TIMER_GROUP, IMAGE_PIZZA);
         copyImagesForDetailedTimerDataIntoInternalFolder(DummyPizza.TIMER_PIZZA, IMAGE_PIZZA);
     }
